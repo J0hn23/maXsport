@@ -24,7 +24,7 @@ Para el desarrollo de maXsport se han utilizado el lenguaje de programacion Java
 El control de versiones se realiza con el uso de GIT, mediante repos al remoto de GITHUB.
 
 ## Dificultades encontradas
-Hasta ahora lo que mas tienpo ha precisado ha sido conseguir hacer que trabaje el servidor y el gestor de DB Azure Data Studio ya que no habia soporte para ubuntu 24.04, debiendo degradar el SO a ubuntu 20.04. con los problemas que ello me ha generado.
+Hasta ahora lo que mas tiempo ha precisado ha sido conseguir hacer que trabaje el servidor y el gestor de DB Azure Data Studio ya que no habia soporte para ubuntu 24.04, debiendo degradar el SO a ubuntu 20.04. con los problemas que ello me ha generado.
 
 ## Colaboradores
 gjm@paucasesnovescifp.cat
