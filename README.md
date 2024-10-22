@@ -7,7 +7,7 @@
 2. [Descripción](#descripción)
 3. [Estado](#estado)
 4. [Tecnologías utilizadas](#tecnologías-utilizadas)
-5. [Dificultades encontradas](#dificultades encontradas)
+5. [Dificultades encontradas](#dificultades-encontradas)
 6. [Colaboradores](#colaboradores)
 
 ## Introducción
