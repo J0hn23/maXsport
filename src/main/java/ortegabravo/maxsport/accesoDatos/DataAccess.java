@@ -38,8 +38,10 @@ public class DataAccess {
         try (Connection connection = getConnection(); PreparedStatement selectStatement = connection.prepareStatement(sql);) {
             selectStatement.setString(1, email);
             ResultSet resultSet = selectStatement.executeQuery();
-            user = new Usuari();
+            
+            user=null;
             while (resultSet.next()) {
+                user = new Usuari();
                 user.setId(resultSet.getInt("Id"));
                 user.setNom(resultSet.getString("Nom"));
                 user.setEmail(resultSet.getString("Email"));

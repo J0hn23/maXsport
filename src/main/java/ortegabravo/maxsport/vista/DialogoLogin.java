@@ -16,14 +16,13 @@ public class DialogoLogin extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         fp = (FramePrincipal) parent;
-
     }
 
     private void comprobarConexion() {
 
         cx = DataAccess.getConnection();
         if (cx != null) {
-            JOptionPane.showMessageDialog(rootPane, "Usuario encontrado con exito");
+            JOptionPane.showMessageDialog(rootPane, "Conectando");
         } else {
             JOptionPane.showMessageDialog(rootPane, "Error en conexion");
         }
@@ -99,24 +98,26 @@ public class DialogoLogin extends javax.swing.JDialog {
     private void btnBotonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBotonLoginActionPerformed
 
         comprobarConexion();
+        
         u = DataAccess.getUser(txtCampoTextoCorreo.getText());
 
-        char[] pass = jpsPass.getPassword();
-        System.out.println(pass);
+        if (u != null) {
 
-        var resultado = BCrypt.verifyer().verify(pass, u.getPasswordHash());
+            char[] pass = jpsPass.getPassword();
+            var resultado = BCrypt.verifyer().verify(pass, u.getPasswordHash());
 
             if (resultado.verified) {
 
                 System.out.println(u.getNom() + " " + u.isInstructor());
-                fp.enviarConfirmacionLogin(resultado.verified);
+                fp.ConfirmacionLogin(resultado.verified,u.getId());
                 setVisible(false);
             }
-
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Usuario no encontrado");
+        }
 
     }//GEN-LAST:event_btnBotonLoginActionPerformed
 
-    
 
     private void txtCampoTextoCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCampoTextoCorreoKeyTyped
         char c = evt.getKeyChar();
