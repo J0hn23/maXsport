@@ -29,3 +29,4 @@ Hasta ahora lo que mas tienpo ha precisado ha sido conseguir hacer que trabaje e
 
 ## Colaboradores
 gjm@paucasesnovescifp.cat
+Mi hija ha realizado el logo
