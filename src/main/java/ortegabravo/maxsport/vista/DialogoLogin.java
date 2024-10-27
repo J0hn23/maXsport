@@ -16,18 +16,25 @@ public class DialogoLogin extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         fp = (FramePrincipal) parent;
+         setLocationRelativeTo(parent);
     }
 
     private void comprobarConexion() {
 
         cx = DataAccess.getConnection();
         if (cx != null) {
+            fp.enviarConexion(cx);
             JOptionPane.showMessageDialog(rootPane, "Conectando");
         } else {
             JOptionPane.showMessageDialog(rootPane, "Error en conexion");
         }
+        
+        
+         
 
     }
+    
+   
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

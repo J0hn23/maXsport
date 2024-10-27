@@ -10,18 +10,30 @@ public class Usuari {
     private String email;
     private String passwordHash;
     private Byte[] foto;
+    private String fotoFilename;
     private boolean instructor;
     private int assignedInstructor;
 
-    public Usuari(int Id, String nom, String email, String passwordHash, Byte[] foto, boolean instructor, int assignedInstructor) {
+    public Usuari(int Id, String nom, String email, String passwordHash, Byte[] foto, String fotoFilename, boolean instructor, int assignedInstructor) {
         this.Id = Id;
         this.nom = nom;
         this.email = email;
         this.passwordHash = passwordHash;
         this.foto = foto;
+        this.fotoFilename = fotoFilename;
         this.instructor = instructor;
         this.assignedInstructor = assignedInstructor;
     }
+
+    public String getFotoFilename() {
+        return fotoFilename;
+    }
+
+    public void setFotoFilename(String fotoFilename) {
+        this.fotoFilename = fotoFilename;
+    }
+
+    
 
     public Usuari() {
     }
@@ -46,6 +58,8 @@ public class Usuari {
     public Byte[] getFoto() {
         return foto;
     }
+    
+    
     
     public boolean getInstructor(){
         return instructor;    

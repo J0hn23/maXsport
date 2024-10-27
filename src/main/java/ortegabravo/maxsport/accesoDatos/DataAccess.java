@@ -57,7 +57,8 @@ public class DataAccess {
     public static ArrayList<Usuari> getAllUsers() {
         ArrayList<Usuari> usuaris = new ArrayList<>();
         String sql = "SELECT * FROM Usuaris WHERE Instructor=0";
-        try (Connection connection = getConnection(); PreparedStatement selectStatement = connection.prepareStatement(sql);) {
+        try (Connection connection = getConnection(); 
+                PreparedStatement selectStatement = connection.prepareStatement(sql);) {
 
             ResultSet resultSet = selectStatement.executeQuery();
 
@@ -75,12 +76,14 @@ public class DataAccess {
         }
         return usuaris;
     }
-
+//he debido modificar este metodo, y añadir que busque por numero de instructor asiginado
     public static ArrayList<Usuari> getAllUsersByInstructor(int idInstructor) {
         ArrayList<Usuari> usuaris = new ArrayList<>();
-        String sql = "SELECT * FROM Usuaris WHERE Instructor=0";
-        try (Connection connection = getConnection(); PreparedStatement selectStatement = connection.prepareStatement(sql);) {
-
+        String sql = "SELECT * FROM Usuaris WHERE AssignedInstructor=?";
+        try (Connection connection = getConnection(); 
+            PreparedStatement selectStatement = connection.prepareStatement(sql);) {
+            selectStatement.setInt(1,idInstructor);
+            
             ResultSet resultSet = selectStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -89,12 +92,16 @@ public class DataAccess {
                 user.setNom(resultSet.getString("Nom"));
                 user.setEmail(resultSet.getString("Email"));
                 user.setPasswordHash(resultSet.getString("PasswordHash"));
+                //user.setFoto(resultSet.updateBytes(0x0,"Foto"));
+                user.setFotoFilename(resultSet.getString("FotoFilename"));
                 user.setInstructor(resultSet.getBoolean("Instructor"));
+                user.setAssignedInstructor(resultSet.getInt("AssignedInstructor"));
                 usuaris.add(user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("flag1");
         return usuaris;
     }
 
@@ -104,7 +111,8 @@ public class DataAccess {
                 + " FROM Workouts"
                 + " WHERE Workouts.UserId=?"
                 + " ORDER BY Workouts.ForDate";
-        try (Connection connection = getConnection(); PreparedStatement selectStatement = connection.prepareStatement(sql);) {
+        try (Connection connection = getConnection(); 
+            PreparedStatement selectStatement = connection.prepareStatement(sql);) {
             selectStatement.setInt(1, user.getId());
             ResultSet resultSet = selectStatement.executeQuery();
 
@@ -152,7 +160,9 @@ public class DataAccess {
         ArrayList<Exercici> exercicis = new ArrayList<>();
         String sql = "SELECT Id, Exercicis.NomExercici, Exercicis.Descripcio, Exercicis.DemoFoto"
                 + " FROM Exercicis";
-        try (Connection connection = getConnection(); PreparedStatement selectStatement = connection.prepareStatement(sql);) {
+        try (Connection connection = getConnection(); 
+                
+            PreparedStatement selectStatement = connection.prepareStatement(sql);) {
             
             ResultSet resultSet = selectStatement.executeQuery();
 
@@ -171,21 +181,92 @@ public class DataAccess {
         return exercicis;
     }
     
+    //aqui tb he tenido que añadir el assignedInstructor
     public static int registerUser(Usuari u) {
-        String sql = "INSERT INTO dbo.Usuaris (Nom, Email, PasswordHash, Instructor)"
-                + " VALUES (?,?,?,?)"
+        String sql = "INSERT INTO dbo.Usuaris (Nom, Email, PasswordHash, Instructor,AssignedInstructor)"
+                + " VALUES (?,?,?,?,?)"
                 + " SELECT CAST(SCOPE_IDENTITY() as int)";
-        try (Connection conn = getConnection(); PreparedStatement insertStatement = conn.prepareStatement(sql)) {
+        try (Connection conn = getConnection(); 
+            PreparedStatement insertStatement = conn.prepareStatement(sql)) {
             insertStatement.setString(1, u.getNom());
             insertStatement.setString(2, u.getEmail());
             insertStatement.setString(3, u.getPasswordHash());
             insertStatement.setBoolean(4, u.isInstructor());
-
+            insertStatement.setInt(5, u.getAssignedInstructor());
+            
             int newUserId = insertStatement.executeUpdate();
+            System.out.println("Registro guardado");
             return newUserId;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return 0;
     }
+    
+    public static void insertWorkout(Workout w, ArrayList<Exercici> exercicis) {
+        // The following should be done in a SQL transaction
+        int newWorkoutId = insertToWorkoutTable(w);
+        insertExercisesPerWorkout(newWorkoutId, exercicis);
+    }
+
+    private static int insertToWorkoutTable(Workout w) {
+        String sql = "INSERT INTO dbo.Workouts (ForDate, UserId, Comments)"
+                + " VALUES (?,?,?)";
+        try (Connection conn = getConnection();
+                PreparedStatement insertStatement = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+                ) {
+            insertStatement.setString(1, w.getForDate().toString());
+            insertStatement.setInt(2, w.getIdUsuari());
+            insertStatement.setString(3, w.getComments());
+
+            int affectedRows = insertStatement.executeUpdate();
+            
+            if (affectedRows > 0) {
+                // Retrieve the generated keys (identity value)
+                ResultSet resultSet = insertStatement.getGeneratedKeys();
+
+                // Check if a key was generated
+                if (resultSet.next()) {
+                    // Get the last inserted identity value
+                    int lastInsertedId = resultSet.getInt(1);
+                    return lastInsertedId;
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    private static int insertExercisesPerWorkout(int wId, ArrayList<Exercici> exercicis) {
+        for(Exercici e: exercicis) {
+            int rowsAffected = insertExerciciPerWorkout(wId, e);
+            if (rowsAffected != 1) {
+                return 0;
+            }
+        }
+        return exercicis.size();
+    }
+
+    private static int insertExerciciPerWorkout(int wId, Exercici e) {
+        String sql = "INSERT INTO dbo.ExercicisWorkouts (IdWorkout, IdExercici)"
+                + " VALUES (?,?)";
+        try (Connection conn = getConnection(); PreparedStatement insertStatement = conn.prepareStatement(sql)) {
+            insertStatement.setInt(1, wId);
+            insertStatement.setInt(2, e.getId());
+            int rowsAffected = insertStatement.executeUpdate();
+            return rowsAffected;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+
+    
+    
+    
+    
+    
+    
 }

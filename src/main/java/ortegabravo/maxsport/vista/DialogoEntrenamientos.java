@@ -11,11 +11,16 @@ import ortegabravo.maxsport.modelo.Workout;
 public class DialogoEntrenamientos extends javax.swing.JDialog {
 
     ArrayList<Exercici> ejercicios;
+    
+    
 
     public DialogoEntrenamientos(java.awt.Frame parent, boolean modal, String correo, String nombre) {
         super(parent, modal);
         initComponents();
-
+        
+        setLocationRelativeTo(parent);
+        
+        
         txtNombreAlumno.setText(nombre);
         //txtInfoEntreno.setText(cargarEntrenamientos(correo));
 

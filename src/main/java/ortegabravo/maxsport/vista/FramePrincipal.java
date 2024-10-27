@@ -1,18 +1,24 @@
 package ortegabravo.maxsport.vista;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.modelo.Usuari;
-import ortegabravo.maxsport.modelo.Workout;
 
 public class FramePrincipal extends javax.swing.JFrame {
 
     JDialog dlgDialogoLogin;
     boolean confirmacion;
     ArrayList<Usuari> usuaris;
+    private Connection conexion;
+    DialogAbout da;
+    DialogoNuevoUsuario dnu;
 
     public FramePrincipal() {
 
@@ -23,6 +29,8 @@ public class FramePrincipal extends javax.swing.JFrame {
         setSize(900, 600);
         pnlPanelSecundario.setSize(900, 600);
         pnlPanelSecundario.setVisible(false);
+        
+        
     }
 
     public void ConfirmacionLogin(boolean confirmacion, int idEntrenador) {
@@ -46,6 +54,13 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         }
         System.out.println("****Datos login recibidos desde el login");//chekeo
+        txtNumeroEntrenador.setText(String.valueOf(idEntrenador));
+       
+    }
+    
+    
+    public void enviarConexion(Connection conexion){
+        this.conexion=conexion;
     }
 
     @SuppressWarnings("unchecked")
@@ -59,11 +74,18 @@ public class FramePrincipal extends javax.swing.JFrame {
         pnlPanelSecundario = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTablaUsuarios = new javax.swing.JTable();
-        btnSalirPanelSecundario = new javax.swing.JButton();
         btnCrearEntreno = new javax.swing.JButton();
         btnAsignarEntreno = new javax.swing.JButton();
         lblBoligrafo = new javax.swing.JLabel();
         lblLogoPanelSecundario = new javax.swing.JLabel();
+        btnSignOut = new javax.swing.JButton();
+        btnNuevoUsuario = new javax.swing.JButton();
+        lblEtiquetaWeb = new javax.swing.JLabel();
+        txtNumeroEntrenador = new javax.swing.JTextField();
+        menMenu = new javax.swing.JMenuBar();
+        mnbFile = new javax.swing.JMenu();
+        mnbExit = new javax.swing.JMenu();
+        mnbAbout = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -71,7 +93,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         pnlPanelPrincipal.setBackground(new java.awt.Color(102, 102, 102));
-        pnlPanelPrincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         pnlPanelPrincipal.setMinimumSize(new java.awt.Dimension(900, 600));
         pnlPanelPrincipal.setLayout(null);
 
@@ -79,30 +100,33 @@ public class FramePrincipal extends javax.swing.JFrame {
         btnBotonLogin.setFont(new java.awt.Font("Mukti Narrow", 1, 24)); // NOI18N
         btnBotonLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/down.png"))); // NOI18N
         btnBotonLogin.setText("Entrar");
+        btnBotonLogin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 0, 0), null, new java.awt.Color(0, 51, 51)));
         btnBotonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBotonLoginActionPerformed(evt);
             }
         });
         pnlPanelPrincipal.add(btnBotonLogin);
-        btnBotonLogin.setBounds(600, 380, 210, 100);
+        btnBotonLogin.setBounds(590, 250, 210, 100);
 
         lblEtiquetaLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/nutricion.png"))); // NOI18N
         pnlPanelPrincipal.add(lblEtiquetaLogo);
-        lblEtiquetaLogo.setBounds(10, 10, 550, 530);
+        lblEtiquetaLogo.setBounds(10, 0, 550, 520);
 
         jLabel1.setText("                     www.maXsport.com");
         pnlPanelPrincipal.add(jLabel1);
-        jLabel1.setBounds(300, 560, 340, 18);
+        jLabel1.setBounds(260, 510, 340, 40);
 
         getContentPane().add(pnlPanelPrincipal);
         pnlPanelPrincipal.setBounds(0, 0, 900, 600);
 
+        pnlPanelSecundario.setBackground(new java.awt.Color(102, 102, 102));
         pnlPanelSecundario.setMinimumSize(new java.awt.Dimension(900, 600));
         pnlPanelSecundario.setName(""); // NOI18N
         pnlPanelSecundario.setPreferredSize(new java.awt.Dimension(900, 600));
         pnlPanelSecundario.setLayout(null);
 
+        tblTablaUsuarios.setBackground(new java.awt.Color(153, 153, 153));
         tblTablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -126,6 +150,8 @@ public class FramePrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblTablaUsuarios.setGridColor(new java.awt.Color(204, 204, 204));
+        tblTablaUsuarios.setSelectionBackground(new java.awt.Color(102, 255, 255));
         tblTablaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblTablaUsuariosMouseClicked(evt);
@@ -134,21 +160,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblTablaUsuarios);
 
         pnlPanelSecundario.add(jScrollPane1);
-        jScrollPane1.setBounds(30, 80, 452, 402);
+        jScrollPane1.setBounds(30, 80, 452, 370);
 
-        btnSalirPanelSecundario.setBackground(new java.awt.Color(255, 51, 0));
-        btnSalirPanelSecundario.setFont(new java.awt.Font("Norasi", 0, 24)); // NOI18N
-        btnSalirPanelSecundario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exercise_salir.png"))); // NOI18N
-        btnSalirPanelSecundario.setText("Salir");
-        btnSalirPanelSecundario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirPanelSecundarioActionPerformed(evt);
-            }
-        });
-        pnlPanelSecundario.add(btnSalirPanelSecundario);
-        btnSalirPanelSecundario.setBounds(670, 410, 180, 70);
-
-        btnCrearEntreno.setBackground(new java.awt.Color(153, 255, 0));
+        btnCrearEntreno.setBackground(new java.awt.Color(0, 153, 153));
         btnCrearEntreno.setFont(new java.awt.Font("Manjari", 0, 15)); // NOI18N
         btnCrearEntreno.setText("Crear nuevo entreno");
         btnCrearEntreno.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -158,27 +172,98 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
         pnlPanelSecundario.add(btnCrearEntreno);
-        btnCrearEntreno.setBounds(520, 290, 190, 40);
+        btnCrearEntreno.setBounds(520, 290, 310, 40);
 
-        btnAsignarEntreno.setBackground(new java.awt.Color(51, 255, 204));
+        btnAsignarEntreno.setBackground(new java.awt.Color(0, 102, 102));
         btnAsignarEntreno.setFont(new java.awt.Font("Manjari", 0, 15)); // NOI18N
         btnAsignarEntreno.setText("Asignar entrenamiento");
         btnAsignarEntreno.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         pnlPanelSecundario.add(btnAsignarEntreno);
-        btnAsignarEntreno.setBounds(520, 350, 190, 40);
+        btnAsignarEntreno.setBounds(520, 350, 310, 40);
 
         lblBoligrafo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/boligrafo-cuadrado (1).png"))); // NOI18N
         pnlPanelSecundario.add(lblBoligrafo);
-        lblBoligrafo.setBounds(540, 10, 300, 260);
+        lblBoligrafo.setBounds(520, 10, 300, 260);
 
         lblLogoPanelSecundario.setFont(new java.awt.Font("Noto Serif CJK JP", 2, 36)); // NOI18N
-        lblLogoPanelSecundario.setForeground(new java.awt.Color(0, 255, 204));
+        lblLogoPanelSecundario.setForeground(new java.awt.Color(0, 51, 51));
         lblLogoPanelSecundario.setText("maXsport");
         pnlPanelSecundario.add(lblLogoPanelSecundario);
         lblLogoPanelSecundario.setBounds(150, 10, 180, 50);
 
+        btnSignOut.setBackground(new java.awt.Color(102, 0, 0));
+        btnSignOut.setForeground(new java.awt.Color(153, 0, 0));
+        btnSignOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exercise_salir.png"))); // NOI18N
+        btnSignOut.setText("Sign out");
+        btnSignOut.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSignOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSignOutActionPerformed(evt);
+            }
+        });
+        pnlPanelSecundario.add(btnSignOut);
+        btnSignOut.setBounds(790, 20, 80, 70);
+
+        btnNuevoUsuario.setBackground(new java.awt.Color(0, 51, 51));
+        btnNuevoUsuario.setForeground(new java.awt.Color(0, 153, 153));
+        btnNuevoUsuario.setText("Nuevo usuario");
+        btnNuevoUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnNuevoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoUsuarioActionPerformed(evt);
+            }
+        });
+        pnlPanelSecundario.add(btnNuevoUsuario);
+        btnNuevoUsuario.setBounds(520, 410, 310, 40);
+
+        lblEtiquetaWeb.setText("www.maXsport.com");
+        pnlPanelSecundario.add(lblEtiquetaWeb);
+        lblEtiquetaWeb.setBounds(400, 490, 180, 18);
+
+        txtNumeroEntrenador.setBackground(new java.awt.Color(153, 153, 153));
+        txtNumeroEntrenador.setFont(new java.awt.Font("Noto Sans CJK SC", 1, 18)); // NOI18N
+        txtNumeroEntrenador.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNumeroEntrenador.setEnabled(false);
+        txtNumeroEntrenador.setSelectionColor(new java.awt.Color(0, 0, 0));
+        pnlPanelSecundario.add(txtNumeroEntrenador);
+        txtNumeroEntrenador.setBounds(790, 100, 80, 33);
+
         getContentPane().add(pnlPanelSecundario);
         pnlPanelSecundario.setBounds(0, 0, 900, 600);
+
+        menMenu.setBackground(new java.awt.Color(153, 153, 153));
+        menMenu.setEnabled(false);
+
+        mnbFile.setText("File");
+        menMenu.add(mnbFile);
+
+        mnbExit.setText("Exit");
+        mnbExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnbExitMouseClicked(evt);
+            }
+        });
+        mnbExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnbExitActionPerformed(evt);
+            }
+        });
+        menMenu.add(mnbExit);
+
+        mnbAbout.setText("About");
+        mnbAbout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                mnbAboutMousePressed(evt);
+            }
+        });
+        mnbAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnbAboutActionPerformed(evt);
+            }
+        });
+        menMenu.add(mnbAbout);
+
+        setJMenuBar(menMenu);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -192,10 +277,6 @@ public class FramePrincipal extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnBotonLoginActionPerformed
-
-    private void btnSalirPanelSecundarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirPanelSecundarioActionPerformed
-        setVisible(false);
-    }//GEN-LAST:event_btnSalirPanelSecundarioActionPerformed
 
     private void tblTablaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTablaUsuariosMouseClicked
        
@@ -225,20 +306,66 @@ public class FramePrincipal extends javax.swing.JFrame {
        JOptionPane.showMessageDialog(rootPane, "En construccion");
     }//GEN-LAST:event_btnCrearEntrenoActionPerformed
 
+    private void btnSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignOutActionPerformed
+        
+        //este boton cierra la getconection del usuario y la jpanel
+        try {
+            conexion.close();
+            JOptionPane.showMessageDialog(rootPane, "Usuario desconectado");
+        } catch (SQLException ex) {
+            Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        pnlPanelSecundario.setVisible(false);
+        pnlPanelPrincipal.setVisible(true);
+       
+    }//GEN-LAST:event_btnSignOutActionPerformed
+
+    private void mnbExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnbExitActionPerformed
+
+    }//GEN-LAST:event_mnbExitActionPerformed
+
+    private void mnbAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnbAboutActionPerformed
+        
+    }//GEN-LAST:event_mnbAboutActionPerformed
+
+    private void mnbExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnbExitMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_mnbExitMouseClicked
+
+    private void mnbAboutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnbAboutMousePressed
+      da=new DialogAbout(this,false);
+        da.setVisible(true);
+    }//GEN-LAST:event_mnbAboutMousePressed
+
+    private void btnNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoUsuarioActionPerformed
+        
+        dnu=new DialogoNuevoUsuario(this, false);
+        dnu.setVisible(true);
+  
+               
+    }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignarEntreno;
     private javax.swing.JButton btnBotonLogin;
     private javax.swing.JButton btnCrearEntreno;
-    private javax.swing.JButton btnSalirPanelSecundario;
+    private javax.swing.JButton btnNuevoUsuario;
+    private javax.swing.JButton btnSignOut;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBoligrafo;
     private javax.swing.JLabel lblEtiquetaLogo;
+    private javax.swing.JLabel lblEtiquetaWeb;
     private javax.swing.JLabel lblLogoPanelSecundario;
+    private javax.swing.JMenuBar menMenu;
+    private javax.swing.JMenu mnbAbout;
+    private javax.swing.JMenu mnbExit;
+    private javax.swing.JMenu mnbFile;
     private javax.swing.JPanel pnlPanelPrincipal;
     private javax.swing.JPanel pnlPanelSecundario;
     private javax.swing.JTable tblTablaUsuarios;
+    private javax.swing.JTextField txtNumeroEntrenador;
     // End of variables declaration//GEN-END:variables
 
 }
