@@ -1,6 +1,6 @@
 # maXsport
 
-![logomaxsport (1)](https://github.com/user-attachments/assets/988b4241-787f-40de-9e4b-90f459ac7f56)
+![logobueno (1)](https://github.com/user-attachments/assets/b602fddd-e731-40b3-a8cc-cb9ce3fdbf65)
 
 
 ## Índice
