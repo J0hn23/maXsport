@@ -19,6 +19,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     private Connection conexion;
     DialogAbout da;
     DialogoNuevoUsuario dnu;
+    DialogoCrearEntreno dce;
 
     public FramePrincipal() {
 
@@ -302,8 +303,14 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_tblTablaUsuariosMouseClicked
 
     private void btnCrearEntrenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearEntrenoActionPerformed
-       //proximamente
-       JOptionPane.showMessageDialog(rootPane, "En construccion");
+       
+        dce=new DialogoCrearEntreno(this, false);
+       
+        dce.setVisible(true);
+                
+        
+        
+        //JOptionPane.showMessageDialog(rootPane, "En construccion");
     }//GEN-LAST:event_btnCrearEntrenoActionPerformed
 
     private void btnSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignOutActionPerformed

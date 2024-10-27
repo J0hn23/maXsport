@@ -118,6 +118,7 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         nuevoUsuario.setPasswordHash(hash);
             if(cbxInstructor.isSelected()){
                 check=true;
+                System.out.println("checkbox="+check);
             } 
         nuevoUsuario.setInstructor(check);
         nuevoUsuario.setAssignedInstructor(Integer.parseInt(txtInstructorasignado.getText()));
