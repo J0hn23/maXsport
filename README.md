@@ -27,6 +27,8 @@ El control de versiones se realiza con el uso de GIT, mediante repos al remoto d
 ## Dificultades encontradas
 Hasta ahora lo que mas tienpo ha precisado ha sido conseguir hacer que trabaje el servidor y el gestor de DB Azure Data Studio ya que no habia soporte para ubuntu 24.04, debiendo degradar el SO a ubuntu 20.04. con los problemas que ello me ha generado.
 
+Estoy teniendo problemas con el archivo DataAccess, ya aque los metodos no hacian exactamente lo que deberian, he cambiado el codigo en algunos puntos.
+
 ## Colaboradores
 gjm@paucasesnovescifp.cat
 Mi hija ha realizado el logo
