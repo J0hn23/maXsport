@@ -1,6 +1,7 @@
 # maXsport
 
-![Logo de maXsport](ruta/logo.png)
+![logomaxsport (1)](https://github.com/user-attachments/assets/988b4241-787f-40de-9e4b-90f459ac7f56)
+
 
 ## Índice
 1. [Introducción](#introducción)
