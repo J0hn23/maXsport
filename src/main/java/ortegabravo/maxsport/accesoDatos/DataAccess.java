@@ -4,10 +4,13 @@ import ortegabravo.maxsport.modelo.Exercici;
 import ortegabravo.maxsport.modelo.Usuari;
 import ortegabravo.maxsport.modelo.Workout;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -209,13 +212,23 @@ public class DataAccess {
         insertExercisesPerWorkout(newWorkoutId, exercicis);
     }
 
-    private static int insertToWorkoutTable(Workout w) {
+    public static int insertToWorkoutTable(Workout w) {
         String sql = "INSERT INTO dbo.Workouts (ForDate, UserId, Comments)"
                 + " VALUES (?,?,?)";
         try (Connection conn = getConnection();
                 PreparedStatement insertStatement = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
                 ) {
-            insertStatement.setString(1, w.getForDate().toString());
+            
+           
+            
+              //me daba excepcion ya que el preparedStatemen estaba en setString y lo cambie a setDate, hice un cast a date pero no medejaba 
+              //ya que el date resultante no era dateSql, tube que consultar internet para la respuesta IA de brave, 
+             // pasar el date a localDate y Local date a sqlDate.
+            LocalDate date = w.getForDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            java.sql.Date sqlDate = java.sql.Date.valueOf(date);
+            insertStatement.setDate(1, sqlDate);
+
+            insertStatement.setDate(1, sqlDate);
             insertStatement.setInt(2, w.getIdUsuari());
             insertStatement.setString(3, w.getComments());
 
@@ -239,7 +252,7 @@ public class DataAccess {
         return 0;
     }
 
-    private static int insertExercisesPerWorkout(int wId, ArrayList<Exercici> exercicis) {
+    public static int insertExercisesPerWorkout(int wId, ArrayList<Exercici> exercicis) {
         for(Exercici e: exercicis) {
             int rowsAffected = insertExerciciPerWorkout(wId, e);
             if (rowsAffected != 1) {
@@ -249,7 +262,7 @@ public class DataAccess {
         return exercicis.size();
     }
 
-    private static int insertExerciciPerWorkout(int wId, Exercici e) {
+    public static int insertExerciciPerWorkout(int wId, Exercici e) {
         String sql = "INSERT INTO dbo.ExercicisWorkouts (IdWorkout, IdExercici)"
                 + " VALUES (?,?)";
         try (Connection conn = getConnection(); PreparedStatement insertStatement = conn.prepareStatement(sql)) {

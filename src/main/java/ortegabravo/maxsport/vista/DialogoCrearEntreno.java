@@ -94,7 +94,7 @@ public class DialogoCrearEntreno extends javax.swing.JDialog {
         w.setIdUsuari(Integer.parseInt(txtId.getText().trim()));
         w.setForDate((Date) spnFecha.getValue());
 
-        DataAccess.getExercicisPerWorkout(w);
+        DataAccess.insertToWorkoutTable(w);
 
     }
 

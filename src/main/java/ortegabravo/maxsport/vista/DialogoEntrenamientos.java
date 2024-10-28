@@ -51,7 +51,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         String cadenaEjercicios = "";
         ArrayList<Exercici> exercicis = new ArrayList<>();
         exercicis = DataAccess.getExercicisPerWorkout((entrenamiento));
-        System.out.println(exercicis.size());
+        //System.out.println(exercicis.size());
         for (Exercici e : exercicis) {
             //cadenaEjercicios=e.getId();
             cadenaEjercicios += e.getNomExercici() + " ";

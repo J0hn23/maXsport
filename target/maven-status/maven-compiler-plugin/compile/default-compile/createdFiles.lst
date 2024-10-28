@@ -2,6 +2,7 @@ ortegabravo/maxsport/vista/DialogoEntrenamientos.class
 ortegabravo/maxsport/vista/DialogoNuevoUsuario$2.class
 ortegabravo/maxsport/vista/FramePrincipal$6.class
 ortegabravo/maxsport/vista/EntrenosTableModel.class
+ortegabravo/maxsport/vista/FramePrincipal$11.class
 ortegabravo/maxsport/vista/FramePrincipal$4.class
 ortegabravo/maxsport/vista/UsuariosTableModel.class
 ortegabravo/maxsport/vista/DialogoLogin.class
@@ -15,6 +16,7 @@ ortegabravo/maxsport/vista/DialogoCrearEntreno$1.class
 ortegabravo/maxsport/vista/MaXsport.class
 ortegabravo/maxsport/vista/DialogoNuevoUsuario.class
 ortegabravo/maxsport/vista/FramePrincipal$5.class
+ortegabravo/maxsport/vista/DialogoAsignarEjerciciosAEntreno.class
 ortegabravo/maxsport/vista/DialogoEntrenamientos$1.class
 ortegabravo/maxsport/vista/FramePrincipal.class
 ortegabravo/maxsport/vista/FramePrincipal$9.class

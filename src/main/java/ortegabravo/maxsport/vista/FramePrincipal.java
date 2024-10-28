@@ -20,6 +20,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     DialogAbout da;
     DialogoNuevoUsuario dnu;
     DialogoCrearEntreno dce;
+    DialogoAsignarEjerciciosAEntreno daeae;
 
     public FramePrincipal() {
 
@@ -165,7 +166,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         btnCrearEntreno.setBackground(new java.awt.Color(0, 153, 153));
         btnCrearEntreno.setFont(new java.awt.Font("Manjari", 0, 15)); // NOI18N
-        btnCrearEntreno.setText("Crear nuevo entreno");
+        btnCrearEntreno.setText("Crear entreno y asignarlo");
         btnCrearEntreno.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCrearEntreno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,8 +178,13 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         btnAsignarEntreno.setBackground(new java.awt.Color(0, 102, 102));
         btnAsignarEntreno.setFont(new java.awt.Font("Manjari", 0, 15)); // NOI18N
-        btnAsignarEntreno.setText("Asignar entrenamiento");
+        btnAsignarEntreno.setText("Asignar ejercicios a entrenamiento");
         btnAsignarEntreno.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAsignarEntreno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarEntrenoActionPerformed(evt);
+            }
+        });
         pnlPanelSecundario.add(btnAsignarEntreno);
         btnAsignarEntreno.setBounds(520, 350, 310, 40);
 
@@ -304,11 +310,8 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     private void btnCrearEntrenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearEntrenoActionPerformed
        
-        dce=new DialogoCrearEntreno(this, false);
-       
-        dce.setVisible(true);
-                
-        
+        dce=new DialogoCrearEntreno(this, false);       
+        dce.setVisible(true);    
         
         //JOptionPane.showMessageDialog(rootPane, "En construccion");
     }//GEN-LAST:event_btnCrearEntrenoActionPerformed
@@ -340,17 +343,22 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnbExitMouseClicked
 
     private void mnbAboutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnbAboutMousePressed
-      da=new DialogAbout(this,false);
+      da=new DialogAbout(this,true);
         da.setVisible(true);
     }//GEN-LAST:event_mnbAboutMousePressed
 
     private void btnNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoUsuarioActionPerformed
         
-        dnu=new DialogoNuevoUsuario(this, false);
+        dnu=new DialogoNuevoUsuario(this, true);
         dnu.setVisible(true);
   
                
     }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
+
+    private void btnAsignarEntrenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarEntrenoActionPerformed
+        daeae=new DialogoAsignarEjerciciosAEntreno(this,false);
+        daeae.setVisible(true);
+    }//GEN-LAST:event_btnAsignarEntrenoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
