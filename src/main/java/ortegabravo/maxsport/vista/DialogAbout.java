@@ -14,7 +14,7 @@ public class DialogAbout extends javax.swing.JDialog {
         initComponents();
          setLocationRelativeTo(parent);
          setSize(600,600);
-        
+        jTextArea1.setSize(550,550);
         jTextArea1.setText("""
                            Creado por Jonathan M.Ortega Bravo
                            Curso distancia Desarrollo Aplicaciones Multiplataforma 
