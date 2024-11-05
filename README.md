@@ -27,7 +27,11 @@ El control de versiones se realiza con el uso de GIT, mediante repos al remoto d
 ## Dificultades encontradas
 Hasta ahora lo que mas tienpo ha precisado ha sido conseguir hacer que trabaje el servidor y el gestor de DB Azure Data Studio ya que no habia soporte para ubuntu 24.04, debiendo degradar el SO a ubuntu 20.04. con los problemas que ello me ha generado.
 
-Estoy teniendo problemas con el archivo DataAccess, ya aque los metodos no hacian exactamente lo que deberian, he cambiado el codigo en algunos puntos.
+Estoy teniendo problemas con el archivo DataAccess, ya aque los metodos no hacian exactamente lo que deberian, he cambiado el codigo en algunos puntos, estas dudas ya fueron resueltas por el profesor.
+
+Otro problema que tube es usar nerbeans 23, al tener que usaR UBUNTU 20.04 , este no tiene soporte para netbeans 23 por lo que tuve que hacerlo en la version 21, me encontré en un callejon ya que si elegia ubuntu 24.04 no podia usar el Azure pero si netbeans 23 o elegir ubuntu 20.04 con el que si podia usar azure data studio pero no la vesion 23 de netbeans.
+
+Intenté realizar la carba del combobox con objetos a mi manera y la hice pero luego vi que la que explicaba el profesar era mucho mejor.
 
 ## Colaboradores
 gjm@paucasesnovescifp.cat
