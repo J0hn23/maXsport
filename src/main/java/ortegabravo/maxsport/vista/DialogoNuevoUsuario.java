@@ -10,7 +10,6 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
 
     
     Usuari nuevoUsuario;
-    boolean check;
    
     public DialogoNuevoUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -113,11 +112,6 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         btnSalir.setBounds(300, 260, 83, 24);
 
         chkIsInstructor.setText("Instructor");
-        chkIsInstructor.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                chkIsInstructorItemStateChanged(evt);
-            }
-        });
         getContentPane().add(chkIsInstructor);
         chkIsInstructor.setBounds(240, 180, 84, 22);
         getContentPane().add(jpsPassword);
@@ -134,11 +128,6 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         cargarUsuario();
         setVisible(false);
     }//GEN-LAST:event_btnAnyadirActionPerformed
-
-    private void chkIsInstructorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkIsInstructorItemStateChanged
-    
-             
-    }//GEN-LAST:event_chkIsInstructorItemStateChanged
     
     
     

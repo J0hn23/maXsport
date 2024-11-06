@@ -1,4 +1,3 @@
-
 package ortegabravo.maxsport.vista;
 
 import java.awt.event.ActionEvent;
@@ -10,52 +9,35 @@ import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.modelo.Exercici;
 import ortegabravo.maxsport.modelo.Workout;
 
-
 public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
 
-    
     private final javax.swing.JComboBox<Exercici> cmbComboObject;
-    String valor="";
-    ArrayList<Exercici> listaEjerciciosSeleccionados = new ArrayList<>(); 
-    
-    
+    String valor = "";
+    ArrayList<Exercici> listaEjerciciosSeleccionados = new ArrayList<>();
+
     public DialogoCrearEntrenoConEjercicios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
         setVisible(true);
-        setSize(450,600);
-        
-         cmbComboObject=new javax.swing.JComboBox<>();
-         getContentPane().add(cmbComboObject);
+        setSize(450, 600);
+
+        cmbComboObject = new javax.swing.JComboBox<>();
+        getContentPane().add(cmbComboObject);
         cmbComboObject.setBounds(30, 260, 400, 30);
-        
-                
-        
+
     }
-    
-    
-    
+
     public void aniadirEntreno(ArrayList<Exercici> exercicis) {
-        
+
         Workout w = new Workout();
-
         w.setComments(txtComentaio.getText());
-        
-        
         w.setIdUsuari(Integer.parseInt(txtId.getText().trim()));
-       
-          
         w.setForDate((Date) spnFechaEntreno.getValue());
-
-       
         DataAccess.insertWorkout(w, exercicis);
-           
 
     }
 
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -144,21 +126,18 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-       var ejercicios=DataAccess.getAllExercicis();
-        
-       
-        
-        DefaultComboBoxModel dcbm=new DefaultComboBoxModel();
-        
+        var ejercicios = DataAccess.getAllExercicis();
+
+        DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
+
         cmbComboObject.setModel(dcbm);
-        
-        for(Exercici e:ejercicios){
-            
+
+        for (Exercici e : ejercicios) {
+
             cmbComboObject.addItem(e);
-           
-        
+
         }
-        
+
         cmbComboObject.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,22 +145,21 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
             }
         });
 
-          
+
     }//GEN-LAST:event_formWindowOpened
 
-           
-           
+
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAniadirejercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirejercicioActionPerformed
-        
+
         aniadirEntreno(listaEjerciciosSeleccionados);
-        
+
         JOptionPane.showMessageDialog(rootPane, "Entreno añadido");
-        setVisible(false);     
-        
+        setVisible(false);
+
     }//GEN-LAST:event_btnAniadirejercicioActionPerformed
 
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
@@ -191,16 +169,14 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
     }//GEN-LAST:event_txtIdKeyTyped
 
     private void cmbComboObjectActionPerformed(ActionEvent evt) {
-                 
-                valor += cmbComboObject.getSelectedItem().toString() + " \n";
-                txaEjerciciosSeleccionados.setText(valor);
-                
-               
-                 listaEjerciciosSeleccionados.add((Exercici) cmbComboObject.getSelectedItem());
-                
-           }
-    
-    
+
+        valor += cmbComboObject.getSelectedItem().toString() + " \n";
+        txaEjerciciosSeleccionados.setText(valor);
+
+        listaEjerciciosSeleccionados.add((Exercici) cmbComboObject.getSelectedItem());
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAniadirejercicio;

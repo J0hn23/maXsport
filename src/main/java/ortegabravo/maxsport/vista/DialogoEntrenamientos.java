@@ -1,7 +1,11 @@
 package ortegabravo.maxsport.vista;
 
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_OPTION;
 import javax.swing.table.AbstractTableModel;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.modelo.Exercici;
@@ -10,22 +14,35 @@ import ortegabravo.maxsport.modelo.Workout;
 
 public class DialogoEntrenamientos extends javax.swing.JDialog {
 
-    
-    
+    private javax.swing.JComboBox<Exercici> cmbComboEjercicios;
+    private ArrayList<Exercici>listaEjerciciosAniadir;
+    int wId;
 
     public DialogoEntrenamientos(java.awt.Frame parent, boolean modal, String correo, String nombre) {
         super(parent, false);
         initComponents();
-        
+
         setLocationRelativeTo(parent);
-        
-        
+
         txtNombreAlumno.setText(nombre);
         //txtInfoEntreno.setText(cargarEntrenamientos(correo));
 
         //ArrayList<Exercici> getExercicisPerWorkout(Workout workout)
         cargarTablaEntrenamientos(correo);
+        cargaComboEjercicios();
+        
+        
+        
+        
+        
+        
 
+    }
+    
+    private void cmbComboEjerciciosActionPerformed(ActionEvent evt) {
+
+        listaEjerciciosAniadir=new ArrayList<>();
+        listaEjerciciosAniadir.add((Exercici) cmbComboEjercicios.getSelectedItem());
     }
 
     private void cargarTablaEntrenamientos(String correo) {
@@ -33,14 +50,53 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         Usuari usuario = null;
         ArrayList<Workout> workouts;
         usuario = DataAccess.getUser(correo);
+        
+        
         workouts = DataAccess.getWorkoutsPerUser(usuario);
-
+       
         // ejercicios = new ArrayList<>();
         //ejercicios = DataAccess.getExercicisPerWorkout(workouts);
         EntrenosTableModel eptm = new EntrenosTableModel(workouts);
         tblEntrenosPorUsuario.setModel(eptm);
         tblEntrenosPorUsuario.setAutoCreateRowSorter(true);
+        
+    }
 
+    private void cargaComboEjercicios() {
+        //cargo el combobox con los objetos de Exercici
+        cmbComboEjercicios = new javax.swing.JComboBox<>();
+        getContentPane().add(cmbComboEjercicios);
+        cmbComboEjercicios.setBounds(380, 80, 350, 30);
+        DefaultComboBoxModel<Exercici> dcbmw = new DefaultComboBoxModel();
+        cmbComboEjercicios.setModel(dcbmw);
+
+        var ejercicios = DataAccess.getAllExercicis();
+        for (Exercici e : ejercicios) {
+            cmbComboEjercicios.addItem(e);
+        }
+        
+        cmbComboEjercicios.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbComboEjerciciosActionPerformed(evt);
+            }
+        });
+  
+    }
+    
+    
+    private void cargaBBDDNuevosEjercicios() {
+        
+        int opcion=JOptionPane.showConfirmDialog(this, "Se va a añadir ejercicio","Confirme", JOptionPane.YES_NO_OPTION);
+        if(opcion==YES_OPTION){
+            DataAccess.insertExercisesPerWorkout(wId, listaEjerciciosAniadir);
+             JOptionPane.showMessageDialog(this, "Ejercicio añadido con exito");
+        }else{
+                JOptionPane.showMessageDialog(this, "No añadido ejercicio");
+        }
+        
+        
+       
     }
 
     private void cargarEjerciciosPorEntreno(Workout entrenamiento) {
@@ -74,12 +130,17 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         tblEntrenosPorUsuario = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         txaResultadoEjercicios = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
+        lblFlechaIzq = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
         setBounds(new java.awt.Rectangle(0, 0, 400, 400));
+        setMinimumSize(new java.awt.Dimension(750, 400));
         setModal(true);
         setResizable(false);
+        setSize(new java.awt.Dimension(750, 400));
         getContentPane().setLayout(null);
 
         btnSalir.setBackground(new java.awt.Color(255, 102, 102));
@@ -90,7 +151,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnSalir);
-        btnSalir.setBounds(300, 320, 70, 30);
+        btnSalir.setBounds(300, 320, 100, 30);
 
         txtNombreAlumno.setEditable(false);
         getContentPane().add(txtNombreAlumno);
@@ -128,6 +189,25 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         getContentPane().add(jScrollPane2);
         jScrollPane2.setBounds(20, 150, 350, 150);
 
+        jButton1.setBackground(new java.awt.Color(153, 255, 153));
+        jButton1.setForeground(new java.awt.Color(51, 51, 0));
+        jButton1.setText("Añadir ejercicio");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(450, 240, 240, 40);
+
+        lblFlechaIzq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flecha-girar-hacia-abajo-a-la-izquierda (1).png"))); // NOI18N
+        getContentPane().add(lblFlechaIzq);
+        lblFlechaIzq.setBounds(400, 240, 40, 60);
+
+        jLabel2.setText("Ejercicios disponibles a añadir");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(440, 40, 220, 18);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -136,11 +216,14 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void tblEntrenosPorUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEntrenosPorUsuarioMouseClicked
-        
+
         //con este evento obtengo el la fila donde hago click
         int fila = tblEntrenosPorUsuario.rowAtPoint(evt.getPoint());
         //con la fila cargo un objeto tipo workout con los datos de la fila de la tabla
         Workout entrenamiento = new Workout();
+        //aqui cojo con la variablwe el valoer del entreno id seleccionado con el click
+        wId=(int) tblEntrenosPorUsuario.getValueAt(fila, 0);
+        System.out.println(wId);
         entrenamiento.setId((int) tblEntrenosPorUsuario.getValueAt(fila, 0));
         entrenamiento.setForDate((Date) tblEntrenosPorUsuario.getValueAt(fila, 1));
         entrenamiento.setIdUsuari((int) tblEntrenosPorUsuario.getValueAt(fila, 2));
@@ -152,18 +235,28 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
 
     }//GEN-LAST:event_tblEntrenosPorUsuarioMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
+        cargaBBDDNuevosEjercicios();
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblFlechaIzq;
     private javax.swing.JTable tblEntrenosPorUsuario;
     private javax.swing.JTextArea txaResultadoEjercicios;
     private javax.swing.JTextField txtNombreAlumno;
     // End of variables declaration//GEN-END:variables
-}
 
+    
+}
 
 //de nuevo con la interface Abstracttablemodel creo una tabla a mi gusto
 class EntrenosTableModel extends AbstractTableModel {

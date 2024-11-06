@@ -26,14 +26,10 @@ public class DialogoListaEjercicios extends javax.swing.JDialog {
     private void cargaListaConObjetos() {
 
         exercicis = DataAccess.getAllExercicis();
-
         DefaultListModel<String> dlm = new DefaultListModel();
-         
-        
-        
+   
         for (Exercici e: exercicis) {
             dlm.addElement(e.getDescripcio());
-
         }
         
         jltListaEjercicios.setModel(dlm);
@@ -70,11 +66,6 @@ public class DialogoListaEjercicios extends javax.swing.JDialog {
         getContentPane().add(lblTextoEjercicios);
         lblTextoEjercicios.setBounds(30, 10, 240, 18);
 
-        jltListaEjercicios.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                jltListaEjerciciosValueChanged(evt);
-            }
-        });
         jScrollPane2.setViewportView(jltListaEjercicios);
 
         getContentPane().add(jScrollPane2);
@@ -86,10 +77,6 @@ public class DialogoListaEjercicios extends javax.swing.JDialog {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
-
-    private void jltListaEjerciciosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jltListaEjerciciosValueChanged
-       
-    }//GEN-LAST:event_jltListaEjerciciosValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalir;

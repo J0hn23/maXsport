@@ -18,12 +18,10 @@ public class FramePrincipal extends javax.swing.JFrame {
     private Connection conexion;
     DialogoAbout da;
     DialogoNuevoUsuario dnu;
-     DialogoListaUsuarios dlu;
-    
-
+    DialogoListaUsuarios dlu;
     DialogoListaEjercicios dle;
     DialogoGestionEjercicios dge;
-     DialogoCrearEntrenoConEjercicios dcece;
+    DialogoCrearEntrenoConEjercicios dcece;
 
     public FramePrincipal() {
 
@@ -34,13 +32,12 @@ public class FramePrincipal extends javax.swing.JFrame {
         setSize(900, 600);
         pnlPanelSecundario.setSize(900, 600);
         pnlPanelSecundario.setVisible(false);
-        
-        
+
     }
 
     public void ConfirmacionLogin(boolean confirmacion, int idEntrenador) {
         System.out.println(confirmacion);//esto es para ver lo que devuelve
-        
+
         //si devuelve confirmacion como true entonces cierra el jpanel principal
         //y abre el secundario con la jtable cargada
         if (confirmacion) {
@@ -59,12 +56,11 @@ public class FramePrincipal extends javax.swing.JFrame {
         }
         System.out.println("****Datos login recibidos desde el login");//chekeo
         txtNumeroEntrenador.setText(String.valueOf(idEntrenador));
-       
+
     }
-    
-    
-    public void enviarConexion(Connection conexion){
-        this.conexion=conexion;
+
+    public void enviarConexion(Connection conexion) {
+        this.conexion = conexion;
     }
 
     @SuppressWarnings("unchecked")
@@ -273,22 +269,12 @@ public class FramePrincipal extends javax.swing.JFrame {
                 mnbExitMouseClicked(evt);
             }
         });
-        mnbExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnbExitActionPerformed(evt);
-            }
-        });
         menMenu.add(mnbExit);
 
         mnbAbout.setText("About");
         mnbAbout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 mnbAboutMousePressed(evt);
-            }
-        });
-        mnbAbout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnbAboutActionPerformed(evt);
             }
         });
         menMenu.add(mnbAbout);
@@ -309,30 +295,29 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBotonLoginActionPerformed
 
     private void tblTablaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTablaUsuariosMouseClicked
-       
-       //creo un evento mouseclicked en la tabla
-       //el evento evt con el metodo getpoint me da el punto de la fila donde 
-       //clikeo y el numero de la fila
-        int fila=tblTablaUsuarios.rowAtPoint(evt.getPoint());
-        
+
+        //creo un evento mouseclicked en la tabla
+        //el evento evt con el metodo getpoint me da el punto de la fila donde 
+        //clikeo y el numero de la fila
+        int fila = tblTablaUsuarios.rowAtPoint(evt.getPoint());
+
         //int id=Integer.parseInt(tblTablaUsuarios.getValueAt(fila, 0).toString());
         //con el in de la fila obtengo los datos que quiera de la tabla
-        String nombre=(String) tblTablaUsuarios.getValueAt(fila, 1);
-        String correoAlumno=tblTablaUsuarios.getValueAt(fila, 2).toString();
-        
-      
+        String nombre = (String) tblTablaUsuarios.getValueAt(fila, 1);
+        String correoAlumno = tblTablaUsuarios.getValueAt(fila, 2).toString();
+
         //le paso al dialog el id y alli hago el resultset, y le mando como parametros
         //correo y nombre para usarlos alli, en el nuevo jdialog
-        DialogoEntrenamientos de=new  DialogoEntrenamientos(this,false,correoAlumno,nombre);
+        DialogoEntrenamientos de = new DialogoEntrenamientos(this, false, correoAlumno, nombre);
         de.setSize(500, 400);
         de.setVisible(true);
         de.setLocationRelativeTo(null);
-        
-        
+
+
     }//GEN-LAST:event_tblTablaUsuariosMouseClicked
 
     private void btnSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignOutActionPerformed
-        
+
         //este boton cierra la getconection del usuario y la jpanel
         try {
             conexion.close();
@@ -342,54 +327,45 @@ public class FramePrincipal extends javax.swing.JFrame {
         }
         pnlPanelSecundario.setVisible(false);
         pnlPanelPrincipal.setVisible(true);
-       
+
     }//GEN-LAST:event_btnSignOutActionPerformed
-
-    private void mnbExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnbExitActionPerformed
-
-    }//GEN-LAST:event_mnbExitActionPerformed
-
-    private void mnbAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnbAboutActionPerformed
-        
-    }//GEN-LAST:event_mnbAboutActionPerformed
 
     private void mnbExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnbExitMouseClicked
         System.exit(0);
     }//GEN-LAST:event_mnbExitMouseClicked
 
     private void mnbAboutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnbAboutMousePressed
-      da=new DialogoAbout(this,true);
+        da = new DialogoAbout(this, true);
         da.setVisible(true);
     }//GEN-LAST:event_mnbAboutMousePressed
 
     private void btnNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoUsuarioActionPerformed
-        
-        dnu=new DialogoNuevoUsuario(this, true);
+
+        dnu = new DialogoNuevoUsuario(this, true);
         dnu.setVisible(true);
-  
-               
+
     }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
 
     private void btnAsignarEntrenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarEntrenoActionPerformed
         //daeae=new DialogoAsignarEjerciciosAEntreno(this,false);
         //daeae.setVisible(true);
-        dcece = new DialogoCrearEntrenoConEjercicios(this,false);
+        dcece = new DialogoCrearEntrenoConEjercicios(this, false);
         dcece.setVisible(true);
-        
+
     }//GEN-LAST:event_btnAsignarEntrenoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       dle=new DialogoListaEjercicios(this, false);
-       dle.setVisible(true);
+        dle = new DialogoListaEjercicios(this, false);
+        dle.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnGestionEntrenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionEntrenosActionPerformed
-       dge= new DialogoGestionEjercicios(this,true);
-       dge.setVisible(true);
+        dge = new DialogoGestionEjercicios(this, true);
+        dge.setVisible(true);
     }//GEN-LAST:event_btnGestionEntrenosActionPerformed
 
     private void btnMostrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarUsuariosActionPerformed
-        dlu=new DialogoListaUsuarios(this,true);
+        dlu = new DialogoListaUsuarios(this, true);
         dlu.setVisible(true);
     }//GEN-LAST:event_btnMostrarUsuariosActionPerformed
 
@@ -419,7 +395,8 @@ public class FramePrincipal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 }
- //uso la interface abstracttablemodel para crear una tabla como yo quiera
+//uso la interface abstracttablemodel para crear una tabla como yo quiera
+
 class UsuariosTableModel extends AbstractTableModel {
 
     private final String[] columns = {"Id Usuario", "Nombre", "Correo", "Foto"};

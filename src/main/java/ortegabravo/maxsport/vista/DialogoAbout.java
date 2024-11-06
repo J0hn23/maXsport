@@ -11,8 +11,11 @@ public class DialogoAbout extends javax.swing.JDialog {
         initComponents();
          setLocationRelativeTo(null);
          setSize(600,600);
-        jTextArea1.setSize(550,550);
-        jTextArea1.setText("""
+        jScrollPane2.setAutoscrolls(true);
+        
+       
+       //jTextArea2.setSize(550,1200);
+        jTextArea2.setText("""
                            Creado por Jonathan M.Ortega Bravo
                            Curso distancia Desarrollo Aplicaciones Multiplataforma 
                            Asignatura Desarrollo de Interfaces.
@@ -35,6 +38,13 @@ public class DialogoAbout extends javax.swing.JDialog {
                            compuesta por un jFrame principal y en el dos JPanel y de estas deriban varios 
                            JDialog que se usan para introducir los datos por el usuario.
                            
+                           -La arquitectura del programa es un JFrame principal con dos paneles o JPanel 
+                           y el resto son Jdialog que hacen las llamadas a la bbdd.
+                           Esta modularizado en diferentes paquetes accesoDatos, Vista y modelo, ademas 
+                           solo hay una clase main en vista.
+                           
+                           -He creado un archivo properties para los datos de la conexion a la bbdd.
+                           
                            -Comencé a realizarlo antes de ver el video de las jList y los jComboBox y 
                            lo hice a mi manera, luego vi que era mas eficiente la manera explicada en el
                            video, dejé comentada mi manera.
@@ -56,8 +66,12 @@ public class DialogoAbout extends javax.swing.JDialog {
                            trabajo con ubuntu 24.04 y no habia soporte, tuve que degradarlo a                        
                            y tengo que usar azure data studio, y aprender a usarlo ya que yo
                            conocia mYsql y su workbrench.
-                           Los demas problemas son los probelamas normales que surgen al programar.
+                           -Tambien encontré un problema en el metodo getUsers que n el ps de instructor
+                           devolvia siempre true y lo cambie a getInstructor no isInstructor como estaba.
+                           Los demas problemas son los problemas normales que surgen al programar.
                                        
+                           Los recursos que he usado son los videos del profesor, la IA de Brave,el típico 
+                           foro de stack overflow y los videos de un youtuber pildoras informaticas.
                            """);
         
     }
@@ -67,8 +81,8 @@ public class DialogoAbout extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("About");
@@ -77,22 +91,12 @@ public class DialogoAbout extends javax.swing.JDialog {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(1);
-        jTextArea1.setFont(new java.awt.Font("Lohit Devanagari", 0, 15)); // NOI18N
-        jTextArea1.setRows(1);
-        jTextArea1.setTabSize(1);
-        jTextArea1.setDisabledTextColor(new java.awt.Color(51, 51, 51));
-        jTextArea1.setEnabled(false);
-        jTextArea1.setMaximumSize(new java.awt.Dimension(550, 550));
-        jTextArea1.setMinimumSize(new java.awt.Dimension(550, 500));
-        jTextArea1.setName(""); // NOI18N
-        jTextArea1.setOpaque(false);
-        jTextArea1.setPreferredSize(new java.awt.Dimension(550, 550));
-        jScrollPane1.setViewportView(jTextArea1);
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(100);
+        jScrollPane2.setViewportView(jTextArea2);
 
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(6, 43, 600, 480);
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(20, 20, 570, 640);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -100,7 +104,7 @@ public class DialogoAbout extends javax.swing.JDialog {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea2;
     // End of variables declaration//GEN-END:variables
 }

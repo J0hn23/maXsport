@@ -20,11 +20,7 @@ public class DialogoListaUsuarios extends javax.swing.JDialog {
         cargaListaConObjetos();
         
     }
-    
-    
-    
-    
-    
+   
     private void cargaListaConObjetos() {
 
         ArrayList<Usuari> usuarios = DataAccess.getAllUsers();
