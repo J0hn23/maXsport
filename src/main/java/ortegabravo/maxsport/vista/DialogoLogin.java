@@ -2,6 +2,8 @@ package ortegabravo.maxsport.vista;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import java.sql.Connection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.modelo.Usuari;
@@ -16,7 +18,7 @@ public class DialogoLogin extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         fp = (FramePrincipal) parent;
-         setLocationRelativeTo(parent);
+        setLocationRelativeTo(parent);
     }
 
     private void comprobarConexion() {
@@ -28,13 +30,8 @@ public class DialogoLogin extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(rootPane, "Error en conexion");
         }
-        
-        
-         
 
     }
-    
-   
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -101,36 +98,55 @@ public class DialogoLogin extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    //uso una funcion mediante patrones para comprobar que el correo es valido
+    public boolean esEmailValido(String email) {
+        String pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{1,2}$";
+        Pattern regex = Pattern.compile(pattern);
+        Matcher matcher = regex.matcher(email);
+        return matcher.matches();
+    }
+
 
     private void btnBotonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBotonLoginActionPerformed
 
         comprobarConexion();
-        
+
+        esEmailValido(txtCampoTextoCorreo.getText());
+
         u = DataAccess.getUser(txtCampoTextoCorreo.getText());
 
-        if (u != null) {
+        if (esEmailValido(txtCampoTextoCorreo.getText())) {
 
-            char[] pass = jpsPass.getPassword();
-            var resultado = BCrypt.verifyer().verify(pass, u.getPasswordHash());
+            if (u != null && u.getInstructor() == true) {
 
-            if (resultado.verified) {
+                char[] pass = jpsPass.getPassword();
+                var resultado = BCrypt.verifyer().verify(pass, u.getPasswordHash());
 
-                System.out.println(u.getNom() + " " + u.isInstructor());
-                fp.ConfirmacionLogin(resultado.verified,u.getId());
-                setVisible(false);
+                if (resultado.verified) {
+
+                    System.out.println(u.getNom() + " " + u.isInstructor());
+                    fp.ConfirmacionLogin(resultado.verified, u.getId());
+                    setVisible(false);
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Usuario no encontrado o no es instructor");
             }
         } else {
-            JOptionPane.showMessageDialog(rootPane, "Usuario no encontrado");
+            JOptionPane.showMessageDialog(rootPane, "Email no valido");
         }
 
     }//GEN-LAST:event_btnBotonLoginActionPerformed
 
 
     private void txtCampoTextoCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCampoTextoCorreoKeyTyped
+        //limito la entrada por teclado a estos caracteres
         char c = evt.getKeyChar();
         if ((c < '0' || c > '9') && (c < '@' || c > 'z') && (c < 'A' || c > 'Z')
-                && (c < '-' || c > '.'))
+                && (c < '-' || c > '.')) {
             evt.consume();
+        }
+
+
     }//GEN-LAST:event_txtCampoTextoCorreoKeyTyped
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

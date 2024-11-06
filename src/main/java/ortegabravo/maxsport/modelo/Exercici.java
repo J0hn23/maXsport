@@ -18,6 +18,11 @@ public class Exercici {
         this.demoFoto = DemoFoto;
     }
 
+    @Override
+    public String toString() {
+        return  Id + " - " + nomExercici+"  " + descripcio ;
+    }
+
     public Exercici() {
     }
     

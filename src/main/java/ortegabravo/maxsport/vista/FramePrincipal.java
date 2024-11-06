@@ -14,13 +14,16 @@ import ortegabravo.maxsport.modelo.Usuari;
 public class FramePrincipal extends javax.swing.JFrame {
 
     JDialog dlgDialogoLogin;
-    boolean confirmacion;
     ArrayList<Usuari> usuaris;
     private Connection conexion;
-    DialogAbout da;
+    DialogoAbout da;
     DialogoNuevoUsuario dnu;
-    DialogoCrearEntreno dce;
-    DialogoAsignarEjerciciosAEntreno daeae;
+     DialogoListaUsuarios dlu;
+    
+
+    DialogoListaEjercicios dle;
+    DialogoGestionEjercicios dge;
+     DialogoCrearEntrenoConEjercicios dcece;
 
     public FramePrincipal() {
 
@@ -36,7 +39,6 @@ public class FramePrincipal extends javax.swing.JFrame {
     }
 
     public void ConfirmacionLogin(boolean confirmacion, int idEntrenador) {
-        this.confirmacion = confirmacion;
         System.out.println(confirmacion);//esto es para ver lo que devuelve
         
         //si devuelve confirmacion como true entonces cierra el jpanel principal
@@ -76,7 +78,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         pnlPanelSecundario = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTablaUsuarios = new javax.swing.JTable();
-        btnCrearEntreno = new javax.swing.JButton();
         btnAsignarEntreno = new javax.swing.JButton();
         lblBoligrafo = new javax.swing.JLabel();
         lblLogoPanelSecundario = new javax.swing.JLabel();
@@ -84,6 +85,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         btnNuevoUsuario = new javax.swing.JButton();
         lblEtiquetaWeb = new javax.swing.JLabel();
         txtNumeroEntrenador = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        btnGestionEntrenos = new javax.swing.JButton();
+        btnMostrarUsuarios = new javax.swing.JButton();
         menMenu = new javax.swing.JMenuBar();
         mnbFile = new javax.swing.JMenu();
         mnbExit = new javax.swing.JMenu();
@@ -164,21 +168,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         pnlPanelSecundario.add(jScrollPane1);
         jScrollPane1.setBounds(30, 80, 452, 370);
 
-        btnCrearEntreno.setBackground(new java.awt.Color(0, 153, 153));
-        btnCrearEntreno.setFont(new java.awt.Font("Manjari", 0, 15)); // NOI18N
-        btnCrearEntreno.setText("Crear entreno y asignarlo");
-        btnCrearEntreno.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnCrearEntreno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrearEntrenoActionPerformed(evt);
-            }
-        });
-        pnlPanelSecundario.add(btnCrearEntreno);
-        btnCrearEntreno.setBounds(520, 290, 310, 40);
-
         btnAsignarEntreno.setBackground(new java.awt.Color(0, 102, 102));
         btnAsignarEntreno.setFont(new java.awt.Font("Manjari", 0, 15)); // NOI18N
-        btnAsignarEntreno.setText("Asignar ejercicios a entrenamiento");
+        btnAsignarEntreno.setText("Crear entreno con ejercicios");
         btnAsignarEntreno.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnAsignarEntreno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,7 +178,7 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
         pnlPanelSecundario.add(btnAsignarEntreno);
-        btnAsignarEntreno.setBounds(520, 350, 310, 40);
+        btnAsignarEntreno.setBounds(510, 350, 340, 40);
 
         lblBoligrafo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/boligrafo-cuadrado (1).png"))); // NOI18N
         pnlPanelSecundario.add(lblBoligrafo);
@@ -221,7 +213,7 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
         pnlPanelSecundario.add(btnNuevoUsuario);
-        btnNuevoUsuario.setBounds(520, 410, 310, 40);
+        btnNuevoUsuario.setBounds(510, 410, 170, 40);
 
         lblEtiquetaWeb.setText("www.maXsport.com");
         pnlPanelSecundario.add(lblEtiquetaWeb);
@@ -234,6 +226,37 @@ public class FramePrincipal extends javax.swing.JFrame {
         txtNumeroEntrenador.setSelectionColor(new java.awt.Color(0, 0, 0));
         pnlPanelSecundario.add(txtNumeroEntrenador);
         txtNumeroEntrenador.setBounds(790, 100, 80, 33);
+
+        jButton1.setBackground(new java.awt.Color(0, 204, 204));
+        jButton1.setText("Mostrar ejercicios ");
+        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        pnlPanelSecundario.add(jButton1);
+        jButton1.setBounds(510, 290, 170, 40);
+
+        btnGestionEntrenos.setBackground(new java.awt.Color(204, 255, 204));
+        btnGestionEntrenos.setText("Gestion entrenos");
+        btnGestionEntrenos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionEntrenosActionPerformed(evt);
+            }
+        });
+        pnlPanelSecundario.add(btnGestionEntrenos);
+        btnGestionEntrenos.setBounds(690, 410, 160, 40);
+
+        btnMostrarUsuarios.setBackground(new java.awt.Color(51, 255, 102));
+        btnMostrarUsuarios.setText("Mostrar usuarios");
+        btnMostrarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarUsuariosActionPerformed(evt);
+            }
+        });
+        pnlPanelSecundario.add(btnMostrarUsuarios);
+        btnMostrarUsuarios.setBounds(690, 290, 160, 40);
 
         getContentPane().add(pnlPanelSecundario);
         pnlPanelSecundario.setBounds(0, 0, 900, 600);
@@ -308,14 +331,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_tblTablaUsuariosMouseClicked
 
-    private void btnCrearEntrenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearEntrenoActionPerformed
-       
-        dce=new DialogoCrearEntreno(this, false);       
-        dce.setVisible(true);    
-        
-        //JOptionPane.showMessageDialog(rootPane, "En construccion");
-    }//GEN-LAST:event_btnCrearEntrenoActionPerformed
-
     private void btnSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignOutActionPerformed
         
         //este boton cierra la getconection del usuario y la jpanel
@@ -343,7 +358,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnbExitMouseClicked
 
     private void mnbAboutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnbAboutMousePressed
-      da=new DialogAbout(this,true);
+      da=new DialogoAbout(this,true);
         da.setVisible(true);
     }//GEN-LAST:event_mnbAboutMousePressed
 
@@ -356,17 +371,37 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
 
     private void btnAsignarEntrenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarEntrenoActionPerformed
-        daeae=new DialogoAsignarEjerciciosAEntreno(this,false);
-        daeae.setVisible(true);
+        //daeae=new DialogoAsignarEjerciciosAEntreno(this,false);
+        //daeae.setVisible(true);
+        dcece = new DialogoCrearEntrenoConEjercicios(this,false);
+        dcece.setVisible(true);
+        
     }//GEN-LAST:event_btnAsignarEntrenoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       dle=new DialogoListaEjercicios(this, false);
+       dle.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnGestionEntrenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionEntrenosActionPerformed
+       dge= new DialogoGestionEjercicios(this,true);
+       dge.setVisible(true);
+    }//GEN-LAST:event_btnGestionEntrenosActionPerformed
+
+    private void btnMostrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarUsuariosActionPerformed
+        dlu=new DialogoListaUsuarios(this,true);
+        dlu.setVisible(true);
+    }//GEN-LAST:event_btnMostrarUsuariosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignarEntreno;
     private javax.swing.JButton btnBotonLogin;
-    private javax.swing.JButton btnCrearEntreno;
+    private javax.swing.JButton btnGestionEntrenos;
+    private javax.swing.JButton btnMostrarUsuarios;
     private javax.swing.JButton btnNuevoUsuario;
     private javax.swing.JButton btnSignOut;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBoligrafo;

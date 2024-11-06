@@ -4,7 +4,6 @@ import ortegabravo.maxsport.modelo.Exercici;
 import ortegabravo.maxsport.modelo.Usuari;
 import ortegabravo.maxsport.modelo.Workout;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,13 +20,13 @@ public class DataAccess {
         Connection connection = null;
         Properties properties = new Properties();
         try {
-            //properties.load(DataAccess.class.getClassLoader().getResourceAsStream("properties/application.properties"));
-            //connection = DriverManager.getConnection(properties.getProperty("connectionUrl"));
+            properties.load(DataAccess.class.getClassLoader().getResourceAsStream("properties/application.properties"));
+            connection = DriverManager.getConnection(properties.getProperty("connectionUrl"));
             //String connectionUrl = "jdbc:sqlserver://localhost:1433;database=simulapdb;user=sa;password=Pwd1234.;encrypt=false;loginTimeout=10;";
             //String connectionUrlAzure = "jdbc:sqlserver://simulapsqlserver.database.windows.net:1433;database=simulapdb;user=simulapdbadmin@simulapsqlserver;password=Pwd1234.;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
-            String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=simulabdb202417101926;user=sa;password=Noruega80;encrypt=false;loginTimeout=30;";
+            //String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=simulabdb202417101926;user=sa;password=Noruega80;encrypt=false;loginTimeout=30;";
             //connection = DriverManager.getConnection(connectionUrl);
-            connection = DriverManager.getConnection(connectionUrl);
+            //connection = DriverManager.getConnection(connectionUrl);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,6 +123,7 @@ public class DataAccess {
                 workout.setId(resultSet.getInt("Id"));
                 workout.setForDate(resultSet.getDate("ForDate"));
                 workout.setIdUsuari(resultSet.getInt("UserId"));
+                workout.setComments(resultSet.getString("comments"));
 
                 workouts.add(workout);
             }
@@ -194,11 +194,11 @@ public class DataAccess {
             insertStatement.setString(1, u.getNom());
             insertStatement.setString(2, u.getEmail());
             insertStatement.setString(3, u.getPasswordHash());
-            insertStatement.setBoolean(4, u.isInstructor());
+            insertStatement.setBoolean(4, u.getInstructor());//aqui cambie a getIntructor ya que habia un isInstructor que siempre devolvia un true
             insertStatement.setInt(5, u.getAssignedInstructor());
             
             int newUserId = insertStatement.executeUpdate();
-            System.out.println("Registro guardado");
+            
             return newUserId;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -212,7 +212,7 @@ public class DataAccess {
         insertExercisesPerWorkout(newWorkoutId, exercicis);
     }
 
-    public static int insertToWorkoutTable(Workout w) {
+    private static int insertToWorkoutTable(Workout w) {
         String sql = "INSERT INTO dbo.Workouts (ForDate, UserId, Comments)"
                 + " VALUES (?,?,?)";
         try (Connection conn = getConnection();
@@ -262,7 +262,7 @@ public class DataAccess {
         return exercicis.size();
     }
 
-    public static int insertExerciciPerWorkout(int wId, Exercici e) {
+    private static int insertExerciciPerWorkout(int wId, Exercici e) {
         String sql = "INSERT INTO dbo.ExercicisWorkouts (IdWorkout, IdExercici)"
                 + " VALUES (?,?)";
         try (Connection conn = getConnection(); PreparedStatement insertStatement = conn.prepareStatement(sql)) {

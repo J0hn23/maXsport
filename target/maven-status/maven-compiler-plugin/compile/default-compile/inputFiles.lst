@@ -2,10 +2,12 @@
 /home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/modelo/Exercici.java
 /home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/modelo/Usuari.java
 /home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/modelo/Workout.java
-/home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogAbout.java
-/home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogoAsignarEjerciciosAEntreno.java
-/home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogoCrearEntreno.java
+/home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogoAbout.java
+/home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogoCrearEntrenoConEjercicios.java
 /home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogoEntrenamientos.java
+/home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogoGestionEjercicios.java
+/home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogoListaEjercicios.java
+/home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogoListaUsuarios.java
 /home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogoLogin.java
 /home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogoNuevoUsuario.java
 /home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/FramePrincipal.java

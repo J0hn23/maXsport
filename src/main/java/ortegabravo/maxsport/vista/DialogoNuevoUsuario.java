@@ -10,6 +10,7 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
 
     
     Usuari nuevoUsuario;
+    boolean check;
    
     public DialogoNuevoUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -19,6 +20,32 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         setTitle("Nuevo usuario");
         setLocationRelativeTo(parent);
     }
+    
+    private void cargarUsuario(){
+    
+        nuevoUsuario=new Usuari();
+        
+        char[] pass = jpsPassword.getPassword();
+        Byte[]fotoVacia=new Byte[10];
+             
+        String hash=BCrypt.withDefaults().hashToString(12, pass);
+         
+        nuevoUsuario.setNom(txtNombre.getText());
+        nuevoUsuario.setEmail(txtCorreo.getText());
+        nuevoUsuario.setPasswordHash(hash);
+            
+        nuevoUsuario.setInstructor(chkIsInstructor.isSelected());
+        System.out.println(chkIsInstructor.isSelected()+"        -------------");
+        nuevoUsuario.setAssignedInstructor(Integer.parseInt(txtInstructorasignado.getText()));
+        
+        nuevoUsuario.setFoto(fotoVacia);
+       // nuevoUsuario.setId(000);
+        
+        DataAccess.registerUser(nuevoUsuario);
+  
+    }
+    
+    
 
   
     @SuppressWarnings("unchecked")
@@ -34,7 +61,7 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         txtInstructorasignado = new javax.swing.JTextField();
         btnAnyadir = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        cbxInstructor = new javax.swing.JCheckBox();
+        chkIsInstructor = new javax.swing.JCheckBox();
         jpsPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -85,9 +112,14 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         getContentPane().add(btnSalir);
         btnSalir.setBounds(300, 260, 83, 24);
 
-        cbxInstructor.setText("Instructor");
-        getContentPane().add(cbxInstructor);
-        cbxInstructor.setBounds(240, 180, 84, 22);
+        chkIsInstructor.setText("Instructor");
+        chkIsInstructor.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chkIsInstructorItemStateChanged(evt);
+            }
+        });
+        getContentPane().add(chkIsInstructor);
+        chkIsInstructor.setBounds(240, 180, 84, 22);
         getContentPane().add(jpsPassword);
         jpsPassword.setBounds(110, 130, 200, 24);
 
@@ -103,39 +135,18 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         setVisible(false);
     }//GEN-LAST:event_btnAnyadirActionPerformed
 
+    private void chkIsInstructorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkIsInstructorItemStateChanged
     
-    private void cargarUsuario(){
-    
-        nuevoUsuario=new Usuari();
-        boolean check=false;
-        char[] pass = jpsPassword.getPassword();
-        Byte[]fotoVacia=new Byte[10];
              
-        String hash=BCrypt.withDefaults().hashToString(12, pass);
-         
-        nuevoUsuario.setNom(txtNombre.getText());
-        nuevoUsuario.setEmail(txtCorreo.getText());
-        nuevoUsuario.setPasswordHash(hash);
-            if(cbxInstructor.isSelected()){
-                check=true;
-                System.out.println("checkbox="+check);
-            } 
-        nuevoUsuario.setInstructor(check);
-        nuevoUsuario.setAssignedInstructor(Integer.parseInt(txtInstructorasignado.getText()));
-        
-        nuevoUsuario.setFoto(fotoVacia);
-        nuevoUsuario.setId(000);
-        
-        DataAccess.registerUser(nuevoUsuario);
-  
-    }
+    }//GEN-LAST:event_chkIsInstructorItemStateChanged
+    
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnyadir;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JCheckBox cbxInstructor;
+    private javax.swing.JCheckBox chkIsInstructor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField jpsPassword;

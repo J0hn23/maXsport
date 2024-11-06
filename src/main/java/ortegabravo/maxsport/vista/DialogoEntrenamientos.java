@@ -10,12 +10,11 @@ import ortegabravo.maxsport.modelo.Workout;
 
 public class DialogoEntrenamientos extends javax.swing.JDialog {
 
-    ArrayList<Exercici> ejercicios;
     
     
 
     public DialogoEntrenamientos(java.awt.Frame parent, boolean modal, String correo, String nombre) {
-        super(parent, modal);
+        super(parent, false);
         initComponents();
         
         setLocationRelativeTo(parent);
@@ -32,7 +31,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
     private void cargarTablaEntrenamientos(String correo) {
         //cargo la tabla con los entrenamientos por correo de usuario
         Usuari usuario = null;
-        ArrayList<Workout> workouts = new ArrayList<>();
+        ArrayList<Workout> workouts;
         usuario = DataAccess.getUser(correo);
         workouts = DataAccess.getWorkoutsPerUser(usuario);
 
@@ -47,9 +46,9 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
     private void cargarEjerciciosPorEntreno(Workout entrenamiento) {
 
         //aqui cargo la tabla con los ejercicios y el resultado lo paso
-        //a un strin que carga el txtArea para ver los ejercicios por entreno
+        //a un string que carga el txtArea para ver los ejercicios por entreno
         String cadenaEjercicios = "";
-        ArrayList<Exercici> exercicis = new ArrayList<>();
+        ArrayList<Exercici> exercicis;
         exercicis = DataAccess.getExercicisPerWorkout((entrenamiento));
         //System.out.println(exercicis.size());
         for (Exercici e : exercicis) {
@@ -80,6 +79,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         setBackground(new java.awt.Color(102, 102, 102));
         setBounds(new java.awt.Rectangle(0, 0, 400, 400));
         setModal(true);
+        setResizable(false);
         getContentPane().setLayout(null);
 
         btnSalir.setBackground(new java.awt.Color(255, 102, 102));
