@@ -11,7 +11,7 @@ import ortegabravo.maxsport.modelo.Workout;
 
 public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
 
-    private final javax.swing.JComboBox<Exercici> cmbComboObject;
+    private javax.swing.JComboBox<Exercici> cmbComboObject;
     String valor = "";
     ArrayList<Exercici> listaEjerciciosSeleccionados = new ArrayList<>();
 
@@ -19,23 +19,37 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
-        setVisible(true);
-        setSize(450, 600);
 
+        //setSize(450, 600);
+       cargarComboEjercicios();
+         
+    }
+    
+    private void cargarComboEjercicios(){
         cmbComboObject = new javax.swing.JComboBox<>();
         getContentPane().add(cmbComboObject);
         cmbComboObject.setBounds(30, 260, 400, 30);
-
+    
     }
 
-    public void aniadirEntreno(ArrayList<Exercici> exercicis) {
-
+    public int aniadirEntreno(ArrayList<Exercici> exercicis) {
+        
         Workout w = new Workout();
-        w.setComments(txtComentaio.getText());
-        w.setIdUsuari(Integer.parseInt(txtId.getText().trim()));
-        w.setForDate((Date) spnFechaEntreno.getValue());
-        DataAccess.insertWorkout(w, exercicis);
-
+       
+        
+        String s=txtId.getText();
+        
+        if(s.equals("")){
+            JOptionPane.showMessageDialog(rootPane, "Debe introducir un número de usuario");
+        }else{
+             w.setIdUsuari(Integer.parseInt(txtId.getText()));
+              w.setComments(txtComentaio.getText());
+               w.setForDate((Date) spnFechaEntreno.getValue());
+                DataAccess.insertWorkout(w, exercicis); 
+                JOptionPane.showMessageDialog(rootPane, "Entreno añadido");
+                return 1;
+            }
+    return 0;
     }
 
     @SuppressWarnings("unchecked")
@@ -56,6 +70,7 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         btnAniadirejercicio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(153, 153, 153));
         setMinimumSize(new java.awt.Dimension(450, 600));
         setPreferredSize(new java.awt.Dimension(450, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -95,6 +110,7 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         getContentPane().add(txtComentaio);
         txtComentaio.setBounds(130, 154, 220, 30);
 
+        btnSalir.setBackground(new java.awt.Color(255, 153, 153));
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,6 +129,7 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(20, 210, 360, 30);
 
+        btnAniadirejercicio.setBackground(new java.awt.Color(102, 204, 255));
         btnAniadirejercicio.setText("Añadir Ejercicio");
         btnAniadirejercicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,11 +171,11 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAniadirejercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirejercicioActionPerformed
+ 
+        int realizado=aniadirEntreno(listaEjerciciosSeleccionados);
 
-        aniadirEntreno(listaEjerciciosSeleccionados);
-
-        JOptionPane.showMessageDialog(rootPane, "Entreno añadido");
-        setVisible(false);
+        
+        if(realizado==1)setVisible(false);
 
     }//GEN-LAST:event_btnAniadirejercicioActionPerformed
 

@@ -16,8 +16,10 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
 
     private javax.swing.JComboBox<Exercici> cmbComboEjercicios;
     private ArrayList<Exercici>listaEjerciciosAniadir;
-    int wId;
-
+    private int wId;
+    private boolean variableControlItemSeleccionadoEjercicio=false;
+    private boolean variableControlItemSeleccionadoEntreno=false;
+    
     public DialogoEntrenamientos(java.awt.Frame parent, boolean modal, String correo, String nombre) {
         super(parent, false);
         initComponents();
@@ -32,10 +34,6 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         cargaComboEjercicios();
         
         
-        
-        
-        
-        
 
     }
     
@@ -43,6 +41,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
 
         listaEjerciciosAniadir=new ArrayList<>();
         listaEjerciciosAniadir.add((Exercici) cmbComboEjercicios.getSelectedItem());
+        variableControlItemSeleccionadoEjercicio=true;
     }
 
     private void cargarTablaEntrenamientos(String correo) {
@@ -106,15 +105,15 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         String cadenaEjercicios = "";
         ArrayList<Exercici> exercicis;
         exercicis = DataAccess.getExercicisPerWorkout((entrenamiento));
-        //System.out.println(exercicis.size());
+        variableControlItemSeleccionadoEntreno=true;
         for (Exercici e : exercicis) {
             //cadenaEjercicios=e.getId();
             cadenaEjercicios += e.getNomExercici() + " ";
             cadenaEjercicios += e.getDescripcio() + "  \n";
             cadenaEjercicios += "--------------------\n";
-            System.out.println("flag1");
+            
         }
-        System.out.println(cadenaEjercicios);
+       
         txaResultadoEjercicios.setText(cadenaEjercicios);
 
     }
@@ -130,7 +129,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         tblEntrenosPorUsuario = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         txaResultadoEjercicios = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        btnAniadir = new javax.swing.JButton();
         lblFlechaIzq = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -189,16 +188,16 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         getContentPane().add(jScrollPane2);
         jScrollPane2.setBounds(20, 150, 350, 150);
 
-        jButton1.setBackground(new java.awt.Color(153, 255, 153));
-        jButton1.setForeground(new java.awt.Color(51, 51, 0));
-        jButton1.setText("Añadir ejercicio");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAniadir.setBackground(new java.awt.Color(153, 255, 153));
+        btnAniadir.setForeground(new java.awt.Color(51, 51, 0));
+        btnAniadir.setText("Añadir ejercicio");
+        btnAniadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAniadirActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(450, 240, 240, 40);
+        getContentPane().add(btnAniadir);
+        btnAniadir.setBounds(450, 240, 240, 40);
 
         lblFlechaIzq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flecha-girar-hacia-abajo-a-la-izquierda (1).png"))); // NOI18N
         getContentPane().add(lblFlechaIzq);
@@ -223,7 +222,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         Workout entrenamiento = new Workout();
         //aqui cojo con la variablwe el valoer del entreno id seleccionado con el click
         wId=(int) tblEntrenosPorUsuario.getValueAt(fila, 0);
-        System.out.println(wId);
+        
         entrenamiento.setId((int) tblEntrenosPorUsuario.getValueAt(fila, 0));
         entrenamiento.setForDate((Date) tblEntrenosPorUsuario.getValueAt(fila, 1));
         entrenamiento.setIdUsuari((int) tblEntrenosPorUsuario.getValueAt(fila, 2));
@@ -235,16 +234,20 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
 
     }//GEN-LAST:event_tblEntrenosPorUsuarioMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAniadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirActionPerformed
        
-        cargaBBDDNuevosEjercicios();
+        if(variableControlItemSeleccionadoEjercicio && variableControlItemSeleccionadoEntreno){
+               cargaBBDDNuevosEjercicios();
+        }else{
+            JOptionPane.showMessageDialog(this, "Debe indicar entreno y ejercicio");
+            }
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAniadirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAniadir;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

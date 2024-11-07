@@ -125,11 +125,11 @@ public class DialogoLogin extends javax.swing.JDialog {
                 if (resultado.verified) {
 
                     System.out.println(u.getNom() + " " + u.isInstructor());
-                    fp.ConfirmacionLogin(resultado.verified, u.getId());
+                    fp.ConfirmacionLogin(resultado.verified, u.getId(),u.getEmail());
                     setVisible(false);
-                }
-            } else {
+                } else {
                 JOptionPane.showMessageDialog(rootPane, "Usuario no encontrado o no es instructor");
+                }
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Email no valido");

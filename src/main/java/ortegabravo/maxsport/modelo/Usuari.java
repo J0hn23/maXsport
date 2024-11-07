@@ -9,12 +9,12 @@ public class Usuari {
     private String nom;
     private String email;
     private String passwordHash;
-    private Byte[] foto;
+    private byte[] foto;
     private String fotoFilename;
     private boolean instructor;
     private int assignedInstructor;
 
-    public Usuari(int Id, String nom, String email, String passwordHash, Byte[] foto, String fotoFilename, boolean instructor, int assignedInstructor) {
+    public Usuari(int Id, String nom, String email, String passwordHash, byte[] foto, String fotoFilename, boolean instructor, int assignedInstructor) {
         this.Id = Id;
         this.nom = nom;
         this.email = email;
@@ -55,7 +55,7 @@ public class Usuari {
         return passwordHash;
     }
 
-    public Byte[] getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
     
@@ -86,7 +86,7 @@ public class Usuari {
         this.passwordHash = passwordHash;
     }
 
-    public void setFoto(Byte[] foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
 

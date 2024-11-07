@@ -25,7 +25,7 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         nuevoUsuario=new Usuari();
         
         char[] pass = jpsPassword.getPassword();
-        Byte[]fotoVacia=new Byte[10];
+        byte[]fotoVacia=new byte[10];
              
         String hash=BCrypt.withDefaults().hashToString(12, pass);
          

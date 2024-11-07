@@ -1,10 +1,14 @@
 package ortegabravo.maxsport.vista;
 
+import java.awt.Color;
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
@@ -16,6 +20,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     JDialog dlgDialogoLogin;
     ArrayList<Usuari> usuaris;
     private Connection conexion;
+    byte[] imagenByte;
     DialogoAbout da;
     DialogoNuevoUsuario dnu;
     DialogoListaUsuarios dlu;
@@ -35,26 +40,49 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     }
 
-    public void ConfirmacionLogin(boolean confirmacion, int idEntrenador) {
-        System.out.println(confirmacion);//esto es para ver lo que devuelve
+    private void cargarFoto() {
 
+        ImageIcon icon = byteArrayAImagen(imagenByte);
+        Image imagenIcon = icon.getImage();
+        Image nuevaImagenEscalada = imagenIcon.getScaledInstance(148, 170, java.awt.Image.SCALE_FAST);
+        ImageIcon iconoNuevo = new ImageIcon(nuevaImagenEscalada);
+        lblBoligrafo.setIcon(iconoNuevo);
+
+    }
+
+    private void obtenerUsuario(String mail) {
+
+        Usuari usuario = DataAccess.getUser(mail);
+        imagenByte = usuario.getFoto();
+        System.out.println(usuario.getNom());
+        System.out.println(usuario.getFoto());
+
+    }
+
+    public static ImageIcon byteArrayAImagen(byte[] imagen) {
+        ImageIcon icon = new ImageIcon(imagen);
+        return icon;
+    }
+
+    public void ConfirmacionLogin(boolean confirmacion, int idEntrenador, String mail) {
+   
         //si devuelve confirmacion como true entonces cierra el jpanel principal
         //y abre el secundario con la jtable cargada
         if (confirmacion) {
             pnlPanelPrincipal.setVisible(false);
 
             usuaris = new ArrayList<>();
-
             usuaris = DataAccess.getAllUsersByInstructor(idEntrenador);
-
+            //carga la tabla
             UsuariosTableModel utm = new UsuariosTableModel(usuaris);
             tblTablaUsuarios.setModel(utm);
             tblTablaUsuarios.setAutoCreateRowSorter(true);
 
             pnlPanelSecundario.setVisible(true);
+            obtenerUsuario(mail);
+            cargarFoto();
 
         }
-        System.out.println("****Datos login recibidos desde el login");//chekeo
         txtNumeroEntrenador.setText(String.valueOf(idEntrenador));
 
     }
@@ -81,9 +109,10 @@ public class FramePrincipal extends javax.swing.JFrame {
         btnNuevoUsuario = new javax.swing.JButton();
         lblEtiquetaWeb = new javax.swing.JLabel();
         txtNumeroEntrenador = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnListarEjercicios = new javax.swing.JButton();
         btnGestionEntrenos = new javax.swing.JButton();
         btnMostrarUsuarios = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         menMenu = new javax.swing.JMenuBar();
         mnbFile = new javax.swing.JMenu();
         mnbExit = new javax.swing.JMenu();
@@ -174,11 +203,11 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
         pnlPanelSecundario.add(btnAsignarEntreno);
-        btnAsignarEntreno.setBounds(510, 350, 340, 40);
+        btnAsignarEntreno.setBounds(510, 350, 380, 40);
 
-        lblBoligrafo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/boligrafo-cuadrado (1).png"))); // NOI18N
+        lblBoligrafo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
         pnlPanelSecundario.add(lblBoligrafo);
-        lblBoligrafo.setBounds(520, 10, 300, 260);
+        lblBoligrafo.setBounds(620, 20, 130, 160);
 
         lblLogoPanelSecundario.setFont(new java.awt.Font("Noto Serif CJK JP", 2, 36)); // NOI18N
         lblLogoPanelSecundario.setForeground(new java.awt.Color(0, 51, 51));
@@ -197,7 +226,7 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
         pnlPanelSecundario.add(btnSignOut);
-        btnSignOut.setBounds(790, 20, 80, 70);
+        btnSignOut.setBounds(770, 20, 120, 70);
 
         btnNuevoUsuario.setBackground(new java.awt.Color(0, 51, 51));
         btnNuevoUsuario.setForeground(new java.awt.Color(0, 153, 153));
@@ -209,7 +238,7 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
         pnlPanelSecundario.add(btnNuevoUsuario);
-        btnNuevoUsuario.setBounds(510, 410, 170, 40);
+        btnNuevoUsuario.setBounds(510, 410, 190, 40);
 
         lblEtiquetaWeb.setText("www.maXsport.com");
         pnlPanelSecundario.add(lblEtiquetaWeb);
@@ -221,18 +250,18 @@ public class FramePrincipal extends javax.swing.JFrame {
         txtNumeroEntrenador.setEnabled(false);
         txtNumeroEntrenador.setSelectionColor(new java.awt.Color(0, 0, 0));
         pnlPanelSecundario.add(txtNumeroEntrenador);
-        txtNumeroEntrenador.setBounds(790, 100, 80, 33);
+        txtNumeroEntrenador.setBounds(770, 150, 80, 33);
 
-        jButton1.setBackground(new java.awt.Color(0, 204, 204));
-        jButton1.setText("Mostrar ejercicios ");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnListarEjercicios.setBackground(new java.awt.Color(0, 204, 204));
+        btnListarEjercicios.setText("Mostrar ejercicios ");
+        btnListarEjercicios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnListarEjercicios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnListarEjerciciosActionPerformed(evt);
             }
         });
-        pnlPanelSecundario.add(jButton1);
-        jButton1.setBounds(510, 290, 170, 40);
+        pnlPanelSecundario.add(btnListarEjercicios);
+        btnListarEjercicios.setBounds(510, 290, 190, 40);
 
         btnGestionEntrenos.setBackground(new java.awt.Color(204, 255, 204));
         btnGestionEntrenos.setText("Gestion entrenos");
@@ -242,7 +271,7 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
         pnlPanelSecundario.add(btnGestionEntrenos);
-        btnGestionEntrenos.setBounds(690, 410, 160, 40);
+        btnGestionEntrenos.setBounds(710, 410, 180, 40);
 
         btnMostrarUsuarios.setBackground(new java.awt.Color(51, 255, 102));
         btnMostrarUsuarios.setText("Mostrar usuarios");
@@ -252,7 +281,11 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
         pnlPanelSecundario.add(btnMostrarUsuarios);
-        btnMostrarUsuarios.setBounds(690, 290, 160, 40);
+        btnMostrarUsuarios.setBounds(710, 290, 180, 40);
+
+        jLabel2.setText("Instructor");
+        pnlPanelSecundario.add(jLabel2);
+        jLabel2.setBounds(770, 120, 80, 30);
 
         getContentPane().add(pnlPanelSecundario);
         pnlPanelSecundario.setBounds(0, 0, 900, 600);
@@ -336,12 +369,16 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     private void mnbAboutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnbAboutMousePressed
         da = new DialogoAbout(this, true);
+        JComponent contenedor=(JComponent) da.getContentPane();
+        contenedor.setBackground(new Color(150,150,150));
         da.setVisible(true);
     }//GEN-LAST:event_mnbAboutMousePressed
 
     private void btnNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoUsuarioActionPerformed
 
         dnu = new DialogoNuevoUsuario(this, true);
+        JComponent contenedor=(JComponent) dnu.getContentPane();
+        contenedor.setBackground(new Color(150,150,150));
         dnu.setVisible(true);
 
     }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
@@ -350,14 +387,16 @@ public class FramePrincipal extends javax.swing.JFrame {
         //daeae=new DialogoAsignarEjerciciosAEntreno(this,false);
         //daeae.setVisible(true);
         dcece = new DialogoCrearEntrenoConEjercicios(this, false);
+        JComponent contenedor=(JComponent) dcece.getContentPane();
+        contenedor.setBackground(new Color(150,150,150));
         dcece.setVisible(true);
 
     }//GEN-LAST:event_btnAsignarEntrenoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnListarEjerciciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarEjerciciosActionPerformed
         dle = new DialogoListaEjercicios(this, false);
         dle.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnListarEjerciciosActionPerformed
 
     private void btnGestionEntrenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionEntrenosActionPerformed
         dge = new DialogoGestionEjercicios(this, true);
@@ -374,11 +413,12 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnAsignarEntreno;
     private javax.swing.JButton btnBotonLogin;
     private javax.swing.JButton btnGestionEntrenos;
+    private javax.swing.JButton btnListarEjercicios;
     private javax.swing.JButton btnMostrarUsuarios;
     private javax.swing.JButton btnNuevoUsuario;
     private javax.swing.JButton btnSignOut;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBoligrafo;
     private javax.swing.JLabel lblEtiquetaLogo;

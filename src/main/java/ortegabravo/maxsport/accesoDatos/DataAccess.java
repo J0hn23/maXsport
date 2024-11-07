@@ -48,6 +48,7 @@ public class DataAccess {
                 user.setNom(resultSet.getString("Nom"));
                 user.setEmail(resultSet.getString("Email"));
                 user.setPasswordHash(resultSet.getString("PasswordHash"));
+                user.setFoto(resultSet.getBytes("Foto"));
                 user.setInstructor(resultSet.getBoolean("Instructor"));
             }
         } catch (SQLException e) {
