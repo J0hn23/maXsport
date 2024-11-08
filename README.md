@@ -16,7 +16,9 @@ maXsport es una aplicación diseñada para gestionar los entrenamientos de los u
 
 ## Descripción
 La aplicación permite a los usuarios registrar sus entrenamientos, monitorear y consultar sus ejercicios y ajustar sus planes de ejercicio según sus objetivos conforme a las rutinas que su entrenador decida. Cada entrenador puede ir variando la rutina de ejercicios por ususarios segun su desempeño.
- 
+
+[PLAN.pdf](https://github.com/user-attachments/files/17681063/PLAN.pdf)
+
 ## Estado
 El proyecto se encuentra en proceso de desarrollo. Actualmente se están mejorando la interfaz de usuario, añadiendo el login y en los proximos dias se generarán las clases para el acceso a los datos.
 
