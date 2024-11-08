@@ -7,6 +7,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.modelo.Exercici;
+import ortegabravo.maxsport.modelo.Usuari;
 import ortegabravo.maxsport.modelo.Workout;
 
 public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
@@ -31,6 +32,16 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         cmbComboObject.setBounds(30, 260, 400, 30);
     
     }
+    
+    
+    private int buscarIdUltimoUsuario(){
+          
+        ArrayList<Usuari>usuarios=DataAccess.getAllUsers();
+    
+        int idUltimoUsuario=usuarios.getLast().getId();
+
+    return idUltimoUsuario;
+    }
 
     public int aniadirEntreno(ArrayList<Exercici> exercicis) {
         
@@ -39,16 +50,22 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         
         String s=txtId.getText();
         
+        
+        
         if(s.equals("")){
             JOptionPane.showMessageDialog(rootPane, "Debe introducir un número de usuario");
+        }else if(Integer.parseInt(s)<=buscarIdUltimoUsuario()){
+            w.setIdUsuari(Integer.parseInt(txtId.getText()));
+            w.setComments(txtComentaio.getText());
+            w.setForDate((Date) spnFechaEntreno.getValue());
+            DataAccess.insertWorkout(w, exercicis);
+            JOptionPane.showMessageDialog(rootPane, "Entreno añadido");
+            return 1;
         }else{
-             w.setIdUsuari(Integer.parseInt(txtId.getText()));
-              w.setComments(txtComentaio.getText());
-               w.setForDate((Date) spnFechaEntreno.getValue());
-                DataAccess.insertWorkout(w, exercicis); 
-                JOptionPane.showMessageDialog(rootPane, "Entreno añadido");
-                return 1;
-            }
+            JOptionPane.showMessageDialog(rootPane, "Usuario no existe");
+        }
+        
+        
     return 0;
     }
 

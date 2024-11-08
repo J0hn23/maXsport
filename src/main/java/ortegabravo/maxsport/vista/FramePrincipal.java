@@ -44,7 +44,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         ImageIcon icon = byteArrayAImagen(imagenByte);
         Image imagenIcon = icon.getImage();
-        Image nuevaImagenEscalada = imagenIcon.getScaledInstance(148, 170, java.awt.Image.SCALE_FAST);
+        Image nuevaImagenEscalada = imagenIcon.getScaledInstance(190, 160, java.awt.Image.SCALE_FAST);
         ImageIcon iconoNuevo = new ImageIcon(nuevaImagenEscalada);
         lblBoligrafo.setIcon(iconoNuevo);
 
@@ -207,7 +207,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         lblBoligrafo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
         pnlPanelSecundario.add(lblBoligrafo);
-        lblBoligrafo.setBounds(620, 20, 130, 160);
+        lblBoligrafo.setBounds(560, 20, 190, 160);
 
         lblLogoPanelSecundario.setFont(new java.awt.Font("Noto Serif CJK JP", 2, 36)); // NOI18N
         lblLogoPanelSecundario.setForeground(new java.awt.Color(0, 51, 51));
