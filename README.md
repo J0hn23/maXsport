@@ -37,4 +37,4 @@ Intenté realizar la carba del combobox con objetos a mi manera y la hice pero l
 
 ## Colaboradores
 gjm@paucasesnovescifp.cat
-Mi hija ha realizado el logo
+Mi hija ha realizado el logo y mi hijo testea errores.
