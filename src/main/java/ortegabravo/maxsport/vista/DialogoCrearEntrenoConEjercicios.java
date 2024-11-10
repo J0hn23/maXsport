@@ -22,51 +22,46 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
 
         //setSize(450, 600);
-       cargarComboEjercicios();
-         
+        cargarComboEjercicios();
+
     }
-    
-    private void cargarComboEjercicios(){
+
+    private void cargarComboEjercicios() {
         cmbComboObject = new javax.swing.JComboBox<>();
         getContentPane().add(cmbComboObject);
         cmbComboObject.setBounds(30, 260, 400, 30);
-    
-    }
-    
-    
-    private int buscarIdUltimoUsuario(){
-          
-        ArrayList<Usuari>usuarios=DataAccess.getAllUsers();
-    
-        int idUltimoUsuario=usuarios.getLast().getId();
 
-    return idUltimoUsuario;
+    }
+
+    private int buscarIdUltimoUsuario() {
+
+        ArrayList<Usuari> usuarios = DataAccess.getAllUsers();
+
+        int idUltimoUsuario = usuarios.getLast().getId();
+
+        return idUltimoUsuario;
     }
 
     public int aniadirEntreno(ArrayList<Exercici> exercicis) {
-        
+
         Workout w = new Workout();
-       
-        
-        String s=txtId.getText();
-        
-        
-        
-        if(s.equals("")){
+
+        String s = txtId.getText();
+
+        if (s.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Debe introducir un número de usuario");
-        }else if(Integer.parseInt(s)>buscarIdUltimoUsuario() ||  Integer.parseInt(s)<=buscarIdUltimoUsuario()){
+        } else if (Integer.parseInt(s) > buscarIdUltimoUsuario() || Integer.parseInt(s) <= buscarIdUltimoUsuario()) {
             w.setIdUsuari(Integer.parseInt(txtId.getText()));
             w.setComments(txtComentaio.getText());
             w.setForDate((Date) spnFechaEntreno.getValue());
             DataAccess.insertWorkout(w, exercicis);
             JOptionPane.showMessageDialog(rootPane, "Entreno añadido");
             return 1;
-        }else{
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Usuario no existe");
         }
-        
-        
-    return 0;
+
+        return 0;
     }
 
     @SuppressWarnings("unchecked")
@@ -85,6 +80,7 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         txaEjerciciosSeleccionados = new javax.swing.JTextArea();
         jSeparator1 = new javax.swing.JSeparator();
         btnAniadirejercicio = new javax.swing.JButton();
+        cmbNombreUsuario = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -156,6 +152,9 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         getContentPane().add(btnAniadirejercicio);
         btnAniadirejercicio.setBounds(30, 490, 160, 50);
 
+        getContentPane().add(cmbNombreUsuario);
+        cmbNombreUsuario.setBounds(210, 100, 130, 30);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -179,8 +178,47 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
             }
         });
 
+        cargaComboNombreUsuario();
+
 
     }//GEN-LAST:event_formWindowOpened
+
+    private void cargaComboNombreUsuario() {
+
+        var usuarios = DataAccess.getAllUsers();
+        DefaultComboBoxModel dcbmUsuarios = new DefaultComboBoxModel();
+        cmbNombreUsuario.setModel(dcbmUsuarios);
+
+        for (Usuari u : usuarios) {
+
+            cmbNombreUsuario.addItem(u.getNom());
+
+        }
+
+        cmbNombreUsuario.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbNombreUsuarioActionPerformed(evt);
+            }
+
+            private void cmbNombreUsuarioActionPerformed(ActionEvent evt) {
+
+                String nombre = (String) cmbNombreUsuario.getSelectedItem();
+                int id = 0;
+
+                for (Usuari u : usuarios) {
+                    if (u.getNom().equals(nombre)) {
+                        id = u.getId();
+                    }
+
+                }
+
+                txtId.setText(String.valueOf(id));
+            }
+
+        });
+
+    }
 
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -188,11 +226,12 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAniadirejercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirejercicioActionPerformed
- 
-        int realizado=aniadirEntreno(listaEjerciciosSeleccionados);
 
-        
-        if(realizado==1)setVisible(false);
+        int realizado = aniadirEntreno(listaEjerciciosSeleccionados);
+
+        if (realizado == 1) {
+            setVisible(false);
+        }
 
     }//GEN-LAST:event_btnAniadirejercicioActionPerformed
 
@@ -215,6 +254,7 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAniadirejercicio;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JComboBox<String> cmbNombreUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
