@@ -2,6 +2,8 @@
 package ortegabravo.maxsport.vista;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import java.awt.HeadlessException;
+import javax.swing.JOptionPane;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.modelo.Usuari;
 
@@ -34,12 +36,17 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         nuevoUsuario.setPasswordHash(hash);
             
         nuevoUsuario.setInstructor(chkIsInstructor.isSelected());
-        System.out.println(chkIsInstructor.isSelected()+"        -------------");
+        //System.out.println(chkIsInstructor.isSelected()+"        -------------");
         nuevoUsuario.setAssignedInstructor(Integer.parseInt(txtInstructorasignado.getText()));
         
         nuevoUsuario.setFoto(fotoVacia);
        // nuevoUsuario.setId(000);
         
+       
+       
+       
+       
+       
         DataAccess.registerUser(nuevoUsuario);
   
     }
@@ -71,12 +78,24 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         lblNombre.setText("Nombre:");
         getContentPane().add(lblNombre);
         lblNombre.setBounds(26, 32, 70, 18);
+
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtNombre);
         txtNombre.setBounds(110, 30, 200, 24);
 
         jLabel1.setText("Correo:");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(30, 80, 60, 18);
+
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtCorreo);
         txtCorreo.setBounds(110, 80, 200, 24);
 
@@ -87,6 +106,12 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         lblInstructorAsignado.setText("Asg.Intructor");
         getContentPane().add(lblInstructorAsignado);
         lblInstructorAsignado.setBounds(30, 180, 60, 18);
+
+        txtInstructorasignado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInstructorasignadoKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtInstructorasignado);
         txtInstructorasignado.setBounds(110, 180, 64, 24);
 
@@ -125,9 +150,53 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAnyadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnyadirActionPerformed
-        cargarUsuario();
-        setVisible(false);
+        
+        String nombre=txtNombre.getText();
+        String correo=txtCorreo.getText();
+        
+        
+            if (nombre.equals("") || correo.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "Debe introducir los datos");
+            }else{
+                try{
+                cargarUsuario();
+                }catch (Exception e) 
+                    {
+                     JOptionPane.showMessageDialog(rootPane, "Error al añadir");   
+                    }          
+                } 
+       setVisible(false);
+       
+            
+        
+        
+        
+        
     }//GEN-LAST:event_btnAnyadirActionPerformed
+
+    private void txtInstructorasignadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInstructorasignadoKeyTyped
+       char c = evt.getKeyChar();
+        if ((c < '0' || c > '9'))
+            evt.consume();
+    }//GEN-LAST:event_txtInstructorasignadoKeyTyped
+
+    private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
+        char c = evt.getKeyChar();
+        if ((c < '0' || c > '9') && (c < '@' || c > 'z') && (c < 'A' || c > 'Z')
+                && (c < '-' || c > '.')) {
+            evt.consume();
+        }
+
+    }//GEN-LAST:event_txtCorreoKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        char c = evt.getKeyChar();
+        if ((c < '0' || c > '9') && (c < 'a' || c > 'z') && (c < 'A' || c > 'Z')
+                && (c < '-' || c > '.')) {
+            evt.consume();
+        }
+
+    }//GEN-LAST:event_txtNombreKeyTyped
     
     
     

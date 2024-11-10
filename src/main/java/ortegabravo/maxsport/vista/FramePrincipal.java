@@ -13,6 +13,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
+import ortegabravo.maxsport.accesoDatos.UsuariosTableModel;
 import ortegabravo.maxsport.modelo.Usuari;
 
 public class FramePrincipal extends javax.swing.JFrame {
@@ -435,7 +436,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 }
 //uso la interface abstracttablemodel para crear una tabla como yo quiera
 
-class UsuariosTableModel extends AbstractTableModel {
+/*class UsuariosTableModel extends AbstractTableModel {
 
     private final String[] columns = {"Id Usuario", "Nombre", "Correo", "Foto"};
     public ArrayList<Usuari> usuaris = null;
@@ -485,3 +486,4 @@ class UsuariosTableModel extends AbstractTableModel {
     }
 
 }
+*/
