@@ -1,0 +1,176 @@
+[33mcommit 44d5c66a69a95423965f7bcca810ec7b74129c26[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: J0hn23 <jonathan.ortega.bravo@hotmail.com>
+Date:   Fri Nov 8 17:34:16 2024 +0100
+
+    solucionados errores de entrada de datos como espacios en blanco o numeros fuera de rango
+
+[33mcommit 05e8992a4b666e17bbf3d5cae00150518398246a[m
+Author: Jonathan M.O.B <157231108+J0hn23@users.noreply.github.com>
+Date:   Fri Nov 8 17:08:24 2024 +0100
+
+    Update README.md
+
+[33mcommit 6602aaff9b20c1ca9cb1092670c54bed7c143920[m
+Author: Jonathan M.O.B <157231108+J0hn23@users.noreply.github.com>
+Date:   Fri Nov 8 17:07:27 2024 +0100
+
+    Update README.md
+
+[33mcommit f928dc3ec835c5edd734de88a5676f3bf8715feb[m
+Author: Jonathan M.O.B <157231108+J0hn23@users.noreply.github.com>
+Date:   Fri Nov 8 17:01:38 2024 +0100
+
+    Update README.md
+
+[33mcommit 9276b9182b9c3dd8d456709c4d6c0a82da3f4332[m
+Author: J0hn23 <jonathan.ortega.bravo@hotmail.com>
+Date:   Thu Nov 7 22:23:13 2024 +0100
+
+    he añadido la foto al entrenador en el panel secundario, he arreglado los errorers al introducir espacios en blanco en algunas selecciones
+
+[33mcommit e4432a50b48ac010ab3a3dde98af0a1fc1e0e8c6[m
+Author: J0hn23 <jonathan.ortega.bravo@hotmail.com>
+Date:   Wed Nov 6 19:01:20 2024 +0100
+
+    creado en el dialog de mostrar entrenos por usuario la opcion de añadir ejercicios a entrenos
+
+[33mcommit 1f9b7fb66524816cb0677b43f857cf35de6a9794[m
+Author: J0hn23 <jonathan.ortega.bravo@hotmail.com>
+Date:   Wed Nov 6 12:29:56 2024 +0100
+
+    cambio en dialogs
+
+[33mcommit 405d38e4fafb392b2d72c4c182530900c712a980[m
+Author: Jonathan M O.B <157231108+J0hn23@users.noreply.github.com>
+Date:   Tue Nov 5 18:23:40 2024 +0100
+
+    Update README.md
+
+[33mcommit f4cf869f131fe5d2c55b64d88782a0dd3fe677fd[m
+Author: J0hn23 <jonathan.ortega.bravo@hotmail.com>
+Date:   Tue Oct 29 09:28:13 2024 +0100
+
+    he creado el dialog para añadir nuevos ejercicios a los entrenos
+
+[33mcommit a78c3804de5bc69007df4151881dc21cf3821e06[m
+Author: J0hn23 <jonathan.ortega.bravo@hotmail.com>
+Date:   Mon Oct 28 16:36:16 2024 +0100
+
+    inicio el jdialog de seleccion de ejercicos por entreno y he hecho funcionar la calse para asignar nuevos entrenamientos que me daba problemas la dataaccess por un dato tipo date que habia que pasarle
+
+[33mcommit ae23d31dce07323c9d4065c964bf42cd7a261f7b[m
+Author: J0hn23 <jonathan.ortega.bravo@hotmail.com>
+Date:   Sun Oct 27 22:35:29 2024 +0100
+
+    creo el dialog añadir entreno
+
+[33mcommit 6fb0dfe2afecb5a2fbeebd2eb285199ef139f9f7[m
+Merge: fc4c2ff bac1a64
+Author: J0hn23 <jonathan.ortega.bravo@hotmail.com>
+Date:   Sun Oct 27 16:27:53 2024 +0100
+
+    Merge branch 'main' of https://github.com/J0hn23/maXsport
+
+[33mcommit fc4c2ff435076f27304d9038508cfb46b4194ea9[m
+Author: J0hn23 <jonathan.ortega.bravo@hotmail.com>
+Date:   Sun Oct 27 16:26:45 2024 +0100
+
+    realizado el dialog de añadir usuario, tuve que cambiar la clase controladora dataaccess, dos de los metodos no eran correctos para oobtener el usuario y asignarle el entrenador asignado
+
+[33mcommit bac1a6438b12c82587cd39f07968f6adecccfab8[m
+Author: Jonathan M O.B <157231108+J0hn23@users.noreply.github.com>
+Date:   Sun Oct 27 14:16:09 2024 +0100
+
+    Update README.md
+
+[33mcommit dbc1b485218240bfaec10b742d9c0a5d0185d6fd[m
+Author: Jonathan M O.B <157231108+J0hn23@users.noreply.github.com>
+Date:   Sun Oct 27 12:16:40 2024 +0100
+
+    Update README.md
+
+[33mcommit 2c8c94fe8326b8aadb29ce23a082942ec3df9ff4[m
+Author: Jonathan M O.B <157231108+J0hn23@users.noreply.github.com>
+Date:   Sun Oct 27 12:15:39 2024 +0100
+
+    Update README.md
+    
+    cambio de logo
+
+[33mcommit 44217227a0277a0d65bd35dfa915c826b6147402[m
+Author: Jonathan M O.B <157231108+J0hn23@users.noreply.github.com>
+Date:   Sun Oct 27 09:43:48 2024 +0100
+
+    Update README.md
+
+[33mcommit 054af09bf31ab2779841d4b1a27a7751859de19d[m
+Author: Jonathan M O.B <157231108+J0hn23@users.noreply.github.com>
+Date:   Sat Oct 26 23:49:52 2024 +0200
+
+    Update README.md
+    
+    Añadido el readme, ya lo había subido pero tuve que regresar a un commit anterior y se  me borró
+
+[33mcommit 0ba456a77d518eaaaebc4405c830d4b9149152ea[m
+Author: J0hn23 <jonathan.ortega.bravo@hotmail.com>
+Date:   Sat Oct 26 17:44:11 2024 +0200
+
+    realizado el jpanel con la jtable que muestra los alumnos por entrenador, tb el jdialog con los entrenos por user cuando se clikea al usuario en la tabla,tb el resultado al clikear el entreno que da los ejercicios por entreno
+
+[33mcommit 0c014feed356df020f89cff3934757a96cd91430[m
+Author: J0hn23 <jonathan.ortega.bravo@hotmail.com>
+Date:   Fri Oct 25 17:20:41 2024 +0200
+
+    añadidos las clases modelo dto y la consulta del login
+
+[33mcommit 4153e43b871ab7f88763213ff54d76c8ebf299fa[m
+Merge: 1a9eabc df1e17d
+Author: J0hn23 <jonathan.ortega.bravo@hotmail.com>
+Date:   Wed Oct 23 16:22:43 2024 +0200
+
+    fusion despues de hacer el readmeM
+    Merge branch 'main' of https://github.com/J0hn23/maXsport
+
+[33mcommit 1a9eabc506a2e8ba13ed61eb8180d6cdf416717f[m
+Author: J0hn23 <jonathan.ortega.bravo@hotmail.com>
+Date:   Wed Oct 23 16:20:44 2024 +0200
+
+    Añadido el login y la imagen de la pantalla principal
+
+[33mcommit df1e17d31c22ce1997f3cdffc9a2afc8e15b46e6[m
+Author: Jonathan M O.B <157231108+J0hn23@users.noreply.github.com>
+Date:   Tue Oct 22 21:25:01 2024 +0200
+
+    Update README.md
+
+[33mcommit 3df807156e1c9fd31eeed981ec4c814957835451[m
+Author: Jonathan M O.B <157231108+J0hn23@users.noreply.github.com>
+Date:   Tue Oct 22 21:22:21 2024 +0200
+
+    Update README.md
+
+[33mcommit 741049468e6a9133ecdc8336a82240ec6d66359c[m
+Author: Jonathan M O.B <157231108+J0hn23@users.noreply.github.com>
+Date:   Tue Oct 22 21:21:04 2024 +0200
+
+    Update README.md
+    
+    Creaccion del readme
+
+[33mcommit 52d20ebebfbe0e0c37d7a3a432ac9c16db2ad466[m
+Author: J0hn23 <jonathan.ortega.bravo@hotmail.com>
+Date:   Tue Oct 22 11:46:20 2024 +0200
+
+    Se inicia el proyecto con la creacion del JFrame y un Jpanel
+
+[33mcommit 4c244a320e72e69eadfd3b1aed970a1dd7297580[m
+Author: J0hn23 <jonathan.ortega.bravo@hotmail.com>
+Date:   Tue Oct 22 10:34:19 2024 +0200
+
+    Primer commit realizado por mi
+
+[33mcommit 565c855698ea8123bf945a2f904af8446a018331[m
+Author: J0hn23 <157231108+J0hn23@users.noreply.github.com>
+Date:   Tue Oct 22 08:40:46 2024 +0200
+
+    Initial commit

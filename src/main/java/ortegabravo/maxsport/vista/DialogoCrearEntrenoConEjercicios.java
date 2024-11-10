@@ -54,7 +54,7 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         
         if(s.equals("")){
             JOptionPane.showMessageDialog(rootPane, "Debe introducir un número de usuario");
-        }else if(Integer.parseInt(s)<=buscarIdUltimoUsuario()){
+        }else if(Integer.parseInt(s)>buscarIdUltimoUsuario() ||  Integer.parseInt(s)<=buscarIdUltimoUsuario()){
             w.setIdUsuari(Integer.parseInt(txtId.getText()));
             w.setComments(txtComentaio.getText());
             w.setForDate((Date) spnFechaEntreno.getValue());

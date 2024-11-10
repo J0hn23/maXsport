@@ -24,8 +24,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     DialogoAbout da;
     DialogoNuevoUsuario dnu;
     DialogoListaUsuarios dlu;
-    DialogoListaEjercicios dle;
-    DialogoGestionEjercicios dge;
+    DialogoListaEjercicios dle;  
     DialogoCrearEntrenoConEjercicios dcece;
 
     public FramePrincipal() {
@@ -399,8 +398,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarEjerciciosActionPerformed
 
     private void btnGestionEntrenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionEntrenosActionPerformed
-        dge = new DialogoGestionEjercicios(this, true);
-        dge.setVisible(true);
+        JOptionPane.showMessageDialog(rootPane, "En contrucción");
     }//GEN-LAST:event_btnGestionEntrenosActionPerformed
 
     private void btnMostrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarUsuariosActionPerformed
