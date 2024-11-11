@@ -1,9 +1,11 @@
 package ortegabravo.maxsport.vista;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_OPTION;
 import javax.swing.table.AbstractTableModel;
@@ -15,16 +17,16 @@ import ortegabravo.maxsport.modelo.Workout;
 public class DialogoEntrenamientos extends javax.swing.JDialog {
 
     private javax.swing.JComboBox<Exercici> cmbComboEjercicios;
-    private ArrayList<Exercici>listaEjerciciosAniadir;
+    private ArrayList<Exercici> listaEjerciciosAniadir;
     private int wId;
-    private boolean variableControlItemSeleccionadoEjercicio=false;
-    private boolean variableControlItemSeleccionadoEntreno=false;
-    
+    private boolean variableControlItemSeleccionadoEjercicio = false;
+    private boolean variableControlItemSeleccionadoEntreno = false;
+
     public DialogoEntrenamientos(java.awt.Frame parent, boolean modal, String correo, String nombre) {
         super(parent, false);
         initComponents();
 
-        setLocationRelativeTo(parent);
+        setLocationRelativeTo(null);
 
         txtNombreAlumno.setText(nombre);
         //txtInfoEntreno.setText(cargarEntrenamientos(correo));
@@ -32,16 +34,29 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         //ArrayList<Exercici> getExercicisPerWorkout(Workout workout)
         cargarTablaEntrenamientos(correo);
         cargaComboEjercicios();
-        
-        
 
     }
-    
+
+    private void cargaListaConObjetos(Workout entrenamiento) {
+
+        ArrayList<Exercici> exercicis;
+        exercicis = DataAccess.getExercicisPerWorkout((entrenamiento));
+        variableControlItemSeleccionadoEntreno = true;
+        DefaultListModel<String> dlm = new DefaultListModel();
+
+        for (Exercici e : exercicis) {
+            dlm.addElement(e.getDescripcio());
+        }
+
+        lstListaEjercicios.setModel(dlm);
+
+    }
+
     private void cmbComboEjerciciosActionPerformed(ActionEvent evt) {
 
-        listaEjerciciosAniadir=new ArrayList<>();
+        listaEjerciciosAniadir = new ArrayList<>();
         listaEjerciciosAniadir.add((Exercici) cmbComboEjercicios.getSelectedItem());
-        variableControlItemSeleccionadoEjercicio=true;
+        variableControlItemSeleccionadoEjercicio = true;
     }
 
     private void cargarTablaEntrenamientos(String correo) {
@@ -49,16 +64,15 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         Usuari usuario = null;
         ArrayList<Workout> workouts;
         usuario = DataAccess.getUser(correo);
-        
-        
+
         workouts = DataAccess.getWorkoutsPerUser(usuario);
-       
+
         // ejercicios = new ArrayList<>();
         //ejercicios = DataAccess.getExercicisPerWorkout(workouts);
         EntrenosTableModel eptm = new EntrenosTableModel(workouts);
         tblEntrenosPorUsuario.setModel(eptm);
         tblEntrenosPorUsuario.setAutoCreateRowSorter(true);
-        
+
     }
 
     private void cargaComboEjercicios() {
@@ -73,48 +87,25 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         for (Exercici e : ejercicios) {
             cmbComboEjercicios.addItem(e);
         }
-        
+
         cmbComboEjercicios.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbComboEjerciciosActionPerformed(evt);
             }
         });
-  
+
     }
-    
-    
+
     private void cargaBBDDNuevosEjercicios() {
-        
-        int opcion=JOptionPane.showConfirmDialog(this, "Se va a añadir ejercicio","Confirme", JOptionPane.YES_NO_OPTION);
-        if(opcion==YES_OPTION){
+
+        int opcion = JOptionPane.showConfirmDialog(this, "Se va a añadir ejercicio", "Confirme", JOptionPane.YES_NO_OPTION);
+        if (opcion == YES_OPTION) {
             DataAccess.insertExercisesPerWorkout(wId, listaEjerciciosAniadir);
-             JOptionPane.showMessageDialog(this, "Ejercicio añadido con exito");
-        }else{
-                JOptionPane.showMessageDialog(this, "No añadido ejercicio");
+            JOptionPane.showMessageDialog(this, "Ejercicio añadido con exito");
+        } else {
+            JOptionPane.showMessageDialog(this, "No añadido ejercicio");
         }
-        
-        
-       
-    }
-
-    private void cargarEjerciciosPorEntreno(Workout entrenamiento) {
-
-        //aqui cargo la tabla con los ejercicios y el resultado lo paso
-        //a un string que carga el txtArea para ver los ejercicios por entreno
-        String cadenaEjercicios = "";
-        ArrayList<Exercici> exercicis;
-        exercicis = DataAccess.getExercicisPerWorkout((entrenamiento));
-        variableControlItemSeleccionadoEntreno=true;
-        for (Exercici e : exercicis) {
-            //cadenaEjercicios=e.getId();
-            cadenaEjercicios += e.getNomExercici() + " ";
-            cadenaEjercicios += e.getDescripcio() + "  \n";
-            cadenaEjercicios += "--------------------\n";
-            
-        }
-       
-        txaResultadoEjercicios.setText(cadenaEjercicios);
 
     }
 
@@ -127,11 +118,11 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEntrenosPorUsuario = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txaResultadoEjercicios = new javax.swing.JTextArea();
         btnAniadir = new javax.swing.JButton();
         lblFlechaIzq = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        lstListaEjercicios = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -181,13 +172,6 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(20, 50, 350, 90);
 
-        txaResultadoEjercicios.setColumns(20);
-        txaResultadoEjercicios.setRows(5);
-        jScrollPane2.setViewportView(txaResultadoEjercicios);
-
-        getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(20, 150, 350, 150);
-
         btnAniadir.setBackground(new java.awt.Color(153, 255, 153));
         btnAniadir.setForeground(new java.awt.Color(51, 51, 0));
         btnAniadir.setText("Añadir ejercicio");
@@ -207,6 +191,11 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(440, 40, 220, 18);
 
+        jScrollPane3.setViewportView(lstListaEjercicios);
+
+        getContentPane().add(jScrollPane3);
+        jScrollPane3.setBounds(20, 180, 350, 110);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -221,27 +210,28 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         //con la fila cargo un objeto tipo workout con los datos de la fila de la tabla
         Workout entrenamiento = new Workout();
         //aqui cojo con la variablwe el valoer del entreno id seleccionado con el click
-        wId=(int) tblEntrenosPorUsuario.getValueAt(fila, 0);
-        
+        wId = (int) tblEntrenosPorUsuario.getValueAt(fila, 0);
+
         entrenamiento.setId((int) tblEntrenosPorUsuario.getValueAt(fila, 0));
         entrenamiento.setForDate((Date) tblEntrenosPorUsuario.getValueAt(fila, 1));
         entrenamiento.setIdUsuari((int) tblEntrenosPorUsuario.getValueAt(fila, 2));
         entrenamiento.setComments((String) tblEntrenosPorUsuario.getValueAt(fila, 3));
 
         //paso el objeto workout al metod creado por mi ue creara la tabla con los ejercicios
-        cargarEjerciciosPorEntreno(entrenamiento);
+        cargaListaConObjetos(entrenamiento);
 
 
     }//GEN-LAST:event_tblEntrenosPorUsuarioMouseClicked
 
     private void btnAniadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirActionPerformed
-       
-        if(variableControlItemSeleccionadoEjercicio && variableControlItemSeleccionadoEntreno){
-               cargaBBDDNuevosEjercicios();
-        }else{
+
+        if (variableControlItemSeleccionadoEjercicio && variableControlItemSeleccionadoEntreno) {
+            cargaBBDDNuevosEjercicios();
+
+        } else {
             JOptionPane.showMessageDialog(this, "Debe indicar entreno y ejercicio");
-            }
-        
+        }
+
     }//GEN-LAST:event_btnAniadirActionPerformed
 
 
@@ -251,14 +241,13 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblFlechaIzq;
+    private javax.swing.JList<String> lstListaEjercicios;
     private javax.swing.JTable tblEntrenosPorUsuario;
-    private javax.swing.JTextArea txaResultadoEjercicios;
     private javax.swing.JTextField txtNombreAlumno;
     // End of variables declaration//GEN-END:variables
 
-    
 }
 
 //de nuevo con la interface Abstracttablemodel creo una tabla a mi gusto

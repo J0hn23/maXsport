@@ -343,9 +343,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         //correo y nombre para usarlos alli, en el nuevo jdialog
         DialogoEntrenamientos de = new DialogoEntrenamientos(this, false, correoAlumno, nombre);
         de.setSize(500, 400);
-        de.setVisible(true);
+        de. setBackground(new Color(150,150,150));
         de.setLocationRelativeTo(null);
-
+        de.setVisible(true);
 
     }//GEN-LAST:event_tblTablaUsuariosMouseClicked
 
@@ -434,56 +434,3 @@ public class FramePrincipal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 }
-//uso la interface abstracttablemodel para crear una tabla como yo quiera
-
-/*class UsuariosTableModel extends AbstractTableModel {
-
-    private final String[] columns = {"Id Usuario", "Nombre", "Correo", "Foto"};
-    public ArrayList<Usuari> usuaris = null;
-
-    public UsuariosTableModel(ArrayList<Usuari> usuaris) {
-        this.usuaris = usuaris;
-    }
-
-    @Override
-    public int getRowCount() {
-
-        return usuaris.size();
-    }
-
-    @Override
-    public int getColumnCount() {
-
-        return columns.length;
-    }
-
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-
-        return switch (columnIndex) {
-            case 0 ->
-                usuaris.get(rowIndex).getId();
-            case 1 ->
-                usuaris.get(rowIndex).getNom();
-            case 2 ->
-                usuaris.get(rowIndex).getEmail();
-            // case 3-> usuaris.get(rowIndex).setFoto(foto);
-            case 3 ->
-                "prueba";
-            default ->
-                "-";
-        };
-    }
-
-    @Override
-    public String getColumnName(int column) {
-        return columns[column];
-    }
-
-    @Override
-    public Class<?> getColumnClass(int columnIndex) {
-        return super.getColumnClass(columnIndex);
-    }
-
-}
-*/

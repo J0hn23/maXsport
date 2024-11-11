@@ -20,7 +20,7 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
-
+        
         //setSize(450, 600);
         cargarComboEjercicios();
 
