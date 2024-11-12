@@ -80,6 +80,9 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JTextField" name="txtId">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtIdKeyTyped"/>
       </Events>

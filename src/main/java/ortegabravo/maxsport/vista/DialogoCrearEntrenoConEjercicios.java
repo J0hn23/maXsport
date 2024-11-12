@@ -54,7 +54,14 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
             w.setIdUsuari(Integer.parseInt(txtId.getText()));
             w.setComments(txtComentaio.getText());
             w.setForDate((Date) spnFechaEntreno.getValue());
+            try{
             DataAccess.insertWorkout(w, exercicis);
+            }catch(Exception e)
+                    {
+                      JOptionPane.showMessageDialog(rootPane, "Error al añadir entreno.No existe el usuario");  
+                    }
+                               
+                           
             JOptionPane.showMessageDialog(rootPane, "Entreno añadido");
             return 1;
         } else {
@@ -109,6 +116,7 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(30, 110, 80, 18);
 
+        txtId.setEditable(false);
         txtId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtIdKeyTyped(evt);

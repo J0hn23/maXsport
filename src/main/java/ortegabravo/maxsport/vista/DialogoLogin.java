@@ -50,6 +50,7 @@ public class DialogoLogin extends javax.swing.JDialog {
         setBackground(new java.awt.Color(153, 153, 153));
         setLocation(new java.awt.Point(200, 300));
         setPreferredSize(new java.awt.Dimension(300, 400));
+        setResizable(false);
         setSize(new java.awt.Dimension(300, 400));
         getContentPane().setLayout(null);
 

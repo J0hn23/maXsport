@@ -91,6 +91,7 @@ public class DialogoAbout extends javax.swing.JDialog {
         setResizable(false);
         getContentPane().setLayout(null);
 
+        jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
         jTextArea2.setRows(100);
         jScrollPane2.setViewportView(jTextArea2);

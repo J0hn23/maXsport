@@ -320,7 +320,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     private void btnBotonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBotonLoginActionPerformed
         //es el actionperformed del boton de login que abre el jdialog login
-        dlgDialogoLogin = new DialogoLogin(this, false);
+        dlgDialogoLogin = new DialogoLogin(this, true);
         dlgDialogoLogin.setSize(300, 400);
         dlgDialogoLogin.setVisible(true);
 
@@ -341,7 +341,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         //le paso al dialog el id y alli hago el resultset, y le mando como parametros
         //correo y nombre para usarlos alli, en el nuevo jdialog
-        DialogoEntrenamientos de = new DialogoEntrenamientos(this, false, correoAlumno, nombre);
+        DialogoEntrenamientos de = new DialogoEntrenamientos(this, true, correoAlumno, nombre);
         de.setSize(500, 400);
         de. setBackground(new Color(150,150,150));
         de.setLocationRelativeTo(null);
@@ -386,7 +386,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void btnAsignarEntrenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarEntrenoActionPerformed
         //daeae=new DialogoAsignarEjerciciosAEntreno(this,false);
         //daeae.setVisible(true);
-        dcece = new DialogoCrearEntrenoConEjercicios(this, false);
+        dcece = new DialogoCrearEntrenoConEjercicios(this, true);
         JComponent contenedor=(JComponent) dcece.getContentPane();
         contenedor.setBackground(new Color(150,150,150));
         dcece.setVisible(true);
@@ -394,7 +394,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAsignarEntrenoActionPerformed
 
     private void btnListarEjerciciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarEjerciciosActionPerformed
-        dle = new DialogoListaEjercicios(this, false);
+        dle = new DialogoListaEjercicios(this, true);
         dle.setVisible(true);
     }//GEN-LAST:event_btnListarEjerciciosActionPerformed
 
@@ -405,6 +405,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void btnMostrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarUsuariosActionPerformed
         dlu = new DialogoListaUsuarios(this, true);
         dlu.setVisible(true);
+        
     }//GEN-LAST:event_btnMostrarUsuariosActionPerformed
 
 
