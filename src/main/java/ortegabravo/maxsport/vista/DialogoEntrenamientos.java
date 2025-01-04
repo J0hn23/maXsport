@@ -87,16 +87,10 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         for (Exercici e : ejercicios) {
             cmbComboEjercicios.addItem(e);
         }
-
-        cmbComboEjercicios.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbComboEjerciciosActionPerformed(evt);
-            }
-        });
-
     }
 
+    
+    
     private void cargaBBDDNuevosEjercicios() {
 
         int opcion = JOptionPane.showConfirmDialog(this, "Se va a añadir ejercicio", "Confirme", JOptionPane.YES_NO_OPTION);

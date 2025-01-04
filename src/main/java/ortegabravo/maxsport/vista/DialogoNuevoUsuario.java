@@ -47,7 +47,7 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
                 nuevoUsuario.setAssignedInstructor(instructorAsignado);
                 }  
         }catch (NumberFormatException e) {
-            // Manejo de error en caso de entrada inválida
+            // Error en caso de entrada erronea 
             System.err.println("Error: El campo de instructor asignado debe ser un número.");
             return;
         }
