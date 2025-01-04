@@ -21,5 +21,10 @@
             <artifactId>bcrypt</artifactId>
             <version>0.10.2</version>
         </dependency>
+        <dependency>
+            <groupId>ortegaBravo</groupId>
+            <artifactId>calendarioEntrenosBeans</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

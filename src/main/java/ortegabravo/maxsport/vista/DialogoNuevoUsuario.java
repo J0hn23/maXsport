@@ -1,4 +1,3 @@
-
 package ortegabravo.maxsport.vista;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
@@ -7,53 +6,55 @@ import javax.swing.JOptionPane;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.modelo.Usuari;
 
-
 public class DialogoNuevoUsuario extends javax.swing.JDialog {
 
-    
     Usuari nuevoUsuario;
-   
-    public DialogoNuevoUsuario(java.awt.Frame parent, boolean modal) {
+    int instructorAsignado;
+
+    public DialogoNuevoUsuario(java.awt.Frame parent, boolean modal,int idInstructorAsigna) {
         super(parent, modal);
         initComponents();
         //setVisible(true);
-        setSize(400,350);
+        setSize(400, 350);
         setTitle("Nuevo usuario");
         setLocationRelativeTo(parent);
+        instructorAsignado=idInstructorAsigna;
     }
-    
-    private void cargarUsuario(){
-    
-        nuevoUsuario=new Usuari();
-        
+
+    private void cargarUsuario() {
+
+        nuevoUsuario = new Usuari();
+
         char[] pass = jpsPassword.getPassword();
-        byte[]fotoVacia=new byte[10];
-             
-        String hash=BCrypt.withDefaults().hashToString(12, pass);
-         
+        byte[] fotoVacia = new byte[10];
+
+        String hash = BCrypt.withDefaults().hashToString(12, pass);
+
         nuevoUsuario.setNom(txtNombre.getText());
         nuevoUsuario.setEmail(txtCorreo.getText());
         nuevoUsuario.setPasswordHash(hash);
-            
         nuevoUsuario.setInstructor(chkIsInstructor.isSelected());
         //System.out.println(chkIsInstructor.isSelected()+"        -------------");
-        nuevoUsuario.setAssignedInstructor(Integer.parseInt(txtInstructorasignado.getText()));
-        
         nuevoUsuario.setFoto(fotoVacia);
-       // nuevoUsuario.setId(000);
-        
-       
-       
-       
-       
-       
-        DataAccess.registerUser(nuevoUsuario);
-  
-    }
-    
-    
 
+        //nuevoUsuario.setAssignedInstructor(Integer.parseInt(txtInstructorasignado.getText()));
+        //cuandos e da de alta un nuevo usuario y es entrenador se le asigna como id AssignedInstructor el del que lo ha dado de alta
+        try{
+            if(!txtInstructorasignado.getText().isEmpty()){
+                int instructorId = Integer.parseInt(txtInstructorasignado.getText());  
+                    nuevoUsuario.setAssignedInstructor(instructorId);
+            }else{ 
+                nuevoUsuario.setAssignedInstructor(instructorAsignado);
+                }  
+        }catch (NumberFormatException e) {
+            // Manejo de error en caso de entrada inválida
+            System.err.println("Error: El campo de instructor asignado debe ser un número.");
+            return;
+        }
   
+        DataAccess.registerUser(nuevoUsuario);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -150,32 +151,26 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAnyadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnyadirActionPerformed
-        
-        String nombre=txtNombre.getText();
-        String correo=txtCorreo.getText();
-        
-        
-            if (nombre.equals("") || correo.equals("")) {
+
+        String nombre = txtNombre.getText();
+        String correo = txtCorreo.getText();
+
+        if (nombre.equals("") || correo.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Debe introducir los datos");
-            }else{
-                try{
+        } else {
+            try {
                 cargarUsuario();
-                }catch (Exception e) 
-                    {
-                     JOptionPane.showMessageDialog(rootPane, "Error al añadir");   
-                    }          
-                } 
-       setVisible(false);
-       
-            
-        
-        
-        
-        
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, "Error al añadir");
+            }
+        }
+        setVisible(false);
+
+
     }//GEN-LAST:event_btnAnyadirActionPerformed
 
     private void txtInstructorasignadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInstructorasignadoKeyTyped
-       char c = evt.getKeyChar();
+        char c = evt.getKeyChar();
         if ((c < '0' || c > '9'))
             evt.consume();
     }//GEN-LAST:event_txtInstructorasignadoKeyTyped
@@ -197,9 +192,7 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_txtNombreKeyTyped
-    
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnyadir;

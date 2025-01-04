@@ -101,7 +101,7 @@ public class DialogoLogin extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
     //uso una funcion mediante patrones para comprobar que el correo es valido
     public boolean esEmailValido(String email) {
-        String pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{1,2}$";
+        String pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{1,3}$";
         Pattern regex = Pattern.compile(pattern);
         Matcher matcher = regex.matcher(email);
         return matcher.matches();
@@ -126,7 +126,7 @@ public class DialogoLogin extends javax.swing.JDialog {
                 if (resultado.verified) {
 
                     System.out.println(u.getNom() + " " + u.isInstructor());
-                    fp.ConfirmacionLogin(resultado.verified, u.getId(),u.getEmail());
+                    fp.confirmacionLogin(resultado.verified, u.getId(),u.getEmail());
                     setVisible(false);
                 } else {
                 JOptionPane.showMessageDialog(rootPane, "Usuario no encontrado o no es instructor");

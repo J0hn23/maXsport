@@ -11,26 +11,32 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.table.AbstractTableModel;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.accesoDatos.UsuariosTableModel;
 import ortegabravo.maxsport.modelo.Usuari;
 
 public class FramePrincipal extends javax.swing.JFrame {
 
-    JDialog dlgDialogoLogin;
-    ArrayList<Usuari> usuaris;
+    private JDialog dlgDialogoLogin;
+    private ArrayList<Usuari> usuaris;
     private Connection conexion;
-    byte[] imagenByte;
-    DialogoAbout da;
-    DialogoNuevoUsuario dnu;
-    DialogoListaUsuarios dlu;
-    DialogoListaEjercicios dle;  
-    DialogoCrearEntrenoConEjercicios dcece;
+    private byte[] imagenByte;
+    private DialogoAbout da;
+    private DialogoNuevoUsuario dnu;
+    private DialogoListaUsuarios dlu;
+    private DialogoListaEjercicios dle;
+    private DialogoCrearEntrenoConEjercicios dcece;
+    private DialogoCalendario dc;
+    int idInstructorAsigna;
 
     public FramePrincipal() {
 
         initComponents();
+        configuracionInicio();
+
+    }
+
+    private void configuracionInicio() {
 
         setTitle("MaXsport");
         setLocationRelativeTo(null);
@@ -43,11 +49,14 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void cargarFoto() {
 
         ImageIcon icon = byteArrayAImagen(imagenByte);
-        Image imagenIcon = icon.getImage();
-        Image nuevaImagenEscalada = imagenIcon.getScaledInstance(190, 160, java.awt.Image.SCALE_FAST);
-        ImageIcon iconoNuevo = new ImageIcon(nuevaImagenEscalada);
-        lblBoligrafo.setIcon(iconoNuevo);
-
+        if (icon != null) {
+            Image imagenIcon = icon.getImage();
+            Image nuevaImagenEscalada = imagenIcon.getScaledInstance(190, 160, java.awt.Image.SCALE_FAST);
+            ImageIcon iconoNuevo = new ImageIcon(nuevaImagenEscalada);
+            lblBoligrafo.setIcon(iconoNuevo);
+        } else {
+            System.out.println("La imagen no pudo ser cargada");
+        }
     }
 
     private void obtenerUsuario(String mail) {
@@ -59,32 +68,60 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     }
 
-    public static ImageIcon byteArrayAImagen(byte[] imagen) {
-        ImageIcon icon = new ImageIcon(imagen);
-        return icon;
+    private static ImageIcon byteArrayAImagen(byte[] imagen) {
+        try {
+            ImageIcon icon = new ImageIcon(imagen);
+            return icon;
+        } catch (Exception e) {
+            System.out.println("No se pudo crear el icono");
+        }
+        return null;
     }
 
-    public void ConfirmacionLogin(boolean confirmacion, int idEntrenador, String mail) {
-   
-        //si devuelve confirmacion como true entonces cierra el jpanel principal
-        //y abre el secundario con la jtable cargada
+//
+//    public void confirmacionLogin(boolean confirmacion, int idEntrenador, String mail) {
+//   
+//        //si devuelve confirmacion como true entonces cierra el jpanel principal
+//        //y abre el secundario con la jtable cargada
+//        if (confirmacion) {
+//            pnlPanelPrincipal.setVisible(false);
+//
+//            usuaris = new ArrayList<>();
+//            usuaris = DataAccess.getAllUsersByInstructor(idEntrenador);
+//            //carga la tabla
+//            UsuariosTableModel utm = new UsuariosTableModel(usuaris);
+//            tblTablaUsuarios.setModel(utm);
+//            tblTablaUsuarios.setAutoCreateRowSorter(true);
+//
+//            pnlPanelSecundario.setVisible(true);
+//            obtenerUsuario(mail);
+//            cargarFoto();
+//
+//        }
+//        txtNumeroEntrenador.setText(String.valueOf(idEntrenador));
+//    }
+    public void confirmacionLogin(boolean confirmacion, int idEntrenador, String mail) {
         if (confirmacion) {
+
             pnlPanelPrincipal.setVisible(false);
-
-            usuaris = new ArrayList<>();
-            usuaris = DataAccess.getAllUsersByInstructor(idEntrenador);
-            //carga la tabla
-            UsuariosTableModel utm = new UsuariosTableModel(usuaris);
-            tblTablaUsuarios.setModel(utm);
-            tblTablaUsuarios.setAutoCreateRowSorter(true);
-
             pnlPanelSecundario.setVisible(true);
+            cargarUsuariosEnTabla(idEntrenador);
             obtenerUsuario(mail);
             cargarFoto();
-
+            idInstructorAsigna=idEntrenador;
+            
+            
         }
-        txtNumeroEntrenador.setText(String.valueOf(idEntrenador));
 
+        txtNumeroEntrenador.setText(String.valueOf(idEntrenador));
+    }
+
+    private void cargarUsuariosEnTabla(int idEntrenador) {
+
+        usuaris = DataAccess.getAllUsersByInstructor(idEntrenador);
+        UsuariosTableModel utm = new UsuariosTableModel(usuaris);
+        tblTablaUsuarios.setModel(utm);
+        tblTablaUsuarios.setAutoCreateRowSorter(true);
     }
 
     public void enviarConexion(Connection conexion) {
@@ -113,6 +150,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         btnGestionEntrenos = new javax.swing.JButton();
         btnMostrarUsuarios = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        btnCalendario = new javax.swing.JButton();
         menMenu = new javax.swing.JMenuBar();
         mnbFile = new javax.swing.JMenu();
         mnbExit = new javax.swing.JMenu();
@@ -287,6 +325,16 @@ public class FramePrincipal extends javax.swing.JFrame {
         pnlPanelSecundario.add(jLabel2);
         jLabel2.setBounds(770, 120, 80, 30);
 
+        btnCalendario.setBackground(new java.awt.Color(255, 153, 102));
+        btnCalendario.setText("Calendario");
+        btnCalendario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalendarioActionPerformed(evt);
+            }
+        });
+        pnlPanelSecundario.add(btnCalendario);
+        btnCalendario.setBounds(510, 230, 190, 40);
+
         getContentPane().add(pnlPanelSecundario);
         pnlPanelSecundario.setBounds(0, 0, 900, 600);
 
@@ -343,7 +391,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         //correo y nombre para usarlos alli, en el nuevo jdialog
         DialogoEntrenamientos de = new DialogoEntrenamientos(this, true, correoAlumno, nombre);
         de.setSize(500, 400);
-        de. setBackground(new Color(150,150,150));
+        de.setBackground(new Color(150, 150, 150));
         de.setLocationRelativeTo(null);
         de.setVisible(true);
 
@@ -369,16 +417,16 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     private void mnbAboutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnbAboutMousePressed
         da = new DialogoAbout(this, true);
-        JComponent contenedor=(JComponent) da.getContentPane();
-        contenedor.setBackground(new Color(150,150,150));
+        JComponent contenedor = (JComponent) da.getContentPane();
+        contenedor.setBackground(new Color(150, 150, 150));
         da.setVisible(true);
     }//GEN-LAST:event_mnbAboutMousePressed
 
     private void btnNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoUsuarioActionPerformed
 
-        dnu = new DialogoNuevoUsuario(this, true);
-        JComponent contenedor=(JComponent) dnu.getContentPane();
-        contenedor.setBackground(new Color(150,150,150));
+        dnu = new DialogoNuevoUsuario(this, true, idInstructorAsigna);
+        JComponent contenedor = (JComponent) dnu.getContentPane();
+        contenedor.setBackground(new Color(150, 150, 150));
         dnu.setVisible(true);
 
     }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
@@ -387,8 +435,8 @@ public class FramePrincipal extends javax.swing.JFrame {
         //daeae=new DialogoAsignarEjerciciosAEntreno(this,false);
         //daeae.setVisible(true);
         dcece = new DialogoCrearEntrenoConEjercicios(this, true);
-        JComponent contenedor=(JComponent) dcece.getContentPane();
-        contenedor.setBackground(new Color(150,150,150));
+        JComponent contenedor = (JComponent) dcece.getContentPane();
+        contenedor.setBackground(new Color(150, 150, 150));
         dcece.setVisible(true);
 
     }//GEN-LAST:event_btnAsignarEntrenoActionPerformed
@@ -399,19 +447,31 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarEjerciciosActionPerformed
 
     private void btnGestionEntrenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionEntrenosActionPerformed
-        JOptionPane.showMessageDialog(rootPane, "En contrucción");
+        JOptionPane.showMessageDialog(rootPane, "En construcción");
     }//GEN-LAST:event_btnGestionEntrenosActionPerformed
 
     private void btnMostrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarUsuariosActionPerformed
         dlu = new DialogoListaUsuarios(this, true);
         dlu.setVisible(true);
-        
+
     }//GEN-LAST:event_btnMostrarUsuariosActionPerformed
+
+    private void btnCalendarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarioActionPerformed
+        
+        dc=new DialogoCalendario(this, true, idInstructorAsigna);
+        dc.setVisible(true);
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnCalendarioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignarEntreno;
     private javax.swing.JButton btnBotonLogin;
+    private javax.swing.JButton btnCalendario;
     private javax.swing.JButton btnGestionEntrenos;
     private javax.swing.JButton btnListarEjercicios;
     private javax.swing.JButton btnMostrarUsuarios;
