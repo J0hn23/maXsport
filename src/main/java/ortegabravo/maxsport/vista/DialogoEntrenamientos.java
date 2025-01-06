@@ -2,10 +2,12 @@ package ortegabravo.maxsport.vista;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_OPTION;
 import javax.swing.table.AbstractTableModel;
@@ -21,6 +23,9 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
     private int wId;
     private boolean variableControlItemSeleccionadoEjercicio = false;
     private boolean variableControlItemSeleccionadoEntreno = false;
+    private String ejercicioSeleccionado;
+    private Workout entrenamiento;
+    private int idEntreno;
 
     public DialogoEntrenamientos(java.awt.Frame parent, boolean modal, String correo, String nombre) {
         super(parent, false);
@@ -39,9 +44,10 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
 
     private void cargaListaConObjetos(Workout entrenamiento) {
 
+        variableControlItemSeleccionadoEntreno = true;
         ArrayList<Exercici> exercicis;
         exercicis = DataAccess.getExercicisPerWorkout((entrenamiento));
-        variableControlItemSeleccionadoEntreno = true;
+        
         DefaultListModel<String> dlm = new DefaultListModel();
 
         for (Exercici e : exercicis) {
@@ -51,12 +57,35 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         lstListaEjercicios.setModel(dlm);
 
     }
+    
+    private void cargaComboEjercicios() {
+        //cargo el combobox con los objetos de Exercici
+        cmbComboEjercicios = new javax.swing.JComboBox<>();
+        getContentPane().add(cmbComboEjercicios);
+        cmbComboEjercicios.setBounds(380, 80, 350, 30);
+        DefaultComboBoxModel<Exercici> dcbmw = new DefaultComboBoxModel();
+        cmbComboEjercicios.setModel(dcbmw);
+
+        var ejercicios = DataAccess.getAllExercicis();
+        for (Exercici e : ejercicios) {
+            cmbComboEjercicios.addItem(e);
+        }
+        
+        cmbComboEjercicios.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            cmbComboEjerciciosActionPerformed(evt);  
+        }
+    });
+        
+    }
 
     private void cmbComboEjerciciosActionPerformed(ActionEvent evt) {
-
+         System.out.println("estoy en actionperformed de combo ejercicios");
         listaEjerciciosAniadir = new ArrayList<>();
         listaEjerciciosAniadir.add((Exercici) cmbComboEjercicios.getSelectedItem());
         variableControlItemSeleccionadoEjercicio = true;
+       
     }
 
     private void cargarTablaEntrenamientos(String correo) {
@@ -75,19 +104,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
 
     }
 
-    private void cargaComboEjercicios() {
-        //cargo el combobox con los objetos de Exercici
-        cmbComboEjercicios = new javax.swing.JComboBox<>();
-        getContentPane().add(cmbComboEjercicios);
-        cmbComboEjercicios.setBounds(380, 80, 350, 30);
-        DefaultComboBoxModel<Exercici> dcbmw = new DefaultComboBoxModel();
-        cmbComboEjercicios.setModel(dcbmw);
-
-        var ejercicios = DataAccess.getAllExercicis();
-        for (Exercici e : ejercicios) {
-            cmbComboEjercicios.addItem(e);
-        }
-    }
+    
 
     
     
@@ -117,6 +134,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         lstListaEjercicios = new javax.swing.JList<>();
+        btnEliminarEjercicio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -135,7 +153,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnSalir);
-        btnSalir.setBounds(300, 320, 100, 30);
+        btnSalir.setBounds(20, 310, 100, 30);
 
         txtNombreAlumno.setEditable(false);
         getContentPane().add(txtNombreAlumno);
@@ -175,20 +193,34 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnAniadir);
-        btnAniadir.setBounds(450, 240, 240, 40);
+        btnAniadir.setBounds(440, 210, 240, 30);
 
         lblFlechaIzq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flecha-girar-hacia-abajo-a-la-izquierda (1).png"))); // NOI18N
         getContentPane().add(lblFlechaIzq);
-        lblFlechaIzq.setBounds(400, 240, 40, 60);
+        lblFlechaIzq.setBounds(390, 210, 40, 30);
 
         jLabel2.setText("Ejercicios disponibles a añadir");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(440, 40, 220, 18);
 
+        lstListaEjercicios.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstListaEjerciciosValueChanged(evt);
+            }
+        });
         jScrollPane3.setViewportView(lstListaEjercicios);
 
         getContentPane().add(jScrollPane3);
         jScrollPane3.setBounds(20, 180, 350, 110);
+
+        btnEliminarEjercicio.setText("Eliminar ejercicio");
+        btnEliminarEjercicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarEjercicioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnEliminarEjercicio);
+        btnEliminarEjercicio.setBounds(440, 250, 240, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -202,11 +234,12 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         //con este evento obtengo el la fila donde hago click
         int fila = tblEntrenosPorUsuario.rowAtPoint(evt.getPoint());
         //con la fila cargo un objeto tipo workout con los datos de la fila de la tabla
-        Workout entrenamiento = new Workout();
+        entrenamiento = new Workout();
         //aqui cojo con la variablwe el valoer del entreno id seleccionado con el click
         wId = (int) tblEntrenosPorUsuario.getValueAt(fila, 0);
 
         entrenamiento.setId((int) tblEntrenosPorUsuario.getValueAt(fila, 0));
+        idEntreno=(int)tblEntrenosPorUsuario.getValueAt(fila, 0);
         entrenamiento.setForDate((Date) tblEntrenosPorUsuario.getValueAt(fila, 1));
         entrenamiento.setIdUsuari((int) tblEntrenosPorUsuario.getValueAt(fila, 2));
         entrenamiento.setComments((String) tblEntrenosPorUsuario.getValueAt(fila, 3));
@@ -219,18 +252,57 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
 
     private void btnAniadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirActionPerformed
 
+        System.out.println(variableControlItemSeleccionadoEjercicio);
+        System.out.println(variableControlItemSeleccionadoEntreno);
         if (variableControlItemSeleccionadoEjercicio && variableControlItemSeleccionadoEntreno) {
             cargaBBDDNuevosEjercicios();
-
+            cargaListaConObjetos(entrenamiento);
         } else {
             JOptionPane.showMessageDialog(this, "Debe indicar entreno y ejercicio");
         }
+        
 
     }//GEN-LAST:event_btnAniadirActionPerformed
 
+    private void lstListaEjerciciosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstListaEjerciciosValueChanged
+        
+        //aqui selecciono el obbjeto de la lista y lo paso a una variable para en el actionperformwed del boton eleimiar eliminarlo de la bd
+           
+         JList<String> list = (JList<String>) evt.getSource();
+        
+        // Obtener el objeto seleccionado
+        String ejercicioSeleccionado = list.getSelectedValue();
+        this.ejercicioSeleccionado=ejercicioSeleccionado;
+        
+        System.out.println(ejercicioSeleccionado);
+   
+    }//GEN-LAST:event_lstListaEjerciciosValueChanged
 
+    private void btnEliminarEjercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEjercicioActionPerformed
+        
+        System.out.println("ejercico selecionado vale="+ejercicioSeleccionado);
+        eliminarEjercicio(DataAccess.obtenerIdEjercicio(ejercicioSeleccionado), idEntreno);
+        
+    }//GEN-LAST:event_btnEliminarEjercicioActionPerformed
+
+    private void eliminarEjercicio(int idEjercicio, int idEntreno){
+    
+//        if(idEjercicio!=0){
+            System.out.println("en eliminar ejercicio vale"+idEjercicio);
+            DataAccess.eliminarEjercicio(idEjercicio,idEntreno);
+            System.out.println("finn eliminar ejercicio");
+            
+        
+//        }else {
+//            JOptionPane.showMessageDialog(this, "Debe seleccionar un ejercicio para eliminarlo de los entrenos");
+//        }
+    
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAniadir;
+    private javax.swing.JButton btnEliminarEjercicio;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

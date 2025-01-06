@@ -3,6 +3,7 @@
 
 package ortegabravo.maxsport.vista;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -17,6 +18,7 @@ public class DialogoCalendario extends javax.swing.JDialog implements MiEventoIn
     public DialogoCalendario(java.awt.Frame parent, boolean modal, int idInstructor) {
         super(parent, modal);
         initComponents();
+        
         
         calendarioEntrenosBeans1.addRecogerArrayEntrenosListener(this);
         

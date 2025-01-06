@@ -4,7 +4,9 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import java.sql.Connection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.modelo.Usuari;
 
@@ -19,6 +21,16 @@ public class DialogoLogin extends javax.swing.JDialog {
         initComponents();
         fp = (FramePrincipal) parent;
         setLocationRelativeTo(parent);
+        txtCampoTextoCorreo.requestFocusInWindow();
+        logicaBotonLogin();
+    }
+    
+    
+    private void logicaBotonLogin(){
+    //Esto lleva el focus al boton login y permite que al tipear el login con el intro acceda
+        btnBotonLogin.requestFocusInWindow();
+        btnBotonLogin.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke("ENTER"), "pressed");
+        btnBotonLogin.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke("released ENTER"), "released");
     }
 
     private void comprobarConexion() {

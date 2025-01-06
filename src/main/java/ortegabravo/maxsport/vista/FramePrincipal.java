@@ -1,6 +1,7 @@
 package ortegabravo.maxsport.vista;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -135,7 +136,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         pnlPanelPrincipal = new javax.swing.JPanel();
         btnBotonLogin = new javax.swing.JButton();
         lblEtiquetaLogo = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblAccesoWeb = new javax.swing.JLabel();
         pnlPanelSecundario = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTablaUsuarios = new javax.swing.JTable();
@@ -155,6 +156,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         mnbFile = new javax.swing.JMenu();
         mnbExit = new javax.swing.JMenu();
         mnbAbout = new javax.swing.JMenu();
+        jmnPinkSkin = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -170,6 +172,14 @@ public class FramePrincipal extends javax.swing.JFrame {
         btnBotonLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/down.png"))); // NOI18N
         btnBotonLogin.setText("Entrar");
         btnBotonLogin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 0, 0), null, new java.awt.Color(0, 51, 51)));
+        btnBotonLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnBotonLoginMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnBotonLoginMouseExited(evt);
+            }
+        });
         btnBotonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBotonLoginActionPerformed(evt);
@@ -182,9 +192,17 @@ public class FramePrincipal extends javax.swing.JFrame {
         pnlPanelPrincipal.add(lblEtiquetaLogo);
         lblEtiquetaLogo.setBounds(10, 0, 550, 520);
 
-        jLabel1.setText("                     www.maXsport.com");
-        pnlPanelPrincipal.add(jLabel1);
-        jLabel1.setBounds(260, 510, 340, 40);
+        lblAccesoWeb.setText("                     www.maXsport.com");
+        lblAccesoWeb.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblAccesoWebMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblAccesoWebMouseExited(evt);
+            }
+        });
+        pnlPanelPrincipal.add(lblAccesoWeb);
+        lblAccesoWeb.setBounds(260, 510, 340, 40);
 
         getContentPane().add(pnlPanelPrincipal);
         pnlPanelPrincipal.setBounds(0, 0, 900, 600);
@@ -360,6 +378,14 @@ public class FramePrincipal extends javax.swing.JFrame {
         });
         menMenu.add(mnbAbout);
 
+        jmnPinkSkin.setText("Pink skin");
+        jmnPinkSkin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmnPinkSkinActionPerformed(evt);
+            }
+        });
+        menMenu.add(jmnPinkSkin);
+
         setJMenuBar(menMenu);
 
         pack();
@@ -467,6 +493,34 @@ public class FramePrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnCalendarioActionPerformed
 
+    private void btnBotonLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBotonLoginMouseEntered
+
+        btnBotonLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));  
+    }//GEN-LAST:event_btnBotonLoginMouseEntered
+
+    private void btnBotonLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBotonLoginMouseExited
+       
+        btnBotonLogin.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));      
+    }//GEN-LAST:event_btnBotonLoginMouseExited
+
+    private void lblAccesoWebMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAccesoWebMouseEntered
+      
+        lblEtiquetaWeb.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_lblAccesoWebMouseEntered
+
+    private void lblAccesoWebMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAccesoWebMouseExited
+      
+        lblEtiquetaWeb.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));       
+    }//GEN-LAST:event_lblAccesoWebMouseExited
+
+    private void jmnPinkSkinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnPinkSkinActionPerformed
+        
+        //aqui va la ejecucion del metodo
+        
+        
+        
+    }//GEN-LAST:event_jmnPinkSkinActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignarEntreno;
@@ -477,9 +531,10 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnMostrarUsuarios;
     private javax.swing.JButton btnNuevoUsuario;
     private javax.swing.JButton btnSignOut;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenu jmnPinkSkin;
+    private javax.swing.JLabel lblAccesoWeb;
     private javax.swing.JLabel lblBoligrafo;
     private javax.swing.JLabel lblEtiquetaLogo;
     private javax.swing.JLabel lblEtiquetaWeb;
