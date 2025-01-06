@@ -31,6 +31,7 @@ public class DialogoLogin extends javax.swing.JDialog {
         btnBotonLogin.requestFocusInWindow();
         btnBotonLogin.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke("ENTER"), "pressed");
         btnBotonLogin.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke("released ENTER"), "released");
+        btnBotonLogin.setToolTipText("Entrar");
     }
 
     private void comprobarConexion() {
@@ -66,7 +67,7 @@ public class DialogoLogin extends javax.swing.JDialog {
         setSize(new java.awt.Dimension(300, 400));
         getContentPane().setLayout(null);
 
-        btnBotonLogin.setBackground(new java.awt.Color(255, 153, 0));
+        btnBotonLogin.setForeground(new java.awt.Color(255, 0, 51));
         btnBotonLogin.setText("Loguear");
         btnBotonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,7 +93,6 @@ public class DialogoLogin extends javax.swing.JDialog {
         getContentPane().add(lblEtiquetaPass);
         lblEtiquetaPass.setBounds(120, 160, 140, 18);
 
-        btnCancelar.setBackground(new java.awt.Color(204, 204, 255));
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,7 +100,7 @@ public class DialogoLogin extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnCancelar);
-        btnCancelar.setBounds(110, 310, 100, 30);
+        btnCancelar.setBounds(90, 290, 140, 30);
 
         lblLogo.setFont(new java.awt.Font("Liberation Serif", 2, 24)); // NOI18N
         lblLogo.setText("     maXsport");

@@ -62,7 +62,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         //cargo el combobox con los objetos de Exercici
         cmbComboEjercicios = new javax.swing.JComboBox<>();
         getContentPane().add(cmbComboEjercicios);
-        cmbComboEjercicios.setBounds(380, 80, 350, 30);
+        cmbComboEjercicios.setBounds(370, 50, 280, 30);
         DefaultComboBoxModel<Exercici> dcbmw = new DefaultComboBoxModel();
         cmbComboEjercicios.setModel(dcbmw);
 
@@ -124,7 +124,6 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnSalir = new javax.swing.JButton();
         txtNombreAlumno = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -137,25 +136,14 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         btnEliminarEjercicio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(new java.awt.Color(102, 102, 102));
-        setBounds(new java.awt.Rectangle(0, 0, 400, 400));
-        setMinimumSize(new java.awt.Dimension(750, 400));
-        setModal(true);
+        setBounds(new java.awt.Rectangle(0, 0, 400, 220));
+        setMinimumSize(new java.awt.Dimension(650, 220));
         setResizable(false);
-        setSize(new java.awt.Dimension(750, 400));
+        setSize(new java.awt.Dimension(650, 220));
         getContentPane().setLayout(null);
 
-        btnSalir.setBackground(new java.awt.Color(255, 102, 102));
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnSalir);
-        btnSalir.setBounds(20, 310, 100, 30);
-
         txtNombreAlumno.setEditable(false);
+        txtNombreAlumno.setForeground(new java.awt.Color(255, 0, 0));
         getContentPane().add(txtNombreAlumno);
         txtNombreAlumno.setBounds(150, 20, 180, 24);
 
@@ -184,7 +172,6 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(20, 50, 350, 90);
 
-        btnAniadir.setBackground(new java.awt.Color(153, 255, 153));
         btnAniadir.setForeground(new java.awt.Color(51, 51, 0));
         btnAniadir.setText("Añadir ejercicio");
         btnAniadir.addActionListener(new java.awt.event.ActionListener() {
@@ -193,15 +180,15 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnAniadir);
-        btnAniadir.setBounds(440, 210, 240, 30);
+        btnAniadir.setBounds(430, 180, 150, 30);
 
         lblFlechaIzq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flecha-girar-hacia-abajo-a-la-izquierda (1).png"))); // NOI18N
         getContentPane().add(lblFlechaIzq);
-        lblFlechaIzq.setBounds(390, 210, 40, 30);
+        lblFlechaIzq.setBounds(390, 180, 40, 30);
 
         jLabel2.setText("Ejercicios disponibles a añadir");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(440, 40, 220, 18);
+        jLabel2.setBounds(410, 20, 220, 18);
 
         lstListaEjercicios.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -211,7 +198,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         jScrollPane3.setViewportView(lstListaEjercicios);
 
         getContentPane().add(jScrollPane3);
-        jScrollPane3.setBounds(20, 180, 350, 110);
+        jScrollPane3.setBounds(20, 150, 350, 110);
 
         btnEliminarEjercicio.setText("Eliminar ejercicio");
         btnEliminarEjercicio.addActionListener(new java.awt.event.ActionListener() {
@@ -220,14 +207,10 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnEliminarEjercicio);
-        btnEliminarEjercicio.setBounds(440, 250, 240, 30);
+        btnEliminarEjercicio.setBounds(430, 210, 150, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        setVisible(false);
-    }//GEN-LAST:event_btnSalirActionPerformed
 
     private void tblEntrenosPorUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEntrenosPorUsuarioMouseClicked
 
@@ -287,15 +270,15 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
 
     private void eliminarEjercicio(int idEjercicio, int idEntreno){
     
-//        if(idEjercicio!=0){
+       if(idEjercicio!=0){
             System.out.println("en eliminar ejercicio vale"+idEjercicio);
             DataAccess.eliminarEjercicio(idEjercicio,idEntreno);
             System.out.println("finn eliminar ejercicio");
             
         
-//        }else {
-//            JOptionPane.showMessageDialog(this, "Debe seleccionar un ejercicio para eliminarlo de los entrenos");
-//        }
+        }else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un ejercicio para eliminarlo de los entrenos");
+        }
     
     }
     
@@ -303,7 +286,6 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAniadir;
     private javax.swing.JButton btnEliminarEjercicio;
-    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

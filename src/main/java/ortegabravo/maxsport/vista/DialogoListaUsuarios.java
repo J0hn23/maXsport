@@ -17,7 +17,7 @@ public class DialogoListaUsuarios extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
 //        cargaListaConObjetos();
-        setSize(450,500);
+        setSize(440,350);
 //        lstUsuarios.setSize(400,300);
         
 //        cargaListaConObjetos();
@@ -54,24 +54,15 @@ public class DialogoListaUsuarios extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTablaUsuarios = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(450, 500));
+        setMinimumSize(new java.awt.Dimension(440, 350));
         setResizable(false);
         getContentPane().setLayout(null);
 
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnSalir);
-        btnSalir.setBounds(170, 370, 100, 40);
-
+        tblTablaUsuarios.setForeground(new java.awt.Color(255, 0, 0));
         tblTablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -91,16 +82,11 @@ public class DialogoListaUsuarios extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        setVisible(false);
-    }//GEN-LAST:event_btnSalirActionPerformed
-
     
     
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSalir;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblTablaUsuarios;
     // End of variables declaration//GEN-END:variables

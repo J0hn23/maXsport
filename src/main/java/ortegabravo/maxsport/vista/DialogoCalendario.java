@@ -69,7 +69,6 @@ public class DialogoCalendario extends javax.swing.JDialog implements MiEventoIn
         calendarioEntrenosBeans1 = new net.ortegabravo.calendarioentrenosbeans.CalendarioEntrenosBeans();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(new java.awt.Color(153, 153, 153));
         setPreferredSize(new java.awt.Dimension(574, 550));
         setResizable(false);
         setSize(new java.awt.Dimension(575, 550));

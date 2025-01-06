@@ -1,5 +1,7 @@
 package ortegabravo.maxsport.vista;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
@@ -12,6 +14,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import net.miginfocom.swing.MigLayout;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.accesoDatos.UsuariosTableModel;
 import ortegabravo.maxsport.modelo.Usuari;
@@ -34,6 +41,23 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         initComponents();
         configuracionInicio();
+        tipTextBotones();
+    }
+
+    private void tipTextBotones() {
+
+        mnbExit.setToolTipText("Sale de la aplicación");
+        lblEtiquetaWeb.setToolTipText("Ir a WWW");
+        mnbAbout.setToolTipText("Sobre la aplicación");
+        mnbFile.setToolTipText("Menu Archivo");
+        btnAsignarEntreno.setToolTipText("Asigna entreno a usuario");
+        btnBotonLogin.setToolTipText("Logear");
+        btnCalendario.setToolTipText("Calendario de entrenos");
+        btnGestionEntrenos.setToolTipText("Gestion de entrenos");
+        btnListarEjercicios.setToolTipText("Ejercicios del sistema");
+        btnMostrarUsuarios.setToolTipText("Muestra usuarios totales");
+        btnNuevoUsuario.setToolTipText("Nuevo usuario");
+        btnSignOut.setToolTipText("Desconectar usuario");
 
     }
 
@@ -41,8 +65,8 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         setTitle("MaXsport");
         setLocationRelativeTo(null);
-        setSize(900, 600);
-        pnlPanelSecundario.setSize(900, 600);
+        setSize(700, 500);
+        pnlPanelSecundario.setSize(700, 500);
         pnlPanelSecundario.setVisible(false);
 
     }
@@ -109,12 +133,11 @@ public class FramePrincipal extends javax.swing.JFrame {
             cargarUsuariosEnTabla(idEntrenador);
             obtenerUsuario(mail);
             cargarFoto();
-            idInstructorAsigna=idEntrenador;
-            
-            
+            idInstructorAsigna = idEntrenador;
+
         }
 
-        txtNumeroEntrenador.setText(String.valueOf(idEntrenador));
+        txtNumeroEntrenador.setText(mail);
     }
 
     private void cargarUsuariosEnTabla(int idEntrenador) {
@@ -150,7 +173,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         btnListarEjercicios = new javax.swing.JButton();
         btnGestionEntrenos = new javax.swing.JButton();
         btnMostrarUsuarios = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         btnCalendario = new javax.swing.JButton();
         menMenu = new javax.swing.JMenuBar();
         mnbFile = new javax.swing.JMenu();
@@ -163,15 +185,13 @@ public class FramePrincipal extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        pnlPanelPrincipal.setBackground(new java.awt.Color(102, 102, 102));
-        pnlPanelPrincipal.setMinimumSize(new java.awt.Dimension(900, 600));
+        pnlPanelPrincipal.setMinimumSize(new java.awt.Dimension(700, 500));
         pnlPanelPrincipal.setLayout(null);
 
-        btnBotonLogin.setBackground(new java.awt.Color(153, 153, 153));
         btnBotonLogin.setFont(new java.awt.Font("Mukti Narrow", 1, 24)); // NOI18N
+        btnBotonLogin.setForeground(new java.awt.Color(204, 0, 51));
         btnBotonLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/down.png"))); // NOI18N
         btnBotonLogin.setText("Entrar");
-        btnBotonLogin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 0, 0), null, new java.awt.Color(0, 51, 51)));
         btnBotonLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnBotonLoginMouseEntered(evt);
@@ -186,13 +206,14 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
         pnlPanelPrincipal.add(btnBotonLogin);
-        btnBotonLogin.setBounds(590, 250, 210, 100);
+        btnBotonLogin.setBounds(490, 70, 160, 50);
 
         lblEtiquetaLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/nutricion.png"))); // NOI18N
         pnlPanelPrincipal.add(lblEtiquetaLogo);
         lblEtiquetaLogo.setBounds(10, 0, 550, 520);
 
         lblAccesoWeb.setText("                     www.maXsport.com");
+        lblAccesoWeb.setEnabled(false);
         lblAccesoWeb.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblAccesoWebMouseEntered(evt);
@@ -205,15 +226,13 @@ public class FramePrincipal extends javax.swing.JFrame {
         lblAccesoWeb.setBounds(260, 510, 340, 40);
 
         getContentPane().add(pnlPanelPrincipal);
-        pnlPanelPrincipal.setBounds(0, 0, 900, 600);
+        pnlPanelPrincipal.setBounds(0, 0, 700, 500);
 
-        pnlPanelSecundario.setBackground(new java.awt.Color(102, 102, 102));
-        pnlPanelSecundario.setMinimumSize(new java.awt.Dimension(900, 600));
+        pnlPanelSecundario.setMinimumSize(new java.awt.Dimension(700, 500));
         pnlPanelSecundario.setName(""); // NOI18N
-        pnlPanelSecundario.setPreferredSize(new java.awt.Dimension(900, 600));
+        pnlPanelSecundario.setPreferredSize(new java.awt.Dimension(700, 430));
         pnlPanelSecundario.setLayout(null);
 
-        tblTablaUsuarios.setBackground(new java.awt.Color(153, 153, 153));
         tblTablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -247,31 +266,28 @@ public class FramePrincipal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblTablaUsuarios);
 
         pnlPanelSecundario.add(jScrollPane1);
-        jScrollPane1.setBounds(30, 80, 452, 370);
+        jScrollPane1.setBounds(20, 180, 452, 240);
 
-        btnAsignarEntreno.setBackground(new java.awt.Color(0, 102, 102));
         btnAsignarEntreno.setFont(new java.awt.Font("Manjari", 0, 15)); // NOI18N
         btnAsignarEntreno.setText("Crear entreno con ejercicios");
-        btnAsignarEntreno.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnAsignarEntreno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAsignarEntrenoActionPerformed(evt);
             }
         });
         pnlPanelSecundario.add(btnAsignarEntreno);
-        btnAsignarEntreno.setBounds(510, 350, 380, 40);
+        btnAsignarEntreno.setBounds(490, 300, 190, 40);
 
         lblBoligrafo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
         pnlPanelSecundario.add(lblBoligrafo);
-        lblBoligrafo.setBounds(560, 20, 190, 160);
+        lblBoligrafo.setBounds(20, 10, 190, 160);
 
         lblLogoPanelSecundario.setFont(new java.awt.Font("Noto Serif CJK JP", 2, 36)); // NOI18N
         lblLogoPanelSecundario.setForeground(new java.awt.Color(0, 51, 51));
         lblLogoPanelSecundario.setText("maXsport");
         pnlPanelSecundario.add(lblLogoPanelSecundario);
-        lblLogoPanelSecundario.setBounds(150, 10, 180, 50);
+        lblLogoPanelSecundario.setBounds(220, 10, 180, 50);
 
-        btnSignOut.setBackground(new java.awt.Color(102, 0, 0));
         btnSignOut.setForeground(new java.awt.Color(153, 0, 0));
         btnSignOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exercise_salir.png"))); // NOI18N
         btnSignOut.setText("Sign out");
@@ -282,44 +298,40 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
         pnlPanelSecundario.add(btnSignOut);
-        btnSignOut.setBounds(770, 20, 120, 70);
+        btnSignOut.setBounds(490, 30, 190, 40);
 
-        btnNuevoUsuario.setBackground(new java.awt.Color(0, 51, 51));
-        btnNuevoUsuario.setForeground(new java.awt.Color(0, 153, 153));
         btnNuevoUsuario.setText("Nuevo usuario");
-        btnNuevoUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnNuevoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoUsuarioActionPerformed(evt);
             }
         });
         pnlPanelSecundario.add(btnNuevoUsuario);
-        btnNuevoUsuario.setBounds(510, 410, 190, 40);
+        btnNuevoUsuario.setBounds(490, 340, 190, 40);
 
         lblEtiquetaWeb.setText("www.maXsport.com");
+        lblEtiquetaWeb.setDisplayedMnemonicIndex(0);
+        lblEtiquetaWeb.setEnabled(false);
+        lblEtiquetaWeb.setFocusable(false);
         pnlPanelSecundario.add(lblEtiquetaWeb);
-        lblEtiquetaWeb.setBounds(400, 490, 180, 18);
+        lblEtiquetaWeb.setBounds(220, 60, 180, 20);
 
-        txtNumeroEntrenador.setBackground(new java.awt.Color(153, 153, 153));
         txtNumeroEntrenador.setFont(new java.awt.Font("Noto Sans CJK SC", 1, 18)); // NOI18N
         txtNumeroEntrenador.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtNumeroEntrenador.setEnabled(false);
         txtNumeroEntrenador.setSelectionColor(new java.awt.Color(0, 0, 0));
         pnlPanelSecundario.add(txtNumeroEntrenador);
-        txtNumeroEntrenador.setBounds(770, 150, 80, 33);
+        txtNumeroEntrenador.setBounds(490, 80, 190, 33);
 
-        btnListarEjercicios.setBackground(new java.awt.Color(0, 204, 204));
         btnListarEjercicios.setText("Mostrar ejercicios ");
-        btnListarEjercicios.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnListarEjercicios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListarEjerciciosActionPerformed(evt);
             }
         });
         pnlPanelSecundario.add(btnListarEjercicios);
-        btnListarEjercicios.setBounds(510, 290, 190, 40);
+        btnListarEjercicios.setBounds(490, 220, 190, 40);
 
-        btnGestionEntrenos.setBackground(new java.awt.Color(204, 255, 204));
         btnGestionEntrenos.setText("Gestion entrenos");
         btnGestionEntrenos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -327,9 +339,8 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
         pnlPanelSecundario.add(btnGestionEntrenos);
-        btnGestionEntrenos.setBounds(710, 410, 180, 40);
+        btnGestionEntrenos.setBounds(490, 380, 190, 40);
 
-        btnMostrarUsuarios.setBackground(new java.awt.Color(51, 255, 102));
         btnMostrarUsuarios.setText("Mostrar usuarios");
         btnMostrarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -337,13 +348,8 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
         pnlPanelSecundario.add(btnMostrarUsuarios);
-        btnMostrarUsuarios.setBounds(710, 290, 180, 40);
+        btnMostrarUsuarios.setBounds(490, 260, 190, 40);
 
-        jLabel2.setText("Instructor");
-        pnlPanelSecundario.add(jLabel2);
-        jLabel2.setBounds(770, 120, 80, 30);
-
-        btnCalendario.setBackground(new java.awt.Color(255, 153, 102));
         btnCalendario.setText("Calendario");
         btnCalendario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -351,10 +357,10 @@ public class FramePrincipal extends javax.swing.JFrame {
             }
         });
         pnlPanelSecundario.add(btnCalendario);
-        btnCalendario.setBounds(510, 230, 190, 40);
+        btnCalendario.setBounds(490, 180, 190, 40);
 
         getContentPane().add(pnlPanelSecundario);
-        pnlPanelSecundario.setBounds(0, 0, 900, 600);
+        pnlPanelSecundario.setBounds(0, 0, 700, 500);
 
         menMenu.setBackground(new java.awt.Color(153, 153, 153));
         menMenu.setEnabled(false);
@@ -483,44 +489,47 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMostrarUsuariosActionPerformed
 
     private void btnCalendarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarioActionPerformed
-        
-        dc=new DialogoCalendario(this, true, idInstructorAsigna);
+
+        dc = new DialogoCalendario(this, true, idInstructorAsigna);
         dc.setVisible(true);
-        
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_btnCalendarioActionPerformed
 
     private void btnBotonLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBotonLoginMouseEntered
 
-        btnBotonLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));  
+        btnBotonLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnBotonLoginMouseEntered
 
     private void btnBotonLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBotonLoginMouseExited
-       
-        btnBotonLogin.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));      
+
+        btnBotonLogin.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnBotonLoginMouseExited
 
     private void lblAccesoWebMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAccesoWebMouseEntered
-      
+
         lblEtiquetaWeb.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_lblAccesoWebMouseEntered
 
     private void lblAccesoWebMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAccesoWebMouseExited
-      
-        lblEtiquetaWeb.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));       
+
+        lblEtiquetaWeb.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_lblAccesoWebMouseExited
 
     private void jmnPinkSkinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnPinkSkinActionPerformed
-        
-        //aqui va la ejecucion del metodo
-        
-        
-        
+
+       
+
     }//GEN-LAST:event_jmnPinkSkinActionPerformed
 
+    
+    private void pinkSkin() throws UnsupportedLookAndFeelException{
+    
+    
+ 
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignarEntreno;
@@ -531,7 +540,6 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnMostrarUsuarios;
     private javax.swing.JButton btnNuevoUsuario;
     private javax.swing.JButton btnSignOut;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu jmnPinkSkin;
     private javax.swing.JLabel lblAccesoWeb;
