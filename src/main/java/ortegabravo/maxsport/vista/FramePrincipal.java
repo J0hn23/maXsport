@@ -1,6 +1,8 @@
 package ortegabravo.maxsport.vista;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -35,6 +37,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     private DialogoListaEjercicios dle;
     private DialogoCrearEntrenoConEjercicios dcece;
     private DialogoCalendario dc;
+    private DialogoGestionEntrenos dge;
     int idInstructorAsigna;
 
     public FramePrincipal() {
@@ -189,7 +192,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         pnlPanelPrincipal.setLayout(null);
 
         btnBotonLogin.setFont(new java.awt.Font("Mukti Narrow", 1, 24)); // NOI18N
-        btnBotonLogin.setForeground(new java.awt.Color(204, 0, 51));
         btnBotonLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/down.png"))); // NOI18N
         btnBotonLogin.setText("Entrar");
         btnBotonLogin.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -450,7 +452,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void mnbAboutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnbAboutMousePressed
         da = new DialogoAbout(this, true);
         JComponent contenedor = (JComponent) da.getContentPane();
-        contenedor.setBackground(new Color(150, 150, 150));
+        //contenedor.setBackground(new Color(150, 150, 150));
         da.setVisible(true);
     }//GEN-LAST:event_mnbAboutMousePressed
 
@@ -458,7 +460,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         dnu = new DialogoNuevoUsuario(this, true, idInstructorAsigna);
         JComponent contenedor = (JComponent) dnu.getContentPane();
-        contenedor.setBackground(new Color(150, 150, 150));
+        //contenedor.setBackground(new Color(150, 150, 150));
         dnu.setVisible(true);
 
     }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
@@ -468,7 +470,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         //daeae.setVisible(true);
         dcece = new DialogoCrearEntrenoConEjercicios(this, true);
         JComponent contenedor = (JComponent) dcece.getContentPane();
-        contenedor.setBackground(new Color(150, 150, 150));
+        //contenedor.setBackground(new Color(150, 150, 150));
         dcece.setVisible(true);
 
     }//GEN-LAST:event_btnAsignarEntrenoActionPerformed
@@ -479,7 +481,23 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnListarEjerciciosActionPerformed
 
     private void btnGestionEntrenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionEntrenosActionPerformed
-        JOptionPane.showMessageDialog(rootPane, "En construcción");
+//        JOptionPane.showMessageDialog(rootPane, "En construcción");
+        
+        dge = new DialogoGestionEntrenos(this, true, idInstructorAsigna);
+        dge.setVisible(true);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }//GEN-LAST:event_btnGestionEntrenosActionPerformed
 
     private void btnMostrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarUsuariosActionPerformed
@@ -518,14 +536,23 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     private void jmnPinkSkinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnPinkSkinActionPerformed
 
-       
+        try {
+            pinkSkin();
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_jmnPinkSkinActionPerformed
 
     
     private void pinkSkin() throws UnsupportedLookAndFeelException{
     
-    
+//            UIManager.setLookAndFeel(new FlatMacDarkLaf());
+            // Si quieres usar otro tema, puedes descomentar la siguiente línea:
+             UIManager.setLookAndFeel(new FlatLightLaf()); // Cambia al tema claro
+
+            // Actualizar la interfaz para que todos los componentes se actualicen
+          SwingUtilities.updateComponentTreeUI(SwingUtilities.getRoot(this));
  
     }
     

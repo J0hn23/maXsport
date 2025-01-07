@@ -1,6 +1,5 @@
 package ortegabravo.maxsport.vista;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_OPTION;
 import javax.swing.table.AbstractTableModel;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
+import ortegabravo.maxsport.accesoDatos.EntrenosTableModel;
 import ortegabravo.maxsport.modelo.Exercici;
 import ortegabravo.maxsport.modelo.Usuari;
 import ortegabravo.maxsport.modelo.Workout;
@@ -299,54 +299,54 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
 }
 
 //de nuevo con la interface Abstracttablemodel creo una tabla a mi gusto
-class EntrenosTableModel extends AbstractTableModel {
-
-    private final String[] columns = {"Id Entreno", "Fecha", "Usuario", "Comentario"};
-    public ArrayList<Workout> entrenos = null;
-
-    public EntrenosTableModel(ArrayList<Workout> entrenos) {
-        this.entrenos = entrenos;
-    }
-
-    @Override
-    public int getRowCount() {
-
-        return entrenos.size();
-    }
-
-    @Override
-    public int getColumnCount() {
-
-        return columns.length;
-    }
-
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-
-        return switch (columnIndex) {
-            case 0 ->
-                entrenos.get(rowIndex).getId();
-            case 1 ->
-                entrenos.get(rowIndex).getForDate();
-            case 2 ->
-                entrenos.get(rowIndex).getIdUsuari();
-            // case 3-> usuaris.get(rowIndex).setFoto(foto);
-            case 3 ->
-                entrenos.get(rowIndex).getComments();
-
-            default ->
-                "-";
-        };
-    }
-
-    @Override
-    public String getColumnName(int column) {
-        return columns[column];
-    }
-
-    @Override
-    public Class<?> getColumnClass(int columnIndex) {
-        return super.getColumnClass(columnIndex);
-    }
-
-}
+//class EntrenosTableModel extends AbstractTableModel {
+//
+//    private final String[] columns = {"Id Entreno", "Fecha", "Usuario", "Comentario"};
+//    public ArrayList<Workout> entrenos = null;
+//
+//    public EntrenosTableModel(ArrayList<Workout> entrenos) {
+//        this.entrenos = entrenos;
+//    }
+//
+//    @Override
+//    public int getRowCount() {
+//
+//        return entrenos.size();
+//    }
+//
+//    @Override
+//    public int getColumnCount() {
+//
+//        return columns.length;
+//    }
+//
+//    @Override
+//    public Object getValueAt(int rowIndex, int columnIndex) {
+//
+//        return switch (columnIndex) {
+//            case 0 ->
+//                entrenos.get(rowIndex).getId();
+//            case 1 ->
+//                entrenos.get(rowIndex).getForDate();
+//            case 2 ->
+//                entrenos.get(rowIndex).getIdUsuari();
+//            // case 3-> usuaris.get(rowIndex).setFoto(foto);
+//            case 3 ->
+//                entrenos.get(rowIndex).getComments();
+//
+//            default ->
+//                "-";
+//        };
+//    }
+//
+//    @Override
+//    public String getColumnName(int column) {
+//        return columns[column];
+//    }
+//
+//    @Override
+//    public Class<?> getColumnClass(int columnIndex) {
+//        return super.getColumnClass(columnIndex);
+//    }
+//
+//}

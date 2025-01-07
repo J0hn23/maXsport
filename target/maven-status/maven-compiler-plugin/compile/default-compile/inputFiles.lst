@@ -1,4 +1,5 @@
 /home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/accesoDatos/DataAccess.java
+/home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/accesoDatos/EntrenosTableModel.java
 /home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/accesoDatos/UsuariosTableModel.java
 /home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/modelo/Exercici.java
 /home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/modelo/Usuari.java
@@ -7,6 +8,7 @@
 /home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogoCalendario.java
 /home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogoCrearEntrenoConEjercicios.java
 /home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogoEntrenamientos.java
+/home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogoGestionEntrenos.java
 /home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogoListaEjercicios.java
 /home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogoListaUsuarios.java
 /home/john/NetBeansProjects/maXsport/src/main/java/ortegabravo/maxsport/vista/DialogoLogin.java

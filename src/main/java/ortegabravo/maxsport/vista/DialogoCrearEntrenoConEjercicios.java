@@ -29,7 +29,7 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
     private void cargarComboEjercicios() {
         cmbComboObject = new javax.swing.JComboBox<>();
         getContentPane().add(cmbComboObject);
-        cmbComboObject.setBounds(30, 260, 400, 30);
+        cmbComboObject.setBounds(20, 230, 370, 30);
 
     }
 
@@ -90,9 +90,9 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         cmbNombreUsuario = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(new java.awt.Color(153, 153, 153));
-        setMinimumSize(new java.awt.Dimension(450, 600));
-        setPreferredSize(new java.awt.Dimension(450, 600));
+        setBackground(new java.awt.Color(51, 51, 51));
+        setMinimumSize(new java.awt.Dimension(400, 560));
+        setPreferredSize(new java.awt.Dimension(400, 560));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -100,9 +100,10 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         });
         getContentPane().setLayout(null);
 
-        jLabel1.setText("          Crear nuevo entreno");
+        jLabel1.setFont(new java.awt.Font("Likhan", 2, 24)); // NOI18N
+        jLabel1.setText("  Crear nuevo entreno");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(78, 20, 200, 30);
+        jLabel1.setBounds(78, 20, 240, 30);
 
         lblFechaEntreno.setText("Fecha");
         getContentPane().add(lblFechaEntreno);
@@ -110,7 +111,7 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
 
         spnFechaEntreno.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), new java.util.Date(), null, java.util.Calendar.DAY_OF_MONTH));
         getContentPane().add(spnFechaEntreno);
-        spnFechaEntreno.setBounds(130, 60, 140, 24);
+        spnFechaEntreno.setBounds(130, 60, 260, 24);
 
         jLabel2.setText("Id Usuario");
         getContentPane().add(jLabel2);
@@ -129,9 +130,8 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         getContentPane().add(jLabel3);
         jLabel3.setBounds(30, 160, 80, 18);
         getContentPane().add(txtComentaio);
-        txtComentaio.setBounds(130, 154, 220, 30);
+        txtComentaio.setBounds(130, 154, 260, 30);
 
-        btnSalir.setBackground(new java.awt.Color(255, 153, 153));
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,18 +139,17 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnSalir);
-        btnSalir.setBounds(290, 510, 83, 24);
+        btnSalir.setBounds(190, 470, 120, 40);
 
         txaEjerciciosSeleccionados.setColumns(20);
         txaEjerciciosSeleccionados.setRows(5);
         jScrollPane1.setViewportView(txaEjerciciosSeleccionados);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(30, 370, 330, 96);
+        jScrollPane1.setBounds(10, 346, 380, 110);
         getContentPane().add(jSeparator1);
         jSeparator1.setBounds(20, 210, 360, 30);
 
-        btnAniadirejercicio.setBackground(new java.awt.Color(102, 204, 255));
         btnAniadirejercicio.setText("Añadir Ejercicio");
         btnAniadirejercicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,10 +157,10 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnAniadirejercicio);
-        btnAniadirejercicio.setBounds(30, 490, 160, 50);
+        btnAniadirejercicio.setBounds(50, 470, 140, 40);
 
         getContentPane().add(cmbNombreUsuario);
-        cmbNombreUsuario.setBounds(210, 100, 130, 30);
+        cmbNombreUsuario.setBounds(210, 100, 180, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

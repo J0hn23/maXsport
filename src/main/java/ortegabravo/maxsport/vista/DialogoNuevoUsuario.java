@@ -72,8 +72,8 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         jpsPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(new java.awt.Color(102, 102, 102));
-        setSize(new java.awt.Dimension(400, 300));
+        setBackground(new java.awt.Color(51, 51, 51));
+        setSize(new java.awt.Dimension(360, 300));
         getContentPane().setLayout(null);
 
         lblNombre.setText("Nombre:");
@@ -116,7 +116,6 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         getContentPane().add(txtInstructorasignado);
         txtInstructorasignado.setBounds(110, 180, 64, 24);
 
-        btnAnyadir.setBackground(new java.awt.Color(0, 153, 153));
         btnAnyadir.setText("Añadir");
         btnAnyadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,10 +123,9 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnAnyadir);
-        btnAnyadir.setBounds(140, 230, 120, 30);
+        btnAnyadir.setBounds(80, 230, 120, 30);
 
-        btnSalir.setBackground(new java.awt.Color(102, 0, 0));
-        btnSalir.setForeground(new java.awt.Color(255, 102, 102));
+        btnSalir.setForeground(new java.awt.Color(204, 0, 0));
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,13 +133,15 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnSalir);
-        btnSalir.setBounds(300, 260, 83, 24);
+        btnSalir.setBounds(200, 230, 110, 30);
 
         chkIsInstructor.setText("Instructor");
         getContentPane().add(chkIsInstructor);
         chkIsInstructor.setBounds(240, 180, 84, 22);
         getContentPane().add(jpsPassword);
         jpsPassword.setBounds(110, 130, 200, 24);
+
+        getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
