@@ -101,7 +101,7 @@ public class FramePrincipal extends javax.swing.JFrame {
             ImageIcon icon = new ImageIcon(imagen);
             return icon;
         } catch (Exception e) {
-            System.out.println("No se pudo crear el icono");
+            System.out.println("No se pudo crear el icono de la foto");
         }
         return null;
     }

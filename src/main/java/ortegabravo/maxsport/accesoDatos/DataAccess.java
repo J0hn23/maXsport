@@ -330,14 +330,6 @@ public class DataAccess {
         try {
 
 
-        //            String sentenciaBorrado = "DELETE FROM dbo.ExercicisWorkouts WHERE dbo.ExercicisWorkouts.Id=?";
-        //            String sentenciaBorradoIntents = "DELETE FROM dbo.Intents WHERE dbo.Intents.IdExerciciWorkout=?";
-        //            String sentenciaBorradoReview = "DELETE FROM dbo.Review WHERE Review.idIntent IN (SELECT Id FROM dbo.Intents WHERE IdExerciciWorkout=?)";
-
-
-
-
-
         String sentenciaBorradoReview =
                 "DELETE FROM dbo.Review " +
                 "WHERE IdIntent IN (" +
@@ -372,7 +364,7 @@ public class DataAccess {
 
 
 
-        // Suponiendo que tienes una conexión abierta
+        
         Connection conn = getConnection();
 
         // Sentencias preparadas
@@ -419,12 +411,78 @@ public class DataAccess {
         } catch (SQLException ex) {
                     Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }                    
+    }           
+    
+    
+    public static void eliminarEntreno(int idEntreno, int idUsuario) {
 
-                             
+                     
+        String borradoReview="DELETE From dbo.Review WHERE idIntent IN(SELECT id FROM DBO.Intents WHERE idExerciciWorkout IN(SELECT Id FROM dbo.ExercicisWorkouts WHERE IdWorkout=?))";       
 
+        String borradoEjercicioIntents="DELETE FROM dbo.Intents WHERE IdExerciciWorkout IN (SELECT Id FROM dbo.ExercicisWorkouts WHERE IdWorkout=?)";
 
+        String borradoEjercicioEntreno = "DELETE FROM dbo.ExercicisWorkouts WHERE IdWorkout=?";        
+        
+        String sentenciaBorradoEntreno = "DELETE FROM dbo.Workouts WHERE id=? AND UserId=?";
+        
+        try{
             
+        Connection conn = getConnection(); 
+        
+        PreparedStatement psBorradoReview=conn.prepareStatement(borradoReview);
+        
+        PreparedStatement psBorrarIntents=conn.prepareStatement(borradoEjercicioIntents);
+        
+        PreparedStatement psBorradoEjercicioEntreno = conn.prepareStatement(borradoEjercicioEntreno);
+        
+        PreparedStatement psBorradoEntreno = conn.prepareStatement(sentenciaBorradoEntreno);
+        
+        try {
+           
+            conn.setAutoCommit(false);
+            
+            psBorradoReview.setInt(1, idEntreno);
+            psBorradoReview.executeUpdate();
+            
+            psBorrarIntents.setInt(1, idEntreno);
+            psBorrarIntents.executeUpdate();
+
+            psBorradoEjercicioEntreno.setInt(1, idEntreno);
+            psBorradoEjercicioEntreno.executeUpdate();
+            
+            psBorradoEntreno.setInt(1, idEntreno);
+            psBorradoEntreno.setInt(2, idUsuario);
+            psBorradoEntreno.executeUpdate();
+            
+            conn.commit();
+        } catch (SQLException e) {
+            // Si ocurre un error, revertir
+            conn.rollback();
+            e.printStackTrace();
+        } finally {
+            
+            psBorradoReview.close();
+            psBorradoEntreno.close();
+            psBorradoEjercicioEntreno.close(); 
+            psBorrarIntents.close();
+            conn.close();        
+        } 
+        
+        }catch (SQLException ex) {
+                    Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }           
+            
+            
+            
+            
+            
+            
+            
+            
+            
+    
             
             
         
