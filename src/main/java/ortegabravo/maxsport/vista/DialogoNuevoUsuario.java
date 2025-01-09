@@ -10,8 +10,9 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
 
     Usuari nuevoUsuario;
     int instructorAsignado;
-
-    public DialogoNuevoUsuario(java.awt.Frame parent, boolean modal,int idInstructorAsigna) {
+    FramePrincipal fp;
+    
+    public DialogoNuevoUsuario(java.awt.Frame parent, boolean modal,int idInstructorAsigna,FramePrincipal fp) {
         super(parent, modal);
         initComponents();
         //setVisible(true);
@@ -19,6 +20,7 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         setTitle("Nuevo usuario");
         setLocationRelativeTo(parent);
         instructorAsignado=idInstructorAsigna;
+        this.fp=fp;
     }
 
     private void cargarUsuario() {
@@ -165,6 +167,8 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
             }
         }
         setVisible(false);
+        
+        fp.cargarUsuariosEnTabla(instructorAsignado);
 
 
     }//GEN-LAST:event_btnAnyadirActionPerformed

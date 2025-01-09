@@ -143,7 +143,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         txtNumeroEntrenador.setText(mail);
     }
 
-    private void cargarUsuariosEnTabla(int idEntrenador) {
+    void cargarUsuariosEnTabla(int idEntrenador) {
 
         usuaris = DataAccess.getAllUsersByInstructor(idEntrenador);
         UsuariosTableModel utm = new UsuariosTableModel(usuaris);
@@ -458,7 +458,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     private void btnNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoUsuarioActionPerformed
 
-        dnu = new DialogoNuevoUsuario(this, true, idInstructorAsigna);
+        dnu = new DialogoNuevoUsuario(this, true, idInstructorAsigna,this);
         JComponent contenedor = (JComponent) dnu.getContentPane();
         //contenedor.setBackground(new Color(150, 150, 150));
         dnu.setVisible(true);
