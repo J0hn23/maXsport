@@ -32,5 +32,11 @@
             <version>3.5.4</version> <!-- Asegúrate de usar la última versión disponible -->
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.freeplane.bulenkov</groupId>
+            <artifactId>darcula</artifactId>
+            <version>2021.7</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 </project>

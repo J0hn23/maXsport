@@ -323,169 +323,187 @@ public class DataAccess {
 //        }
 //        System.out.println("fin de borrado ? en dataaccess");
 //    }
-
     public static void eliminarEjercicio(int idExercici, int idWorkout) {
-    
 
         try {
 
+            String sentenciaBorradoReview
+                    = "DELETE FROM dbo.Review "
+                    + "WHERE IdIntent IN ("
+                    + "    SELECT Id "
+                    + "    FROM dbo.Intents "
+                    + "    WHERE IdExerciciWorkout IN ("
+                    + "        SELECT Id "
+                    + "        FROM dbo.ExercicisWorkouts "
+                    + "        WHERE IdExercici = ? AND IdWorkout = ?"
+                    + "    )"
+                    + ");";
 
-        String sentenciaBorradoReview =
-                "DELETE FROM dbo.Review " +
-                "WHERE IdIntent IN (" +
-                "    SELECT Id " +
-                "    FROM dbo.Intents " +
-                "    WHERE IdExerciciWorkout IN (" +
-                "        SELECT Id " +
-                "        FROM dbo.ExercicisWorkouts " +
-                "        WHERE IdExercici = ? AND IdWorkout = ?" +
-                "    )" +
-                ");";
+            String sentenciaBorradoIntents
+                    = "DELETE FROM dbo.Intents "
+                    + "WHERE IdExerciciWorkout IN ("
+                    + "    SELECT Id "
+                    + "    FROM dbo.ExercicisWorkouts "
+                    + "    WHERE IdExercici = ? AND IdWorkout = ?"
+                    + ");";
 
-        String sentenciaBorradoIntents =
-                "DELETE FROM dbo.Intents " +
-                "WHERE IdExerciciWorkout IN (" +
-                "    SELECT Id " +
-                "    FROM dbo.ExercicisWorkouts " +
-                "    WHERE IdExercici = ? AND IdWorkout = ?" +
-                ");";
+            String sentenciaBorradoExercicisWorkouts
+                    = "DELETE FROM dbo.ExercicisWorkouts "
+                    + "WHERE IdExercici = ? AND IdWorkout = ?;";
 
-        String sentenciaBorradoExercicisWorkouts =
-                "DELETE FROM dbo.ExercicisWorkouts " +
-                "WHERE IdExercici = ? AND IdWorkout = ?;";
+            String sentenciaBorradoExercici
+                    = "DELETE FROM dbo.Exercicis "
+                    + "WHERE Id = ? AND NOT EXISTS ("
+                    + "    SELECT 1 "
+                    + "    FROM dbo.ExercicisWorkouts "
+                    + "    WHERE IdExercici = ?"
+                    + ");";
 
-        String sentenciaBorradoExercici =
-                "DELETE FROM dbo.Exercicis " +
-                "WHERE Id = ? AND NOT EXISTS (" +
-                "    SELECT 1 " +
-                "    FROM dbo.ExercicisWorkouts " +
-                "    WHERE IdExercici = ?" +
-                ");";
+            Connection conn = getConnection();
 
+            // Sentencias preparadas
+            PreparedStatement psBorradoReview = conn.prepareStatement(sentenciaBorradoReview);
+            PreparedStatement psBorradoIntents = conn.prepareStatement(sentenciaBorradoIntents);
+            PreparedStatement psBorradoExercicisWorkouts = conn.prepareStatement(sentenciaBorradoExercicisWorkouts);
+            PreparedStatement psBorradoExercici = conn.prepareStatement(sentenciaBorradoExercici);
 
+            try {
+                // Inicia la transacción
+                conn.setAutoCommit(false);
 
-        
-        Connection conn = getConnection();
+                // Establecer los parámetros para cada sentencia
+                psBorradoReview.setInt(1, idExercici);
+                psBorradoReview.setInt(2, idWorkout);
+                psBorradoReview.executeUpdate();
 
-        // Sentencias preparadas
-        PreparedStatement psBorradoReview = conn.prepareStatement(sentenciaBorradoReview);
-        PreparedStatement psBorradoIntents = conn.prepareStatement(sentenciaBorradoIntents);
-        PreparedStatement psBorradoExercicisWorkouts = conn.prepareStatement(sentenciaBorradoExercicisWorkouts);
-        PreparedStatement psBorradoExercici = conn.prepareStatement(sentenciaBorradoExercici);
+                psBorradoIntents.setInt(1, idExercici);
+                psBorradoIntents.setInt(2, idWorkout);
+                psBorradoIntents.executeUpdate();
 
-        try {
-            // Inicia la transacción
-            conn.setAutoCommit(false);
+                psBorradoExercicisWorkouts.setInt(1, idExercici);
+                psBorradoExercicisWorkouts.setInt(2, idWorkout);
+                psBorradoExercicisWorkouts.executeUpdate();
 
-            // Establecer los parámetros para cada sentencia
-            psBorradoReview.setInt(1, idExercici);
-            psBorradoReview.setInt(2, idWorkout);
-            psBorradoReview.executeUpdate();
+                psBorradoExercici.setInt(1, idExercici);
+                psBorradoExercici.setInt(2, idExercici);
+                psBorradoExercici.executeUpdate();
 
-            psBorradoIntents.setInt(1, idExercici);
-            psBorradoIntents.setInt(2, idWorkout);
-            psBorradoIntents.executeUpdate();
-
-            psBorradoExercicisWorkouts.setInt(1, idExercici);
-            psBorradoExercicisWorkouts.setInt(2, idWorkout);
-            psBorradoExercicisWorkouts.executeUpdate();
-
-            psBorradoExercici.setInt(1, idExercici);
-            psBorradoExercici.setInt(2, idExercici);
-            psBorradoExercici.executeUpdate();
-
-            // Confirmar los cambios
-            conn.commit();
-        } catch (SQLException e) {
-            // Si ocurre un error, revertir
-            conn.rollback();
-            e.printStackTrace();
-        } finally {
-            // Cerrar recursos
-            psBorradoReview.close();
-            psBorradoIntents.close();
-            psBorradoExercicisWorkouts.close();
-            psBorradoExercici.close();
-            conn.close();
-        }
+                // Confirmar los cambios
+                conn.commit();
+            } catch (SQLException e) {
+                // Si ocurre un error, revertir
+                conn.rollback();
+                e.printStackTrace();
+            } finally {
+                // Cerrar recursos
+                psBorradoReview.close();
+                psBorradoIntents.close();
+                psBorradoExercicisWorkouts.close();
+                psBorradoExercici.close();
+                conn.close();
+            }
         } catch (SQLException ex) {
-                    Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }           
-    
-    
+    }
+
     public static void eliminarEntreno(int idEntreno, int idUsuario) {
 
-                     
-        String borradoReview="DELETE From dbo.Review WHERE idIntent IN(SELECT id FROM DBO.Intents WHERE idExerciciWorkout IN(SELECT Id FROM dbo.ExercicisWorkouts WHERE IdWorkout=?))";       
+        String borradoReview = "DELETE From dbo.Review WHERE idIntent IN(SELECT id FROM DBO.Intents WHERE idExerciciWorkout IN(SELECT Id FROM dbo.ExercicisWorkouts WHERE IdWorkout=?))";
 
-        String borradoEjercicioIntents="DELETE FROM dbo.Intents WHERE IdExerciciWorkout IN (SELECT Id FROM dbo.ExercicisWorkouts WHERE IdWorkout=?)";
+        String borradoEjercicioIntents = "DELETE FROM dbo.Intents WHERE IdExerciciWorkout IN (SELECT Id FROM dbo.ExercicisWorkouts WHERE IdWorkout=?)";
 
-        String borradoEjercicioEntreno = "DELETE FROM dbo.ExercicisWorkouts WHERE IdWorkout=?";        
-        
+        String borradoEjercicioEntreno = "DELETE FROM dbo.ExercicisWorkouts WHERE IdWorkout=?";
+
         String sentenciaBorradoEntreno = "DELETE FROM dbo.Workouts WHERE id=? AND UserId=?";
-        
-        try{
-            
-        Connection conn = getConnection(); 
-        
-        PreparedStatement psBorradoReview=conn.prepareStatement(borradoReview);
-        
-        PreparedStatement psBorrarIntents=conn.prepareStatement(borradoEjercicioIntents);
-        
-        PreparedStatement psBorradoEjercicioEntreno = conn.prepareStatement(borradoEjercicioEntreno);
-        
-        PreparedStatement psBorradoEntreno = conn.prepareStatement(sentenciaBorradoEntreno);
-        
-        try {
-           
-            conn.setAutoCommit(false);
-            
-            psBorradoReview.setInt(1, idEntreno);
-            psBorradoReview.executeUpdate();
-            
-            psBorrarIntents.setInt(1, idEntreno);
-            psBorrarIntents.executeUpdate();
 
-            psBorradoEjercicioEntreno.setInt(1, idEntreno);
-            psBorradoEjercicioEntreno.executeUpdate();
-            
-            psBorradoEntreno.setInt(1, idEntreno);
-            psBorradoEntreno.setInt(2, idUsuario);
-            psBorradoEntreno.executeUpdate();
-            
-            conn.commit();
-        } catch (SQLException e) {
-            // Si ocurre un error, revertir
-            conn.rollback();
-            e.printStackTrace();
-        } finally {
-            
-            psBorradoReview.close();
-            psBorradoEntreno.close();
-            psBorradoEjercicioEntreno.close(); 
-            psBorrarIntents.close();
-            conn.close();        
-        } 
-        
-        }catch (SQLException ex) {
-                    Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+
+            Connection conn = getConnection();
+
+            PreparedStatement psBorradoReview = conn.prepareStatement(borradoReview);
+
+            PreparedStatement psBorrarIntents = conn.prepareStatement(borradoEjercicioIntents);
+
+            PreparedStatement psBorradoEjercicioEntreno = conn.prepareStatement(borradoEjercicioEntreno);
+
+            PreparedStatement psBorradoEntreno = conn.prepareStatement(sentenciaBorradoEntreno);
+
+            try {
+
+                conn.setAutoCommit(false);
+
+                psBorradoReview.setInt(1, idEntreno);
+                psBorradoReview.executeUpdate();
+
+                psBorrarIntents.setInt(1, idEntreno);
+                psBorrarIntents.executeUpdate();
+
+                psBorradoEjercicioEntreno.setInt(1, idEntreno);
+                psBorradoEjercicioEntreno.executeUpdate();
+
+                psBorradoEntreno.setInt(1, idEntreno);
+                psBorradoEntreno.setInt(2, idUsuario);
+                psBorradoEntreno.executeUpdate();
+
+                conn.commit();
+            } catch (SQLException e) {
+                // Si ocurre un error, revertir
+                conn.rollback();
+                e.printStackTrace();
+            } finally {
+
+                psBorradoReview.close();
+                psBorradoEntreno.close();
+                psBorradoEjercicioEntreno.close();
+                psBorrarIntents.close();
+                conn.close();
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }           
-            
-            
-            
-            
-            
-            
-            
-            
-            
-    
-            
-            
-        
-    
-    
+
+    }
+
+    public static ArrayList<String> getMailUsuarios() {
+        ArrayList<String> emailUsuarios = new ArrayList<>();
+        String sql = "SELECT Email FROM Usuaris;";
+        try (Connection connection = getConnection(); PreparedStatement selectStatement = connection.prepareStatement(sql);) {
+
+            ResultSet resultSet = selectStatement.executeQuery();
+
+            while (resultSet.next()) {
+
+                emailUsuarios.add(resultSet.getString("Email"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return emailUsuarios;
+    }
+
+    public static Usuari getUserNom(String nombre) {
+        Usuari user = null;
+        String sql = "SELECT * FROM Usuaris WHERE Nom = ?";
+        try (Connection connection = getConnection(); PreparedStatement selectStatement = connection.prepareStatement(sql);) {
+            selectStatement.setString(1, nombre);
+            ResultSet resultSet = selectStatement.executeQuery();
+
+            user = null;
+            while (resultSet.next()) {
+                user = new Usuari();
+                user.setId(resultSet.getInt("Id"));
+                user.setNom(resultSet.getString("Nom"));
+                user.setEmail(resultSet.getString("Email"));
+//                user.setPasswordHash(resultSet.getString("PasswordHash"));
+//                user.setFoto(resultSet.getBytes("Foto"));
+//                user.setInstructor(resultSet.getBoolean("Instructor"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
 }//fin de clase 

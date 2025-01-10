@@ -46,7 +46,6 @@ public class DialogoGestionEntrenos extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(584, 400));
-        setPreferredSize(new java.awt.Dimension(584, 400));
         getContentPane().setLayout(null);
 
         tblTablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
@@ -69,10 +68,14 @@ public class DialogoGestionEntrenos extends javax.swing.JDialog {
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(30, 20, 375, 116);
+
+        txtNombre.setEnabled(false);
         getContentPane().add(txtNombre);
-        txtNombre.setBounds(430, 170, 110, 24);
+        txtNombre.setBounds(430, 170, 110, 22);
+
+        txtCorreo.setEnabled(false);
         getContentPane().add(txtCorreo);
-        txtCorreo.setBounds(240, 170, 160, 24);
+        txtCorreo.setBounds(240, 170, 160, 22);
 
         tblEntrenosPorUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

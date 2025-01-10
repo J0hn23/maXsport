@@ -2,6 +2,9 @@ package ortegabravo.maxsport.vista;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import java.awt.HeadlessException;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.modelo.Usuari;
@@ -153,12 +156,22 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAnyadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnyadirActionPerformed
-
+        
+        boolean comprobarMailRepetido=true;
         String nombre = txtNombre.getText();
         String correo = txtCorreo.getText();
-
-        if (nombre.equals("") || correo.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Debe introducir los datos");
+        ArrayList<String>mailUsuarios;
+        
+        mailUsuarios=DataAccess.getMailUsuarios();
+ 
+            for(String s:mailUsuarios){           
+                if(s.equals(nombre)){
+                    comprobarMailRepetido=false;
+                }  
+            }
+            
+        if (nombre.equals("") || correo.equals("") || esEmailValido(correo)!=true ||comprobarMailRepetido) {
+            JOptionPane.showMessageDialog(rootPane, "Alguno de los datos añadidos no es valido");
         } else {
             try {
                 cargarUsuario();
@@ -173,6 +186,14 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnAnyadirActionPerformed
 
+    public boolean esEmailValido(String email) {
+        String pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{1,3}$";
+        Pattern regex = Pattern.compile(pattern);
+        Matcher matcher = regex.matcher(email);
+        return matcher.matches();
+    }
+    
+    
     private void txtInstructorasignadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInstructorasignadoKeyTyped
         char c = evt.getKeyChar();
         if ((c < '0' || c > '9'))

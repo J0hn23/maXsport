@@ -4,6 +4,7 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import java.awt.BorderLayout;
+import com.bulenkov.darcula.DarculaLaf;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
@@ -16,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.YES_OPTION;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -38,13 +40,35 @@ public class FramePrincipal extends javax.swing.JFrame {
     private DialogoCrearEntrenoConEjercicios dcece;
     private DialogoCalendario dc;
     private DialogoGestionEntrenos dge;
-    int idInstructorAsigna;
-
+    int idInstructorAsigna; 
+    MODO modo=MODO.OSCURO ;
+    
     public FramePrincipal() {
 
+//         UIManager.setLookAndFeel(new FlatDarkLaf());
+//            //UIManager.setLookAndFeel(new FlatLightLaf());
+
+
+          
+
+//        try {
+//
+//            UIManager.setLookAndFeel(new FlatMacDarkLaf());
+//            // SwingUtilities.updateComponentTreeUI(this);
+//        } catch (UnsupportedLookAndFeelException ex) {
+//            Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+
+
+//        EleccionModo();
+        modoVentana(modo);
+        
+        
         initComponents();
         configuracionInicio();
         tipTextBotones();
+          
+          
     }
 
     private void tipTextBotones() {
@@ -66,6 +90,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     private void configuracionInicio() {
 
+       
         setTitle("MaXsport");
         setLocationRelativeTo(null);
         setSize(700, 500);
@@ -74,6 +99,22 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     }
 
+//     private void EleccionModo(){
+//        if(modo==MODO.OSCURO){
+//            try {
+//                UIManager.setLookAndFeel(new FlatDarkLaf());
+//            } catch (UnsupportedLookAndFeelException ex) {
+//                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }else{
+//            try {
+//                UIManager.setLookAndFeel(new FlatLightLaf());
+//            } catch (UnsupportedLookAndFeelException ex) {
+//                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            }
+//        }
+    
     private void cargarFoto() {
 
         ImageIcon icon = byteArrayAImagen(imagenByte);
@@ -177,6 +218,8 @@ public class FramePrincipal extends javax.swing.JFrame {
         btnGestionEntrenos = new javax.swing.JButton();
         btnMostrarUsuarios = new javax.swing.JButton();
         btnCalendario = new javax.swing.JButton();
+        jTxtBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
         menMenu = new javax.swing.JMenuBar();
         mnbFile = new javax.swing.JMenu();
         mnbExit = new javax.swing.JMenu();
@@ -270,8 +313,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         pnlPanelSecundario.add(jScrollPane1);
         jScrollPane1.setBounds(20, 180, 452, 240);
 
-        btnAsignarEntreno.setFont(new java.awt.Font("Manjari", 0, 15)); // NOI18N
-        btnAsignarEntreno.setText("Crear entreno con ejercicios");
+        btnAsignarEntreno.setFont(new java.awt.Font("Manjari", 0, 12)); // NOI18N
+        btnAsignarEntreno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/crear entreno.png"))); // NOI18N
+        btnAsignarEntreno.setText("Crear entreno ");
         btnAsignarEntreno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAsignarEntrenoActionPerformed(evt);
@@ -302,6 +346,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         pnlPanelSecundario.add(btnSignOut);
         btnSignOut.setBounds(490, 30, 190, 40);
 
+        btnNuevoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/nuevo usuario.png"))); // NOI18N
         btnNuevoUsuario.setText("Nuevo usuario");
         btnNuevoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -323,8 +368,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         txtNumeroEntrenador.setEnabled(false);
         txtNumeroEntrenador.setSelectionColor(new java.awt.Color(0, 0, 0));
         pnlPanelSecundario.add(txtNumeroEntrenador);
-        txtNumeroEntrenador.setBounds(490, 80, 190, 33);
+        txtNumeroEntrenador.setBounds(490, 80, 190, 30);
 
+        btnListarEjercicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/persona-pilates.png"))); // NOI18N
         btnListarEjercicios.setText("Mostrar ejercicios ");
         btnListarEjercicios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -334,6 +380,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         pnlPanelSecundario.add(btnListarEjercicios);
         btnListarEjercicios.setBounds(490, 220, 190, 40);
 
+        btnGestionEntrenos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gestion entrenos.png"))); // NOI18N
         btnGestionEntrenos.setText("Gestion entrenos");
         btnGestionEntrenos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -343,6 +390,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         pnlPanelSecundario.add(btnGestionEntrenos);
         btnGestionEntrenos.setBounds(490, 380, 190, 40);
 
+        btnMostrarUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/usuario.png"))); // NOI18N
         btnMostrarUsuarios.setText("Mostrar usuarios");
         btnMostrarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -352,6 +400,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         pnlPanelSecundario.add(btnMostrarUsuarios);
         btnMostrarUsuarios.setBounds(490, 260, 190, 40);
 
+        btnCalendario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calendario.png"))); // NOI18N
         btnCalendario.setText("Calendario");
         btnCalendario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,6 +409,17 @@ public class FramePrincipal extends javax.swing.JFrame {
         });
         pnlPanelSecundario.add(btnCalendario);
         btnCalendario.setBounds(490, 180, 190, 40);
+        pnlPanelSecundario.add(jTxtBuscar);
+        jTxtBuscar.setBounds(20, 420, 140, 30);
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        pnlPanelSecundario.add(btnBuscar);
+        btnBuscar.setBounds(160, 420, 72, 30);
 
         getContentPane().add(pnlPanelSecundario);
         pnlPanelSecundario.setBounds(0, 0, 700, 500);
@@ -458,7 +518,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     private void btnNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoUsuarioActionPerformed
 
-        dnu = new DialogoNuevoUsuario(this, true, idInstructorAsigna,this);
+        dnu = new DialogoNuevoUsuario(this, true, idInstructorAsigna, this);
         JComponent contenedor = (JComponent) dnu.getContentPane();
         //contenedor.setBackground(new Color(150, 150, 150));
         dnu.setVisible(true);
@@ -482,22 +542,11 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     private void btnGestionEntrenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionEntrenosActionPerformed
 //        JOptionPane.showMessageDialog(rootPane, "En construcción");
-        
+
         dge = new DialogoGestionEntrenos(this, true, idInstructorAsigna);
         dge.setVisible(true);
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_btnGestionEntrenosActionPerformed
 
     private void btnMostrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarUsuariosActionPerformed
@@ -535,32 +584,45 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_lblAccesoWebMouseExited
 
     private void jmnPinkSkinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnPinkSkinActionPerformed
-
-        try {
-            pinkSkin();
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
 
     }//GEN-LAST:event_jmnPinkSkinActionPerformed
 
+   
     
-    private void pinkSkin() throws UnsupportedLookAndFeelException{
-    
-//            UIManager.setLookAndFeel(new FlatMacDarkLaf());
-            // Si quieres usar otro tema, puedes descomentar la siguiente línea:
-             UIManager.setLookAndFeel(new FlatLightLaf()); // Cambia al tema claro
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
-            // Actualizar la interfaz para que todos los componentes se actualicen
-          SwingUtilities.updateComponentTreeUI(SwingUtilities.getRoot(this));
- 
+        String nombre = jTxtBuscar.getText();
+        buscarNombre(nombre);
+
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void buscarNombre(String nombre) {
+
+        Usuari usuario = null;
+
+        usuario = DataAccess.getUserNom(nombre);
+
+        if (usuario != null) {
+
+            String nom = usuario.getNom();
+            String correo = usuario.getEmail();
+            int numId = usuario.getId();
+            JOptionPane.showMessageDialog(rootPane, "El usuaio " + nom + " con correo " + correo + " está entre tus usuarios con el id " + numId);
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "El usuario no esta entre tus usuarios");
+        }
+
     }
-    
-    
+
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignarEntreno;
     private javax.swing.JButton btnBotonLogin;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCalendario;
     private javax.swing.JButton btnGestionEntrenos;
     private javax.swing.JButton btnListarEjercicios;
@@ -568,6 +630,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnNuevoUsuario;
     private javax.swing.JButton btnSignOut;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTxtBuscar;
     private javax.swing.JMenu jmnPinkSkin;
     private javax.swing.JLabel lblAccesoWeb;
     private javax.swing.JLabel lblBoligrafo;
@@ -584,4 +647,31 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtNumeroEntrenador;
     // End of variables declaration//GEN-END:variables
 
+    
+    private void modoVentana(MODO modo){
+    
+        switch (modo) {
+            case    CLARO ->    {
+                            try {
+                                UIManager.setLookAndFeel(new FlatLightLaf())  ;
+                            } catch (UnsupportedLookAndFeelException ex) {
+                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+
+            case OSCURO ->  {
+                            try {
+                                UIManager.setLookAndFeel(new FlatMacDarkLaf())  ;
+                            } catch (UnsupportedLookAndFeelException ex) {
+                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+ 
+        }
+    }   
+}
+
+enum MODO {
+    CLARO,
+    OSCURO,
 }

@@ -22,6 +22,7 @@ ortegabravo\maxsport\vista\FramePrincipal$3.class
 ortegabravo\maxsport\vista\DialogoCrearEntrenoConEjercicios$3.class
 ortegabravo\maxsport\vista\DialogoListaEjercicios.class
 ortegabravo\maxsport\vista\DialogoEntrenamientos$1.class
+ortegabravo\maxsport\vista\FramePrincipal$17.class
 ortegabravo\maxsport\vista\DialogoEntrenamientos.class
 ortegabravo\maxsport\vista\DialogoGestionEntrenos$2.class
 ortegabravo\maxsport\vista\DialogoNuevoUsuario$5.class
@@ -31,9 +32,11 @@ ortegabravo\maxsport\vista\FramePrincipal$6.class
 ortegabravo\maxsport\vista\DialogoCrearEntrenoConEjercicios$6.class
 ortegabravo\maxsport\vista\DialogoEntrenamientos$3.class
 ortegabravo\maxsport\vista\FramePrincipal$9.class
+ortegabravo\maxsport\vista\FramePrincipal$16.class
 ortegabravo\maxsport\vista\DialogoCrearEntrenoConEjercicios.class
 ortegabravo\maxsport\vista\FramePrincipal$13.class
 ortegabravo\maxsport\accesoDatos\EntrenosTableModel.class
+ortegabravo\maxsport\vista\MODO.class
 ortegabravo\maxsport\vista\DialogoCrearEntrenoConEjercicios$2.class
 ortegabravo\maxsport\vista\DialogoGestionEntrenos$3.class
 ortegabravo\maxsport\vista\DialogoEntrenamientos$2.class
