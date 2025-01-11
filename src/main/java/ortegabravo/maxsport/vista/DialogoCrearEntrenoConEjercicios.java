@@ -1,14 +1,23 @@
 package ortegabravo.maxsport.vista;
 
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.modelo.Exercici;
 import ortegabravo.maxsport.modelo.Usuari;
 import ortegabravo.maxsport.modelo.Workout;
+import static ortegabravo.maxsport.vista.MODO.CLARO;
+import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
 public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
 
@@ -16,8 +25,9 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
     String valor = "";
     ArrayList<Exercici> listaEjerciciosSeleccionados = new ArrayList<>();
 
-    public DialogoCrearEntrenoConEjercicios(java.awt.Frame parent, boolean modal) {
+    public DialogoCrearEntrenoConEjercicios(java.awt.Frame parent, boolean modal, MODO modo) {
         super(parent, modal);
+        modoVentana(modo);
         initComponents();
         setLocationRelativeTo(parent);
         
@@ -32,6 +42,30 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         cmbComboObject.setBounds(20, 230, 370, 30);
 
     }
+    
+    private void modoVentana(MODO modo){
+    
+        switch (modo) {
+            case    CLARO ->    {
+                            try {
+                                UIManager.setLookAndFeel(new FlatLightLaf())  ;
+                                SwingUtilities.updateComponentTreeUI(this);
+                            } catch (UnsupportedLookAndFeelException ex) {
+                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+
+            case OSCURO ->  {
+                            try {
+                                UIManager.setLookAndFeel(new FlatMacDarkLaf())  ;
+                                SwingUtilities.updateComponentTreeUI(this);
+                            } catch (UnsupportedLookAndFeelException ex) {
+                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+ 
+        }
+    }   
 
     private int buscarIdUltimoUsuario() {
 
@@ -82,7 +116,6 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         txtId = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtComentaio = new javax.swing.JTextField();
-        btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txaEjerciciosSeleccionados = new javax.swing.JTextArea();
         jSeparator1 = new javax.swing.JSeparator();
@@ -91,8 +124,8 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
-        setMinimumSize(new java.awt.Dimension(400, 560));
-        setPreferredSize(new java.awt.Dimension(400, 560));
+        setMinimumSize(new java.awt.Dimension(415, 560));
+        setPreferredSize(new java.awt.Dimension(415, 560));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -107,15 +140,15 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
 
         lblFechaEntreno.setText("Fecha");
         getContentPane().add(lblFechaEntreno);
-        lblFechaEntreno.setBounds(30, 60, 41, 18);
+        lblFechaEntreno.setBounds(30, 60, 31, 16);
 
         spnFechaEntreno.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), new java.util.Date(), null, java.util.Calendar.DAY_OF_MONTH));
         getContentPane().add(spnFechaEntreno);
-        spnFechaEntreno.setBounds(130, 60, 260, 24);
+        spnFechaEntreno.setBounds(130, 60, 260, 22);
 
         jLabel2.setText("Id Usuario");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(30, 110, 80, 18);
+        jLabel2.setBounds(30, 110, 80, 16);
 
         txtId.setEditable(false);
         txtId.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -128,18 +161,9 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
 
         jLabel3.setText("Comentario");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(30, 160, 80, 18);
+        jLabel3.setBounds(30, 160, 80, 16);
         getContentPane().add(txtComentaio);
         txtComentaio.setBounds(130, 154, 260, 30);
-
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnSalir);
-        btnSalir.setBounds(190, 470, 120, 40);
 
         txaEjerciciosSeleccionados.setColumns(20);
         txaEjerciciosSeleccionados.setRows(5);
@@ -157,7 +181,7 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnAniadirejercicio);
-        btnAniadirejercicio.setBounds(50, 470, 140, 40);
+        btnAniadirejercicio.setBounds(130, 470, 140, 30);
 
         getContentPane().add(cmbNombreUsuario);
         cmbNombreUsuario.setBounds(210, 100, 180, 30);
@@ -228,10 +252,6 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
     }
 
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        setVisible(false);
-    }//GEN-LAST:event_btnSalirActionPerformed
-
     private void btnAniadirejercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirejercicioActionPerformed
 
         int realizado = aniadirEntreno(listaEjerciciosSeleccionados);
@@ -260,7 +280,6 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAniadirejercicio;
-    private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cmbNombreUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

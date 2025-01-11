@@ -1,14 +1,23 @@
 
 package ortegabravo.maxsport.vista;
 
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.accesoDatos.EntrenosTableModel;
 import ortegabravo.maxsport.accesoDatos.UsuariosTableModel;
 import ortegabravo.maxsport.modelo.Usuari;
 import ortegabravo.maxsport.modelo.Workout;
+import static ortegabravo.maxsport.vista.MODO.CLARO;
+import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
 
 public class DialogoGestionEntrenos extends javax.swing.JDialog {
@@ -20,8 +29,9 @@ public class DialogoGestionEntrenos extends javax.swing.JDialog {
     private String nombre="";
     private String correoAlumno="";
 
-    public DialogoGestionEntrenos(java.awt.Frame parent, boolean modal, int idEntrenador) {
+    public DialogoGestionEntrenos(java.awt.Frame parent, boolean modal, int idEntrenador, MODO modo) {
         super(parent, modal);
+        modoVentana(modo);
         initComponents();
         setSize(400, 350);       
         setLocationRelativeTo(parent);
@@ -30,6 +40,33 @@ public class DialogoGestionEntrenos extends javax.swing.JDialog {
     }
 
   
+    
+    private void modoVentana(MODO modo){
+    
+        switch (modo) {
+            case    CLARO ->    {
+                            try {
+                                UIManager.setLookAndFeel(new FlatLightLaf())  ;
+                                SwingUtilities.updateComponentTreeUI(this);
+                            } catch (UnsupportedLookAndFeelException ex) {
+                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+
+            case OSCURO ->  {
+                            try {
+                                UIManager.setLookAndFeel(new FlatMacDarkLaf())  ;
+                                SwingUtilities.updateComponentTreeUI(this);
+                            } catch (UnsupportedLookAndFeelException ex) {
+                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+ 
+        }
+    }   
+    
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -199,6 +236,7 @@ public class DialogoGestionEntrenos extends javax.swing.JDialog {
     private void eliminarEntrenoEnBD(int idEntreno, int idUsuario){
      
         DataAccess.eliminarEntreno(idEntreno, idUsuario);
+        cargarTablaEntrenamientos(nombre,correoAlumno);
     
     }
   

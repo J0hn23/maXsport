@@ -1,13 +1,22 @@
 package ortegabravo.maxsport.vista;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.modelo.Usuari;
+import static ortegabravo.maxsport.vista.MODO.CLARO;
+import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
 public class DialogoNuevoUsuario extends javax.swing.JDialog {
 
@@ -15,8 +24,9 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
     int instructorAsignado;
     FramePrincipal fp;
     
-    public DialogoNuevoUsuario(java.awt.Frame parent, boolean modal,int idInstructorAsigna,FramePrincipal fp) {
+    public DialogoNuevoUsuario(java.awt.Frame parent, boolean modal,int idInstructorAsigna,FramePrincipal fp, MODO modo) {
         super(parent, modal);
+        modoVentana(modo);
         initComponents();
         //setVisible(true);
         setSize(400, 350);
@@ -26,6 +36,31 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         this.fp=fp;
     }
 
+    private void modoVentana(MODO modo){
+    
+        switch (modo) {
+            case    CLARO ->    {
+                            try {
+                                UIManager.setLookAndFeel(new FlatLightLaf())  ;
+                                SwingUtilities.updateComponentTreeUI(this);
+                            } catch (UnsupportedLookAndFeelException ex) {
+                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+
+            case OSCURO ->  {
+                            try {
+                                UIManager.setLookAndFeel(new FlatMacDarkLaf())  ;
+                                SwingUtilities.updateComponentTreeUI(this);
+                            } catch (UnsupportedLookAndFeelException ex) {
+                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+ 
+        }
+    }   
+    
+    
     private void cargarUsuario() {
 
         nuevoUsuario = new Usuari();

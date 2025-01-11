@@ -26,13 +26,13 @@ public class MaXsport {
 
     public static void main(String[] args) {
        
-         try {
-                UIManager.setLookAndFeel(new FlatMacDarkLaf());
-                //SwingUtilities.updateComponentTreeUI();
-            } catch (UnsupportedLookAndFeelException ex) {
-                Logger.getLogger(MaXsport.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           
+//         try {
+//                UIManager.setLookAndFeel(new FlatMacDarkLaf());
+//                //SwingUtilities.updateComponentTreeUI();
+//            } catch (UnsupportedLookAndFeelException ex) {
+//                Logger.getLogger(MaXsport.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//           
         
 
         FramePrincipal frmPrincipal=new FramePrincipal(); 

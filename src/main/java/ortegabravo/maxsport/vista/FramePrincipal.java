@@ -26,6 +26,8 @@ import net.miginfocom.swing.MigLayout;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.accesoDatos.UsuariosTableModel;
 import ortegabravo.maxsport.modelo.Usuari;
+import static ortegabravo.maxsport.vista.MODO.CLARO;
+import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
 public class FramePrincipal extends javax.swing.JFrame {
 
@@ -41,7 +43,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     private DialogoCalendario dc;
     private DialogoGestionEntrenos dge;
     int idInstructorAsigna; 
-    MODO modo=MODO.OSCURO ;
+    MODO modo=MODO.CLARO ;
     
     public FramePrincipal() {
 
@@ -220,11 +222,12 @@ public class FramePrincipal extends javax.swing.JFrame {
         btnCalendario = new javax.swing.JButton();
         jTxtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        btnCambiaSkin = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         menMenu = new javax.swing.JMenuBar();
         mnbFile = new javax.swing.JMenu();
         mnbExit = new javax.swing.JMenu();
         mnbAbout = new javax.swing.JMenu();
-        jmnPinkSkin = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -304,8 +307,8 @@ public class FramePrincipal extends javax.swing.JFrame {
         tblTablaUsuarios.setGridColor(new java.awt.Color(204, 204, 204));
         tblTablaUsuarios.setSelectionBackground(new java.awt.Color(102, 255, 255));
         tblTablaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblTablaUsuariosMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblTablaUsuariosMousePressed(evt);
             }
         });
         jScrollPane1.setViewportView(tblTablaUsuarios);
@@ -421,6 +424,18 @@ public class FramePrincipal extends javax.swing.JFrame {
         pnlPanelSecundario.add(btnBuscar);
         btnBuscar.setBounds(160, 420, 72, 30);
 
+        btnCambiaSkin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambiaSkinActionPerformed(evt);
+            }
+        });
+        pnlPanelSecundario.add(btnCambiaSkin);
+        btnCambiaSkin.setBounds(650, 420, 30, 23);
+
+        jLabel1.setText("Cambia Skin");
+        pnlPanelSecundario.add(jLabel1);
+        jLabel1.setBounds(570, 420, 70, 20);
+
         getContentPane().add(pnlPanelSecundario);
         pnlPanelSecundario.setBounds(0, 0, 700, 500);
 
@@ -446,14 +461,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         });
         menMenu.add(mnbAbout);
 
-        jmnPinkSkin.setText("Pink skin");
-        jmnPinkSkin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmnPinkSkinActionPerformed(evt);
-            }
-        });
-        menMenu.add(jmnPinkSkin);
-
         setJMenuBar(menMenu);
 
         pack();
@@ -465,31 +472,10 @@ public class FramePrincipal extends javax.swing.JFrame {
         dlgDialogoLogin = new DialogoLogin(this, true);
         dlgDialogoLogin.setSize(300, 400);
         dlgDialogoLogin.setVisible(true);
+        
 
 
     }//GEN-LAST:event_btnBotonLoginActionPerformed
-
-    private void tblTablaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTablaUsuariosMouseClicked
-
-        //creo un evento mouseclicked en la tabla
-        //el evento evt con el metodo getpoint me da el punto de la fila donde 
-        //clikeo y el numero de la fila
-        int fila = tblTablaUsuarios.rowAtPoint(evt.getPoint());
-
-        //int id=Integer.parseInt(tblTablaUsuarios.getValueAt(fila, 0).toString());
-        //con el in de la fila obtengo los datos que quiera de la tabla
-        String nombre = (String) tblTablaUsuarios.getValueAt(fila, 1);
-        String correoAlumno = tblTablaUsuarios.getValueAt(fila, 2).toString();
-
-        //le paso al dialog el id y alli hago el resultset, y le mando como parametros
-        //correo y nombre para usarlos alli, en el nuevo jdialog
-        DialogoEntrenamientos de = new DialogoEntrenamientos(this, true, correoAlumno, nombre);
-        de.setSize(500, 400);
-        de.setBackground(new Color(150, 150, 150));
-        de.setLocationRelativeTo(null);
-        de.setVisible(true);
-
-    }//GEN-LAST:event_tblTablaUsuariosMouseClicked
 
     private void btnSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignOutActionPerformed
 
@@ -510,7 +496,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnbExitMouseClicked
 
     private void mnbAboutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnbAboutMousePressed
-        da = new DialogoAbout(this, true);
+        da = new DialogoAbout(this, true, modo);
         JComponent contenedor = (JComponent) da.getContentPane();
         //contenedor.setBackground(new Color(150, 150, 150));
         da.setVisible(true);
@@ -518,7 +504,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     private void btnNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoUsuarioActionPerformed
 
-        dnu = new DialogoNuevoUsuario(this, true, idInstructorAsigna, this);
+        dnu = new DialogoNuevoUsuario(this, true, idInstructorAsigna, this, modo);
         JComponent contenedor = (JComponent) dnu.getContentPane();
         //contenedor.setBackground(new Color(150, 150, 150));
         dnu.setVisible(true);
@@ -528,7 +514,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void btnAsignarEntrenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarEntrenoActionPerformed
         //daeae=new DialogoAsignarEjerciciosAEntreno(this,false);
         //daeae.setVisible(true);
-        dcece = new DialogoCrearEntrenoConEjercicios(this, true);
+        dcece = new DialogoCrearEntrenoConEjercicios(this, true, modo);
         JComponent contenedor = (JComponent) dcece.getContentPane();
         //contenedor.setBackground(new Color(150, 150, 150));
         dcece.setVisible(true);
@@ -536,28 +522,28 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAsignarEntrenoActionPerformed
 
     private void btnListarEjerciciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarEjerciciosActionPerformed
-        dle = new DialogoListaEjercicios(this, true);
+        dle = new DialogoListaEjercicios(this, true, modo);
         dle.setVisible(true);
     }//GEN-LAST:event_btnListarEjerciciosActionPerformed
 
     private void btnGestionEntrenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionEntrenosActionPerformed
 //        JOptionPane.showMessageDialog(rootPane, "En construcción");
 
-        dge = new DialogoGestionEntrenos(this, true, idInstructorAsigna);
+        dge = new DialogoGestionEntrenos(this, true, idInstructorAsigna, modo);
         dge.setVisible(true);
 
 
     }//GEN-LAST:event_btnGestionEntrenosActionPerformed
 
     private void btnMostrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarUsuariosActionPerformed
-        dlu = new DialogoListaUsuarios(this, true);
+        dlu = new DialogoListaUsuarios(this, true, modo);
         dlu.setVisible(true);
 
     }//GEN-LAST:event_btnMostrarUsuariosActionPerformed
 
     private void btnCalendarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarioActionPerformed
 
-        dc = new DialogoCalendario(this, true, idInstructorAsigna);
+        dc = new DialogoCalendario(this, true, idInstructorAsigna, modo);
         dc.setVisible(true);
 
 
@@ -583,11 +569,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         lblEtiquetaWeb.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_lblAccesoWebMouseExited
 
-    private void jmnPinkSkinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmnPinkSkinActionPerformed
-       
-
-    }//GEN-LAST:event_jmnPinkSkinActionPerformed
-
    
     
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -597,6 +578,36 @@ public class FramePrincipal extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnCambiaSkinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiaSkinActionPerformed
+         if(modo==modo.OSCURO){
+            modo=modo.CLARO;
+        }else if(modo==modo.CLARO){
+            modo=modo.OSCURO;
+            }
+        modoVentana(modo);
+        System.out.println("en action performes de skinf:"+modo);
+    }//GEN-LAST:event_btnCambiaSkinActionPerformed
+
+    private void tblTablaUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTablaUsuariosMousePressed
+      //creo un evento mouseclicked en la tabla
+        //el evento evt con el metodo getpoint me da el punto de la fila donde 
+        //clikeo y el numero de la fila
+        int fila = tblTablaUsuarios.rowAtPoint(evt.getPoint());
+
+        //int id=Integer.parseInt(tblTablaUsuarios.getValueAt(fila, 0).toString());
+        //con el in de la fila obtengo los datos que quiera de la tabla
+        String nombre = (String) tblTablaUsuarios.getValueAt(fila, 1);
+        String correoAlumno = tblTablaUsuarios.getValueAt(fila, 2).toString();
+
+        //le paso al dialog el id y alli hago el resultset, y le mando como parametros
+        //correo y nombre para usarlos alli, en el nuevo jdialog
+        DialogoEntrenamientos de = new DialogoEntrenamientos(this, true, correoAlumno, nombre, modo);
+        de.setSize(500, 400);
+        de.setBackground(new Color(150, 150, 150));
+        de.setLocationRelativeTo(null);
+        de.setVisible(true);
+    }//GEN-LAST:event_tblTablaUsuariosMousePressed
 
     private void buscarNombre(String nombre) {
 
@@ -616,6 +627,30 @@ public class FramePrincipal extends javax.swing.JFrame {
         }
 
     }
+    
+     private void modoVentana(MODO modo){
+    
+        switch (modo) {
+            case    CLARO ->    {
+                            try {
+                                UIManager.setLookAndFeel(new FlatLightLaf())  ;
+                                SwingUtilities.updateComponentTreeUI(this);
+                            } catch (UnsupportedLookAndFeelException ex) {
+                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+
+            case OSCURO ->  {
+                            try {
+                                UIManager.setLookAndFeel(new FlatMacDarkLaf())  ;
+                                 SwingUtilities.updateComponentTreeUI(this);
+                            } catch (UnsupportedLookAndFeelException ex) {
+                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+ 
+        }
+    }  
 
    
 
@@ -624,14 +659,15 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnBotonLogin;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCalendario;
+    private javax.swing.JButton btnCambiaSkin;
     private javax.swing.JButton btnGestionEntrenos;
     private javax.swing.JButton btnListarEjercicios;
     private javax.swing.JButton btnMostrarUsuarios;
     private javax.swing.JButton btnNuevoUsuario;
     private javax.swing.JButton btnSignOut;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTxtBuscar;
-    private javax.swing.JMenu jmnPinkSkin;
     private javax.swing.JLabel lblAccesoWeb;
     private javax.swing.JLabel lblBoligrafo;
     private javax.swing.JLabel lblEtiquetaLogo;
@@ -648,27 +684,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     
-    private void modoVentana(MODO modo){
     
-        switch (modo) {
-            case    CLARO ->    {
-                            try {
-                                UIManager.setLookAndFeel(new FlatLightLaf())  ;
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
-
-            case OSCURO ->  {
-                            try {
-                                UIManager.setLookAndFeel(new FlatMacDarkLaf())  ;
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
- 
-        }
-    }   
 }
 
 enum MODO {

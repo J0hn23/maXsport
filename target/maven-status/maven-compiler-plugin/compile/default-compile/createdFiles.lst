@@ -1,8 +1,10 @@
 ortegabravo\maxsport\vista\DialogoGestionEntrenos.class
 ortegabravo\maxsport\vista\DialogoCrearEntrenoConEjercicios$1.class
+ortegabravo\maxsport\vista\DialogoGestionEntrenos$4.class
 ortegabravo\maxsport\vista\FramePrincipal$1.class
 ortegabravo\maxsport\vista\FramePrincipal$15.class
 ortegabravo\maxsport\vista\FramePrincipal.class
+ortegabravo\maxsport\vista\DialogoListaEjercicios$2.class
 ortegabravo\maxsport\vista\FramePrincipal$11.class
 ortegabravo\maxsport\vista\DialogoNuevoUsuario$3.class
 ortegabravo\maxsport\vista\DialogoAbout.class
@@ -22,6 +24,7 @@ ortegabravo\maxsport\vista\FramePrincipal$3.class
 ortegabravo\maxsport\vista\DialogoCrearEntrenoConEjercicios$3.class
 ortegabravo\maxsport\vista\DialogoListaEjercicios.class
 ortegabravo\maxsport\vista\DialogoEntrenamientos$1.class
+ortegabravo\maxsport\vista\DialogoCalendario$1.class
 ortegabravo\maxsport\vista\FramePrincipal$17.class
 ortegabravo\maxsport\vista\DialogoEntrenamientos.class
 ortegabravo\maxsport\vista\DialogoGestionEntrenos$2.class
@@ -37,14 +40,18 @@ ortegabravo\maxsport\vista\DialogoCrearEntrenoConEjercicios.class
 ortegabravo\maxsport\vista\FramePrincipal$13.class
 ortegabravo\maxsport\accesoDatos\EntrenosTableModel.class
 ortegabravo\maxsport\vista\MODO.class
+ortegabravo\maxsport\vista\DialogoAbout$1.class
 ortegabravo\maxsport\vista\DialogoCrearEntrenoConEjercicios$2.class
 ortegabravo\maxsport\vista\DialogoGestionEntrenos$3.class
+ortegabravo\maxsport\vista\DialogoNuevoUsuario$6.class
 ortegabravo\maxsport\vista\DialogoEntrenamientos$2.class
+ortegabravo\maxsport\vista\DialogoEntrenamientos$6.class
 ortegabravo\maxsport\vista\DialogoLogin.class
 ortegabravo\maxsport\vista\DialogoCrearEntrenoConEjercicios$5.class
 ortegabravo\maxsport\accesoDatos\UsuariosTableModel.class
 ortegabravo\maxsport\vista\FramePrincipal$5.class
 ortegabravo\maxsport\vista\FramePrincipal$8.class
 ortegabravo\maxsport\vista\DialogoListaUsuarios.class
+ortegabravo\maxsport\vista\DialogoListaUsuarios$1.class
 ortegabravo\maxsport\vista\DialogoNuevoUsuario$2.class
 ortegabravo\maxsport\vista\FramePrincipal$12.class

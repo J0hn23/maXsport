@@ -1,20 +1,29 @@
 package ortegabravo.maxsport.vista;
 
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_OPTION;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.AbstractTableModel;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.accesoDatos.EntrenosTableModel;
 import ortegabravo.maxsport.modelo.Exercici;
 import ortegabravo.maxsport.modelo.Usuari;
 import ortegabravo.maxsport.modelo.Workout;
+import static ortegabravo.maxsport.vista.MODO.CLARO;
+import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
 public class DialogoEntrenamientos extends javax.swing.JDialog {
 
@@ -27,8 +36,9 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
     private Workout entrenamiento;
     private int idEntreno;
 
-    public DialogoEntrenamientos(java.awt.Frame parent, boolean modal, String correo, String nombre) {
+    public DialogoEntrenamientos(java.awt.Frame parent, boolean modal, String correo, String nombre, MODO modo) {
         super(parent, false);
+        modoVentana(modo);
         initComponents();
 
         setLocationRelativeTo(null);
@@ -41,8 +51,32 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         cargaComboEjercicios();
 
     }
+    
+    private void modoVentana(MODO modo){
+    
+        switch (modo) {
+            case    CLARO ->    {
+                            try {
+                                UIManager.setLookAndFeel(new FlatLightLaf())  ;
+                                SwingUtilities.updateComponentTreeUI(this);
+                            } catch (UnsupportedLookAndFeelException ex) {
+                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
 
-    private void cargaListaConObjetos(Workout entrenamiento) {
+            case OSCURO ->  {
+                            try {
+                                UIManager.setLookAndFeel(new FlatMacDarkLaf())  ;
+                                SwingUtilities.updateComponentTreeUI(this);
+                            } catch (UnsupportedLookAndFeelException ex) {
+                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+ 
+        }
+    }   
+
+    private void cargaListaConEjercicios(Workout entrenamiento) {
 
         variableControlItemSeleccionadoEntreno = true;
         ArrayList<Exercici> exercicis;
@@ -62,7 +96,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         //cargo el combobox con los objetos de Exercici
         cmbComboEjercicios = new javax.swing.JComboBox<>();
         getContentPane().add(cmbComboEjercicios);
-        cmbComboEjercicios.setBounds(370, 50, 280, 30);
+        cmbComboEjercicios.setBounds(370, 50, 250, 30);
         DefaultComboBoxModel<Exercici> dcbmw = new DefaultComboBoxModel();
         cmbComboEjercicios.setModel(dcbmw);
 
@@ -137,15 +171,15 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 400, 220));
-        setMinimumSize(new java.awt.Dimension(650, 220));
+        setMinimumSize(new java.awt.Dimension(650, 200));
         setResizable(false);
-        setSize(new java.awt.Dimension(650, 220));
+        setSize(new java.awt.Dimension(650, 200));
         getContentPane().setLayout(null);
 
         txtNombreAlumno.setEditable(false);
         txtNombreAlumno.setForeground(new java.awt.Color(255, 0, 0));
         getContentPane().add(txtNombreAlumno);
-        txtNombreAlumno.setBounds(150, 20, 180, 24);
+        txtNombreAlumno.setBounds(150, 20, 180, 22);
 
         jLabel1.setText("Nombre:");
         getContentPane().add(jLabel1);
@@ -180,15 +214,16 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnAniadir);
-        btnAniadir.setBounds(430, 180, 150, 30);
+        btnAniadir.setBounds(430, 180, 130, 30);
 
-        lblFlechaIzq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flecha-girar-hacia-abajo-a-la-izquierda (1).png"))); // NOI18N
+        lblFlechaIzq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/intercambio.png"))); // NOI18N
         getContentPane().add(lblFlechaIzq);
-        lblFlechaIzq.setBounds(390, 180, 40, 30);
+        lblFlechaIzq.setBounds(390, 180, 40, 60);
 
-        jLabel2.setText("Ejercicios disponibles a añadir");
+        jLabel2.setFont(new java.awt.Font("Sylfaen", 2, 18)); // NOI18N
+        jLabel2.setText("Añadir ejercicios a entreno");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(410, 20, 220, 18);
+        jLabel2.setBounds(380, 20, 200, 40);
 
         lstListaEjercicios.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -207,7 +242,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnEliminarEjercicio);
-        btnEliminarEjercicio.setBounds(430, 210, 150, 30);
+        btnEliminarEjercicio.setBounds(430, 210, 130, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -228,7 +263,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         entrenamiento.setComments((String) tblEntrenosPorUsuario.getValueAt(fila, 3));
 
         //paso el objeto workout al metod creado por mi ue creara la tabla con los ejercicios
-        cargaListaConObjetos(entrenamiento);
+        cargaListaConEjercicios(entrenamiento);
 
 
     }//GEN-LAST:event_tblEntrenosPorUsuarioMouseClicked
@@ -239,7 +274,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         System.out.println(variableControlItemSeleccionadoEntreno);
         if (variableControlItemSeleccionadoEjercicio && variableControlItemSeleccionadoEntreno) {
             cargaBBDDNuevosEjercicios();
-            cargaListaConObjetos(entrenamiento);
+            cargaListaConEjercicios(entrenamiento);
         } else {
             JOptionPane.showMessageDialog(this, "Debe indicar entreno y ejercicio");
         }
@@ -265,6 +300,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         
         System.out.println("ejercico selecionado vale="+ejercicioSeleccionado);
         eliminarEjercicio(DataAccess.obtenerIdEjercicio(ejercicioSeleccionado), idEntreno);
+         cargaListaConEjercicios(entrenamiento);
         
     }//GEN-LAST:event_btnEliminarEjercicioActionPerformed
 
@@ -274,6 +310,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
             System.out.println("en eliminar ejercicio vale"+idEjercicio);
             DataAccess.eliminarEjercicio(idEjercicio,idEntreno);
             System.out.println("finn eliminar ejercicio");
+            
             
         
         }else {
@@ -298,55 +335,3 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
 
 }
 
-//de nuevo con la interface Abstracttablemodel creo una tabla a mi gusto
-//class EntrenosTableModel extends AbstractTableModel {
-//
-//    private final String[] columns = {"Id Entreno", "Fecha", "Usuario", "Comentario"};
-//    public ArrayList<Workout> entrenos = null;
-//
-//    public EntrenosTableModel(ArrayList<Workout> entrenos) {
-//        this.entrenos = entrenos;
-//    }
-//
-//    @Override
-//    public int getRowCount() {
-//
-//        return entrenos.size();
-//    }
-//
-//    @Override
-//    public int getColumnCount() {
-//
-//        return columns.length;
-//    }
-//
-//    @Override
-//    public Object getValueAt(int rowIndex, int columnIndex) {
-//
-//        return switch (columnIndex) {
-//            case 0 ->
-//                entrenos.get(rowIndex).getId();
-//            case 1 ->
-//                entrenos.get(rowIndex).getForDate();
-//            case 2 ->
-//                entrenos.get(rowIndex).getIdUsuari();
-//            // case 3-> usuaris.get(rowIndex).setFoto(foto);
-//            case 3 ->
-//                entrenos.get(rowIndex).getComments();
-//
-//            default ->
-//                "-";
-//        };
-//    }
-//
-//    @Override
-//    public String getColumnName(int column) {
-//        return columns[column];
-//    }
-//
-//    @Override
-//    public Class<?> getColumnClass(int columnIndex) {
-//        return super.getColumnClass(columnIndex);
-//    }
-//
-//}

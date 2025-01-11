@@ -1,9 +1,18 @@
 package ortegabravo.maxsport.vista;
 
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.modelo.Exercici;
+import static ortegabravo.maxsport.vista.MODO.CLARO;
+import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
 public class DialogoListaEjercicios extends javax.swing.JDialog {
 
@@ -11,17 +20,43 @@ public class DialogoListaEjercicios extends javax.swing.JDialog {
    
     
 
-    public DialogoListaEjercicios(java.awt.Frame parent, boolean modal) {
+    public DialogoListaEjercicios(java.awt.Frame parent, boolean modal, MODO modo) {
         super(parent, modal);
+        modoVentana(modo);
         initComponents();
         setLocationRelativeTo(parent);
         setSize(300, 400);
-        
+        System.out.println(modo);
        
-
+        
         cargaListaConObjetos();
  
     }
+    
+    
+    private void modoVentana(MODO modo){
+    
+        switch (modo) {
+            case    CLARO ->    {
+                            try {
+                                UIManager.setLookAndFeel(new FlatLightLaf())  ;
+                                SwingUtilities.updateComponentTreeUI(this);
+                            } catch (UnsupportedLookAndFeelException ex) {
+                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+
+            case OSCURO ->  {
+                            try {
+                                UIManager.setLookAndFeel(new FlatMacDarkLaf())  ;
+                                SwingUtilities.updateComponentTreeUI(this);
+                            } catch (UnsupportedLookAndFeelException ex) {
+                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+ 
+        }
+    }   
 
     private void cargaListaConObjetos() {
 

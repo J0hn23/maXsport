@@ -62,7 +62,6 @@ public class DialogoLogin extends javax.swing.JDialog {
         setTitle("Login usuario");
         setBackground(new java.awt.Color(153, 153, 153));
         setLocation(new java.awt.Point(200, 300));
-        setPreferredSize(new java.awt.Dimension(300, 400));
         setResizable(false);
         setSize(new java.awt.Dimension(300, 400));
         getContentPane().setLayout(null);
@@ -75,7 +74,7 @@ public class DialogoLogin extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnBotonLogin);
-        btnBotonLogin.setBounds(90, 250, 140, 40);
+        btnBotonLogin.setBounds(70, 270, 140, 40);
 
         txtCampoTextoCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -83,7 +82,7 @@ public class DialogoLogin extends javax.swing.JDialog {
             }
         });
         getContentPane().add(txtCampoTextoCorreo);
-        txtCampoTextoCorreo.setBounds(50, 100, 230, 40);
+        txtCampoTextoCorreo.setBounds(30, 100, 230, 40);
 
         lblEtiquetaCorreo.setText("Correo electronico");
         getContentPane().add(lblEtiquetaCorreo);
@@ -91,7 +90,7 @@ public class DialogoLogin extends javax.swing.JDialog {
 
         lblEtiquetaPass.setText("Contraseña");
         getContentPane().add(lblEtiquetaPass);
-        lblEtiquetaPass.setBounds(120, 160, 140, 18);
+        lblEtiquetaPass.setBounds(120, 160, 140, 16);
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -100,14 +99,14 @@ public class DialogoLogin extends javax.swing.JDialog {
             }
         });
         getContentPane().add(btnCancelar);
-        btnCancelar.setBounds(90, 290, 140, 30);
+        btnCancelar.setBounds(70, 310, 140, 30);
 
         lblLogo.setFont(new java.awt.Font("Liberation Serif", 2, 24)); // NOI18N
         lblLogo.setText("     maXsport");
         getContentPane().add(lblLogo);
         lblLogo.setBounds(80, 10, 160, 40);
         getContentPane().add(jpsPass);
-        jpsPass.setBounds(50, 190, 230, 40);
+        jpsPass.setBounds(30, 190, 230, 40);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

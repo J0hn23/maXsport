@@ -3,20 +3,30 @@
 
 package ortegabravo.maxsport.vista;
 
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import net.ortegabravo.calendarioentrenosbeans.MiEventoDiaSeleccionado;
 import net.ortegabravo.calendarioentrenosbeans.MiEventoInterfaceRecogerArrayEntrenosListener;
+import static ortegabravo.maxsport.vista.MODO.CLARO;
+import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
 public class DialogoCalendario extends javax.swing.JDialog implements MiEventoInterfaceRecogerArrayEntrenosListener {
 
     JList<String> lstEjercicios;
    
-    public DialogoCalendario(java.awt.Frame parent, boolean modal, int idInstructor) {
+    public DialogoCalendario(java.awt.Frame parent, boolean modal, int idInstructor, MODO modo) {
         super(parent, modal);
+        modoVentana(modo);
         initComponents();
         
         
@@ -26,6 +36,30 @@ public class DialogoCalendario extends javax.swing.JDialog implements MiEventoIn
         
         
     }
+    
+    private void modoVentana(MODO modo){
+    
+        switch (modo) {
+            case    CLARO ->    {
+                            try {
+                                UIManager.setLookAndFeel(new FlatLightLaf())  ;
+                                SwingUtilities.updateComponentTreeUI(this);
+                            } catch (UnsupportedLookAndFeelException ex) {
+                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+
+            case OSCURO ->  {
+                            try {
+                                UIManager.setLookAndFeel(new FlatMacDarkLaf())  ;
+                                SwingUtilities.updateComponentTreeUI(this);
+                            } catch (UnsupportedLookAndFeelException ex) {
+                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+ 
+        }
+    }   
     
     public void colocaLista() {
 
