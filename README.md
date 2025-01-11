@@ -42,18 +42,33 @@ Mi hija ha realizado el logo y mi hijo testea errores.
 
 ## Usabilidad
 Se inicia la Tarea número 4. Esta tarea esta basada en la usabilidad de la aplicación. Se trata de mejorar la usabilidad, la facilidad y comodidad en el uso. Estos cambos han sido entre otros:
-#-Se ha ñadido una skin que cambia en tiempo de ejecución.
-#-Se añaden ToolTipText en los botones.
-#-Se añade un buscador de usuarios.
-#-Se añade el cambio del puntero al pasar por enciuma de ciertos botones.
-#-Se han añadido funcinalidades que no habia antes como la eliminacion de un entreno y ejercicios. Sobre este último las sentencias sql eran complicadas afectando a 4 tablas.
-#-He cambiado varios textfield como el del login para que solo acepte ciertos caracteres, o el correo que sea valido y no este en la base de datos.
-#-He añadido gestion de entrenos para eliminar entrenos de usuarios, en este dialog se muestra la foto del usuario al que entrenamos.
-#-He ido eliminando errores que ha testeado mi hijo, como jtextfield que estaban enable y no deberian.
+
+-Se ha ñadido una skin que cambia en tiempo de ejecución.
+
+-Se añaden ToolTipText en los botones.
+
+-Se añade un buscador de usuarios.
+
+-Se añade el cambio del puntero al pasar por enciuma de ciertos botones.
+
+-Se han añadido funcinalidades que no habia antes como la eliminacion de un entreno y ejercicios. Sobre este último las sentencias sql eran complicadas afectando a 4 tablas.
+
+-He cambiado varios textfield como el del login para que solo acepte ciertos caracteres, o el correo que sea valido y no este en la base de datos.
+
+-He añadido gestion de entrenos para eliminar entrenos de usuarios, en este dialog se muestra la foto del usuario al que entrenamos.
+
+-He ido eliminando errores que ha testeado mi hijo, como jtextfield que estaban enable y no deberian.
+
 -En medio del proyecto he cambiado de equipo, trabando en windows y he comenszado a usar el management sql y el ms server 2022.
+
 -He cambiado los jlist para que se actualicen inmediatamente al borrar o añadir ejercicios y entrenos.
--He hecho lo mismo con los jcombobox
+
+-He hecho lo mismo con los jcombobox.
+
 -He aprovechado codigo para los nuevos cambios como los metodos para poner la foto de los usuarios.
+
 -En el dialogoLogin , muevo el focus para poder usarlo con tabulaciones o pulsar directamente intro para loguear.
+
 -He sacado codigo a clases para una mejor modularidad como la DefaultTableModel de entrenos.
+
 -He creado nuevos metodos en DataAccess par alas consultas que necesitaba.
