@@ -23,8 +23,8 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
     Usuari nuevoUsuario;
     int instructorAsignado;
     FramePrincipal fp;
-    
-    public DialogoNuevoUsuario(java.awt.Frame parent, boolean modal,int idInstructorAsigna,FramePrincipal fp, MODO modo) {
+
+    public DialogoNuevoUsuario(java.awt.Frame parent, boolean modal, int idInstructorAsigna, FramePrincipal fp, MODO modo) {
         super(parent, modal);
         modoVentana(modo);
         initComponents();
@@ -32,35 +32,34 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         setSize(400, 350);
         setTitle("Nuevo usuario");
         setLocationRelativeTo(parent);
-        instructorAsignado=idInstructorAsigna;
-        this.fp=fp;
+        instructorAsignado = idInstructorAsigna;
+        this.fp = fp;
     }
 
-    private void modoVentana(MODO modo){
-    
-        switch (modo) {
-            case    CLARO ->    {
-                            try {
-                                UIManager.setLookAndFeel(new FlatLightLaf())  ;
-                                SwingUtilities.updateComponentTreeUI(this);
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
+    private void modoVentana(MODO modo) {
 
-            case OSCURO ->  {
-                            try {
-                                UIManager.setLookAndFeel(new FlatMacDarkLaf())  ;
-                                SwingUtilities.updateComponentTreeUI(this);
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
- 
+        switch (modo) {
+            case CLARO -> {
+                try {
+                    UIManager.setLookAndFeel(new FlatLightLaf());
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            case OSCURO -> {
+                try {
+                    UIManager.setLookAndFeel(new FlatMacDarkLaf());
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
         }
-    }   
-    
-    
+    }
+
     private void cargarUsuario() {
 
         nuevoUsuario = new Usuari();
@@ -79,19 +78,19 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
 
         //nuevoUsuario.setAssignedInstructor(Integer.parseInt(txtInstructorasignado.getText()));
         //cuandos e da de alta un nuevo usuario y es entrenador se le asigna como id AssignedInstructor el del que lo ha dado de alta
-        try{
-            if(!txtInstructorasignado.getText().isEmpty()){
-                int instructorId = Integer.parseInt(txtInstructorasignado.getText());  
-                    nuevoUsuario.setAssignedInstructor(instructorId);
-            }else{ 
+        try {
+            if (!txtInstructorasignado.getText().isEmpty()) {
+                int instructorId = Integer.parseInt(txtInstructorasignado.getText());
+                nuevoUsuario.setAssignedInstructor(instructorId);
+            } else {
                 nuevoUsuario.setAssignedInstructor(instructorAsignado);
-                }  
-        }catch (NumberFormatException e) {
+            }
+        } catch (NumberFormatException e) {
             // Error en caso de entrada erronea 
             System.err.println("Error: El campo de instructor asignado debe ser un número.");
             return;
         }
-  
+
         DataAccess.registerUser(nuevoUsuario);
     }
 
@@ -191,23 +190,29 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAnyadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnyadirActionPerformed
-        
-        boolean comprobarMailRepetido=true;
+
+        boolean comprobarMailRepetido = true;
         String nombre = txtNombre.getText();
         String correo = txtCorreo.getText();
-        ArrayList<String>mailUsuarios;
-        
-        mailUsuarios=DataAccess.getMailUsuarios();
- 
-            for(String s:mailUsuarios){           
-                if(s.equals(nombre)){
-                    comprobarMailRepetido=false;
-                }  
+        ArrayList<String> mailUsuarios;
+
+        mailUsuarios = DataAccess.getMailUsuarios();
+
+        for (String s : mailUsuarios) {
+            if (s.equals(nombre)) {
+                comprobarMailRepetido = false;
             }
-            
-        if (nombre.equals("") || correo.equals("") || esEmailValido(correo)!=true ||comprobarMailRepetido) {
-            JOptionPane.showMessageDialog(rootPane, "Alguno de los datos añadidos no es valido");
-        } else {
+        }
+
+        if (nombre.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "En campo nombre no puede estrar vacio");
+        }else if (correo.equals("")) {
+            JOptionPane.showMessageDialog(rootPane, "En campo correo no puede estrar vacio");
+        }else if (esEmailValido(correo) != true) {
+            JOptionPane.showMessageDialog(rootPane, "Ese formato de mail no es valido");
+        }else if (!comprobarMailRepetido) {
+            JOptionPane.showMessageDialog(rootPane, "El mail ya esta en el sistema");
+        }else {
             try {
                 cargarUsuario();
             } catch (Exception e) {
@@ -215,7 +220,7 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
             }
         }
         setVisible(false);
-        
+
         fp.cargarUsuariosEnTabla(instructorAsignado);
 
 
@@ -227,8 +232,8 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         Matcher matcher = regex.matcher(email);
         return matcher.matches();
     }
-    
-    
+
+
     private void txtInstructorasignadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInstructorasignadoKeyTyped
         char c = evt.getKeyChar();
         if ((c < '0' || c > '9'))

@@ -1,10 +1,7 @@
 package ortegabravo.maxsport.vista;
 
-import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import java.awt.BorderLayout;
-import com.bulenkov.darcula.DarculaLaf;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
@@ -17,12 +14,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.YES_OPTION;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import net.miginfocom.swing.MigLayout;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.accesoDatos.UsuariosTableModel;
 import ortegabravo.maxsport.modelo.Usuari;
@@ -42,35 +36,15 @@ public class FramePrincipal extends javax.swing.JFrame {
     private DialogoCrearEntrenoConEjercicios dcece;
     private DialogoCalendario dc;
     private DialogoGestionEntrenos dge;
-    int idInstructorAsigna; 
-    MODO modo=MODO.CLARO ;
-    
+    int idInstructorAsigna;
+    MODO modo = MODO.OSCURO;
+
     public FramePrincipal() {
 
-//         UIManager.setLookAndFeel(new FlatDarkLaf());
-//            //UIManager.setLookAndFeel(new FlatLightLaf());
-
-
-          
-
-//        try {
-//
-//            UIManager.setLookAndFeel(new FlatMacDarkLaf());
-//            // SwingUtilities.updateComponentTreeUI(this);
-//        } catch (UnsupportedLookAndFeelException ex) {
-//            Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
-
-//        EleccionModo();
         modoVentana(modo);
-        
-        
         initComponents();
         configuracionInicio();
         tipTextBotones();
-          
-          
     }
 
     private void tipTextBotones() {
@@ -92,7 +66,6 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     private void configuracionInicio() {
 
-       
         setTitle("MaXsport");
         setLocationRelativeTo(null);
         setSize(700, 500);
@@ -101,22 +74,6 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     }
 
-//     private void EleccionModo(){
-//        if(modo==MODO.OSCURO){
-//            try {
-//                UIManager.setLookAndFeel(new FlatDarkLaf());
-//            } catch (UnsupportedLookAndFeelException ex) {
-//                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }else{
-//            try {
-//                UIManager.setLookAndFeel(new FlatLightLaf());
-//            } catch (UnsupportedLookAndFeelException ex) {
-//                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            }
-//        }
-    
     private void cargarFoto() {
 
         ImageIcon icon = byteArrayAImagen(imagenByte);
@@ -149,28 +106,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         return null;
     }
 
-//
-//    public void confirmacionLogin(boolean confirmacion, int idEntrenador, String mail) {
-//   
-//        //si devuelve confirmacion como true entonces cierra el jpanel principal
-//        //y abre el secundario con la jtable cargada
-//        if (confirmacion) {
-//            pnlPanelPrincipal.setVisible(false);
-//
-//            usuaris = new ArrayList<>();
-//            usuaris = DataAccess.getAllUsersByInstructor(idEntrenador);
-//            //carga la tabla
-//            UsuariosTableModel utm = new UsuariosTableModel(usuaris);
-//            tblTablaUsuarios.setModel(utm);
-//            tblTablaUsuarios.setAutoCreateRowSorter(true);
-//
-//            pnlPanelSecundario.setVisible(true);
-//            obtenerUsuario(mail);
-//            cargarFoto();
-//
-//        }
-//        txtNumeroEntrenador.setText(String.valueOf(idEntrenador));
-//    }
     public void confirmacionLogin(boolean confirmacion, int idEntrenador, String mail) {
         if (confirmacion) {
 
@@ -472,7 +407,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         dlgDialogoLogin = new DialogoLogin(this, true);
         dlgDialogoLogin.setSize(300, 400);
         dlgDialogoLogin.setVisible(true);
-        
 
 
     }//GEN-LAST:event_btnBotonLoginActionPerformed
@@ -569,8 +503,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         lblEtiquetaWeb.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_lblAccesoWebMouseExited
 
-   
-    
+
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
         String nombre = jTxtBuscar.getText();
@@ -580,17 +513,17 @@ public class FramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCambiaSkinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiaSkinActionPerformed
-         if(modo==modo.OSCURO){
-            modo=modo.CLARO;
-        }else if(modo==modo.CLARO){
-            modo=modo.OSCURO;
-            }
+        if (modo == modo.OSCURO) {
+            modo = modo.CLARO;
+        } else if (modo == modo.CLARO) {
+            modo = modo.OSCURO;
+        }
         modoVentana(modo);
-        System.out.println("en action performes de skinf:"+modo);
+        System.out.println("en action performes de skinf:" + modo);
     }//GEN-LAST:event_btnCambiaSkinActionPerformed
 
     private void tblTablaUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTablaUsuariosMousePressed
-      //creo un evento mouseclicked en la tabla
+        //creo un evento mouseclicked en la tabla
         //el evento evt con el metodo getpoint me da el punto de la fila donde 
         //clikeo y el numero de la fila
         int fila = tblTablaUsuarios.rowAtPoint(evt.getPoint());
@@ -627,32 +560,31 @@ public class FramePrincipal extends javax.swing.JFrame {
         }
 
     }
-    
-     private void modoVentana(MODO modo){
-    
+
+    private void modoVentana(MODO modo) {
+
         switch (modo) {
-            case    CLARO ->    {
-                            try {
-                                UIManager.setLookAndFeel(new FlatLightLaf())  ;
-                                SwingUtilities.updateComponentTreeUI(this);
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
+            case CLARO -> {
+                try {
+                    UIManager.setLookAndFeel(new FlatLightLaf());
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
 
-            case OSCURO ->  {
-                            try {
-                                UIManager.setLookAndFeel(new FlatMacDarkLaf())  ;
-                                 SwingUtilities.updateComponentTreeUI(this);
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
- 
+            case OSCURO -> {
+                try {
+                    UIManager.setLookAndFeel(new FlatMacDarkLaf());
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
         }
-    }  
+    }
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignarEntreno;
@@ -683,8 +615,6 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtNumeroEntrenador;
     // End of variables declaration//GEN-END:variables
 
-    
-    
 }
 
 enum MODO {
