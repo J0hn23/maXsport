@@ -41,9 +41,9 @@ gjm@paucasesnovescifp.cat
 Mi hija ha realizado el logo y mi hijo testea errores.
 
 ## Usabilidad
-Se inicia la Tarea número 4. Esta tarea esta basada en la usabilidad de la aplicación. Se trata de mejorar la usabilidad, la facilidad y comodidad en el uso. Estos cambos han sido entre otros:
+Se inicia la Tarea número 4. Esta tarea esta basada en la usabilidad de la aplicación. Se trata de mejorar la usabilidad, la facilidad y comodidad en el uso. Estos cambios han sido entre otros:
 
--Se ha ñadido una skin que cambia en tiempo de ejecución.
+-Se ha añadido una skin que cambia en tiempo de ejecución.
 
 -Se añaden ToolTipText en los botones.
 
@@ -71,4 +71,4 @@ Se inicia la Tarea número 4. Esta tarea esta basada en la usabilidad de la apli
 
 -He sacado codigo a clases para una mejor modularidad como la DefaultTableModel de entrenos.
 
--He creado nuevos metodos en DataAccess par alas consultas que necesitaba.
+-He creado nuevos metodos en DataAccess para las consultas que necesitaba.
