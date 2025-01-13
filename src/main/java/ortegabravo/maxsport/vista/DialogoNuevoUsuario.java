@@ -73,11 +73,9 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         nuevoUsuario.setEmail(txtCorreo.getText());
         nuevoUsuario.setPasswordHash(hash);
         nuevoUsuario.setInstructor(chkIsInstructor.isSelected());
-        //System.out.println(chkIsInstructor.isSelected()+"        -------------");
         nuevoUsuario.setFoto(fotoVacia);
-
-        //nuevoUsuario.setAssignedInstructor(Integer.parseInt(txtInstructorasignado.getText()));
-        //cuandos e da de alta un nuevo usuario y es entrenador se le asigna como id AssignedInstructor el del que lo ha dado de alta
+ 
+        //cuandos se da de alta un nuevo usuario y es entrenador se le asigna como id AssignedInstructor el del que lo ha dado de alta
         try {
             if (!txtInstructorasignado.getText().isEmpty()) {
                 int instructorId = Integer.parseInt(txtInstructorasignado.getText());
@@ -113,11 +111,16 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
         setSize(new java.awt.Dimension(360, 300));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         lblNombre.setText("Nombre:");
         getContentPane().add(lblNombre);
-        lblNombre.setBounds(26, 32, 70, 18);
+        lblNombre.setBounds(26, 32, 70, 16);
 
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -125,11 +128,11 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(txtNombre);
-        txtNombre.setBounds(110, 30, 200, 24);
+        txtNombre.setBounds(110, 30, 200, 22);
 
         jLabel1.setText("Correo:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(30, 80, 60, 18);
+        jLabel1.setBounds(30, 80, 60, 16);
 
         txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -137,15 +140,15 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(txtCorreo);
-        txtCorreo.setBounds(110, 80, 200, 24);
+        txtCorreo.setBounds(110, 80, 200, 22);
 
         jLabel2.setText("Pass:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(30, 130, 70, 18);
+        jLabel2.setBounds(30, 130, 70, 16);
 
         lblInstructorAsignado.setText("Asg.Intructor");
         getContentPane().add(lblInstructorAsignado);
-        lblInstructorAsignado.setBounds(30, 180, 60, 18);
+        lblInstructorAsignado.setBounds(30, 180, 60, 16);
 
         txtInstructorasignado.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -153,7 +156,7 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(txtInstructorasignado);
-        txtInstructorasignado.setBounds(110, 180, 64, 24);
+        txtInstructorasignado.setBounds(110, 180, 64, 22);
 
         btnAnyadir.setText("Añadir");
         btnAnyadir.addActionListener(new java.awt.event.ActionListener() {
@@ -176,9 +179,9 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
 
         chkIsInstructor.setText("Instructor");
         getContentPane().add(chkIsInstructor);
-        chkIsInstructor.setBounds(240, 180, 84, 22);
+        chkIsInstructor.setBounds(240, 180, 74, 20);
         getContentPane().add(jpsPassword);
-        jpsPassword.setBounds(110, 130, 200, 24);
+        jpsPassword.setBounds(110, 130, 200, 22);
 
         getAccessibleContext().setAccessibleDescription("");
 
@@ -257,6 +260,10 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        fp.cargarUsuariosEnTabla(instructorAsignado);
+    }//GEN-LAST:event_formWindowClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

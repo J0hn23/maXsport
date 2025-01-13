@@ -96,7 +96,6 @@ public class DialogoListaUsuarios extends javax.swing.JDialog {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        tblTablaUsuarios.setForeground(new java.awt.Color(255, 0, 0));
         tblTablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

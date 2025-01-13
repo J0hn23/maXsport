@@ -1,5 +1,4 @@
 
-
 package ortegabravo.maxsport.vista;
 
 public class MaXsport {
@@ -8,9 +7,7 @@ public class MaXsport {
        
         FramePrincipal frmPrincipal=new FramePrincipal(); 
         frmPrincipal.setVisible(true);
-     
-        
+  
     }
-      
-    
+  
 }
