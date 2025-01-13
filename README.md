@@ -45,27 +45,29 @@ Se inicia la Tarea número 4. Esta tarea esta basada en la usabilidad de la apli
 
 -Se ha añadido una skin que cambia en tiempo de ejecución.
 
+-Se ha añadido un botón calendario donde se pueden ver los entrenos programados por los entrenadores. Esto se hace por un componente beans hecho en la tarea 2.
+
 -Se añaden ToolTipText en los botones.
 
 -Se añade un buscador de usuarios.
 
--Se añade el cambio del puntero al pasar por enciuma de ciertos botones.
+-Se añade el cambio del puntero al pasar por encima de ciertos botones.
 
--Se han añadido funcinalidades que no habia antes como la eliminacion de un entreno y ejercicios. Sobre este último las sentencias sql eran complicadas afectando a 4 tablas.
+-Se han añadido funcinalidades que no habia antes como la eliminación de un entreno y ejercicios. Sobre este último las sentencias sql me han parecido complicadas afectando a 4 tablas.
 
--He cambiado varios textfield como el del login para que solo acepte ciertos caracteres, o el correo que sea valido y no este en la base de datos.
+-He cambiado varios textfield como el del login para que solo acepte ciertos caracteres, o el correo que sea válido y no este en la base de datos.
 
 -He añadido gestion de entrenos para eliminar entrenos de usuarios, en este dialog se muestra la foto del usuario al que entrenamos.
 
 -He ido eliminando errores que ha testeado mi hijo, como jtextfield que estaban enable y no deberian.
 
--En medio del proyecto he cambiado de equipo, trabando en windows y he comenszado a usar el management sql y el ms server 2022.
+-En medio del proyecto he cambiado de equipo, trabando en windows y he comenzando a usar el management sql y el ms server 2022.
 
 -He cambiado los jlist para que se actualicen inmediatamente al borrar o añadir ejercicios y entrenos.
 
 -He hecho lo mismo con los jcombobox.
 
--He aprovechado codigo para los nuevos cambios como los metodos para poner la foto de los usuarios.
+-He aprovechado código para los nuevos cambios como los metodos para poner la foto de los usuarios.
 
 -En el dialogoLogin , muevo el focus para poder usarlo con tabulaciones o pulsar directamente intro para loguear.
 
