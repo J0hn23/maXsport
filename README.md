@@ -45,6 +45,8 @@ Se inicia la Tarea número 4. Esta tarea esta basada en la usabilidad de la apli
 
 -Se ha añadido una skin que cambia en tiempo de ejecución.
 
+-Se han reorganizado los elemntos de la interface.
+
 -Se ha añadido un botón calendario donde se pueden ver los entrenos programados por los entrenadores. Esto se hace por un componente beans hecho en la tarea 2.
 
 -Se añaden ToolTipText en los botones.
@@ -74,3 +76,8 @@ Se inicia la Tarea número 4. Esta tarea esta basada en la usabilidad de la apli
 -He sacado codigo a clases para una mejor modularidad como la DefaultTableModel de entrenos.
 
 -He creado nuevos metodos en DataAccess para las consultas que necesitaba.
+
+![image](https://github.com/user-attachments/assets/59d54b6b-128a-4bed-b4dd-fb760b37daed)
+
+![image](https://github.com/user-attachments/assets/0407bb88-c6e2-4a0d-8a91-863dfabdfa1b)
+
