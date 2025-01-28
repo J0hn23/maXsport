@@ -10,7 +10,7 @@
 4. [Tecnologías utilizadas](#tecnologías-utilizadas)
 5. [Dificultades encontradas](#dificultades-encontradas)
 6. [Colaboradores](#colaboradores)
-7. [Ampliacion del desarrollo.Usabilidad](#Usabilidad)
+7. [UX.User experience](#Usabilidad)
 
 ## Introducción
 maXsport es una aplicación diseñada para gestionar los entrenamientos de los usuarios de un gimnasio. Su objetivo es facilitar el seguimiento del progreso y la planificación de rutinas personalizadas en las que un entrenador puede elegir que rutinas y ejercicios asigna a cada usuario. 
@@ -40,7 +40,7 @@ Intenté realizar la carba del combobox con objetos a mi manera y la hice pero l
 gjm@paucasesnovescifp.cat
 Mi hija ha realizado el logo y mi hijo testea errores.
 
-## Usabilidad
+## Usabilidad.UX
 Se inicia la Tarea número 4. Esta tarea esta basada en la usabilidad de la aplicación. Se trata de mejorar la usabilidad, la facilidad y comodidad en el uso. Estos cambios han sido entre otros:
 
 -Se ha añadido una skin que cambia en tiempo de ejecución.
