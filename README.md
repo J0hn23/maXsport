@@ -45,7 +45,7 @@ Se inicia la Tarea número 4. Esta tarea esta basada en la usabilidad de la apli
 
 -Se ha añadido una skin que cambia en tiempo de ejecución.
 
--Se han reorganizado los elemntos de la interface.
+-Se han reorganizado los elementos de la interface.
 
 -Se ha añadido un botón calendario donde se pueden ver los entrenos programados por los entrenadores. Esto se hace por un componente beans hecho en la tarea 2.
 
@@ -55,27 +55,29 @@ Se inicia la Tarea número 4. Esta tarea esta basada en la usabilidad de la apli
 
 -Se añade el cambio del puntero al pasar por encima de ciertos botones.
 
--Se han añadido funcinalidades que no habia antes como la eliminación de un entreno y ejercicios. Sobre este último las sentencias sql me han parecido complicadas afectando a 4 tablas.
+-Se han añadido funcionalidades que no habia antes como la eliminación de un entreno y ejercicios. Sobre este último las sentencias sql me han parecido complicadas afectando a 4 tablas.
 
 -He cambiado varios textfield como el del login para que solo acepte ciertos caracteres, o el correo que sea válido y no este en la base de datos.
 
 -He añadido gestion de entrenos para eliminar entrenos de usuarios, en este dialog se muestra la foto del usuario al que entrenamos.
 
--He ido eliminando errores que ha testeado mi hijo, como jtextfield que estaban enable y no deberian.
+-He ido eliminando errores que ha testeado mi hijo, como jtextfield que estaban enable y no deberian, y alguna Exception.
 
--En medio del proyecto he cambiado de equipo, trabando en windows y he comenzando a usar el management sql y el ms server 2022.
+-En medio del proyecto he cambiado de equipo, trabajando ahora en windows y he comenzando a usar el management sql y el ms server 2022.
 
--He cambiado los jlist para que se actualicen inmediatamente al borrar o añadir ejercicios y entrenos.
+-He cambiado los JList para que se actualicen inmediatamente al borrar o añadir ejercicios y entrenos.
 
--He hecho lo mismo con los jcombobox.
+-He hecho lo mismo con los JCcombobox.
 
 -He aprovechado código para los nuevos cambios como los metodos para poner la foto de los usuarios.
 
--En el dialogoLogin , muevo el focus para poder usarlo con tabulaciones o pulsar directamente intro para loguear.
+-En el dialogoLogin , muevo el focus para poder usarlo con tabulaciones o pulsar directamente intro para loguear lo que hace mas cómoda la navegación.
 
 -He sacado codigo a clases para una mejor modularidad como la DefaultTableModel de entrenos.
 
 -He creado nuevos metodos en DataAccess para las consultas que necesitaba.
+
+-Aqui un ejemplo de las nuevas Interface que se muestran al usuario:
 
 ![image](https://github.com/user-attachments/assets/59d54b6b-128a-4bed-b4dd-fb760b37daed)
 
