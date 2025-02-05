@@ -32,7 +32,7 @@ Hasta ahora lo que mas tienpo ha precisado ha sido conseguir hacer que trabaje e
 
 Estoy teniendo problemas con el archivo DataAccess, ya aque los metodos no hacian exactamente lo que deberian, he cambiado el codigo en algunos puntos, estas dudas ya fueron resueltas por el profesor.
 
-Otro problema que tube es usar nerbeans 23, al tener que usaR UBUNTU 20.04 , este no tiene soporte para netbeans 23 por lo que tuve que hacerlo en la version 21, me encontré en un callejon ya que si elegia ubuntu 24.04 no podia usar el Azure pero si netbeans 23 o elegir ubuntu 20.04 con el que si podia usar azure data studio pero no la vesion 23 de netbeans.
+Otro problema que tuve es usar nerbeans 23, al tener que usaR UBUNTU 20.04 , este no tiene soporte para netbeans 23 por lo que tuve que hacerlo en la version 21, me encontré en un callejon ya que si elegia ubuntu 24.04 no podia usar el Azure pero si netbeans 23 o elegir ubuntu 20.04 con el que si podia usar azure data studio pero no la vesion 23 de netbeans.
 
 Intenté realizar la carba del combobox con objetos a mi manera y la hice pero luego vi que la que explicaba el profesar era mucho mejor.
 
@@ -69,11 +69,11 @@ Se inicia la Tarea número 4. Esta tarea esta basada en la usabilidad de la apli
 
 -He hecho lo mismo con los JCcombobox.
 
--He aprovechado código para los nuevos cambios como los metodos para poner la foto de los usuarios.
+-He aprovechado código para los nuevos cambios como los métodos para poner la foto de los usuarios.
 
 -En el dialogoLogin , muevo el focus para poder usarlo con tabulaciones o pulsar directamente intro para loguear lo que hace mas cómoda la navegación.
 
--He sacado codigo a clases para una mejor modularidad como la DefaultTableModel de entrenos.
+-He sacado código a clases para una mejor modularidad como la DefaultTableModel de entrenos.
 
 -He creado nuevos metodos en DataAccess para las consultas que necesitaba.
 
