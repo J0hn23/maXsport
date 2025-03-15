@@ -10,7 +10,7 @@
 4. [Tecnologías utilizadas](#tecnologías-utilizadas)
 5. [Dificultades encontradas](#dificultades-encontradas)
 6. [Colaboradores](#colaboradores)
-7. [Ampliacion del desarrollo.Usabilidad](#Usabilidad)
+7. [UX.User experience](#Usabilidad)
 
 ## Introducción
 maXsport es una aplicación diseñada para gestionar los entrenamientos de los usuarios de un gimnasio. Su objetivo es facilitar el seguimiento del progreso y la planificación de rutinas personalizadas en las que un entrenador puede elegir que rutinas y ejercicios asigna a cada usuario. 
@@ -32,7 +32,7 @@ Hasta ahora lo que mas tienpo ha precisado ha sido conseguir hacer que trabaje e
 
 Estoy teniendo problemas con el archivo DataAccess, ya aque los metodos no hacian exactamente lo que deberian, he cambiado el codigo en algunos puntos, estas dudas ya fueron resueltas por el profesor.
 
-Otro problema que tube es usar nerbeans 23, al tener que usaR UBUNTU 20.04 , este no tiene soporte para netbeans 23 por lo que tuve que hacerlo en la version 21, me encontré en un callejon ya que si elegia ubuntu 24.04 no podia usar el Azure pero si netbeans 23 o elegir ubuntu 20.04 con el que si podia usar azure data studio pero no la vesion 23 de netbeans.
+Otro problema que tuve es usar nerbeans 23, al tener que usaR UBUNTU 20.04 , este no tiene soporte para netbeans 23 por lo que tuve que hacerlo en la version 21, me encontré en un callejon ya que si elegia ubuntu 24.04 no podia usar el Azure pero si netbeans 23 o elegir ubuntu 20.04 con el que si podia usar azure data studio pero no la vesion 23 de netbeans.
 
 Intenté realizar la carba del combobox con objetos a mi manera y la hice pero luego vi que la que explicaba el profesar era mucho mejor.
 
@@ -40,10 +40,12 @@ Intenté realizar la carba del combobox con objetos a mi manera y la hice pero l
 gjm@paucasesnovescifp.cat
 Mi hija ha realizado el logo y mi hijo testea errores.
 
-## Usabilidad
+## Usabilidad.UX
 Se inicia la Tarea número 4. Esta tarea esta basada en la usabilidad de la aplicación. Se trata de mejorar la usabilidad, la facilidad y comodidad en el uso. Estos cambios han sido entre otros:
 
 -Se ha añadido una skin que cambia en tiempo de ejecución.
+
+-Se han reorganizado los elementos de la interface.
 
 -Se ha añadido un botón calendario donde se pueden ver los entrenos programados por los entrenadores. Esto se hace por un componente beans hecho en la tarea 2.
 
@@ -53,24 +55,31 @@ Se inicia la Tarea número 4. Esta tarea esta basada en la usabilidad de la apli
 
 -Se añade el cambio del puntero al pasar por encima de ciertos botones.
 
--Se han añadido funcinalidades que no habia antes como la eliminación de un entreno y ejercicios. Sobre este último las sentencias sql me han parecido complicadas afectando a 4 tablas.
+-Se han añadido funcionalidades que no habia antes como la eliminación de un entreno y ejercicios. Sobre este último las sentencias sql me han parecido complicadas afectando a 4 tablas.
 
 -He cambiado varios textfield como el del login para que solo acepte ciertos caracteres, o el correo que sea válido y no este en la base de datos.
 
 -He añadido gestion de entrenos para eliminar entrenos de usuarios, en este dialog se muestra la foto del usuario al que entrenamos.
 
--He ido eliminando errores que ha testeado mi hijo, como jtextfield que estaban enable y no deberian.
+-He ido eliminando errores que ha testeado mi hijo, como jtextfield que estaban enable y no deberian, y alguna Exception.
 
--En medio del proyecto he cambiado de equipo, trabando en windows y he comenzando a usar el management sql y el ms server 2022.
+-En medio del proyecto he cambiado de equipo, trabajando ahora en windows y he comenzando a usar el management sql y el ms server 2022.
 
--He cambiado los jlist para que se actualicen inmediatamente al borrar o añadir ejercicios y entrenos.
+-He cambiado los JList para que se actualicen inmediatamente al borrar o añadir ejercicios y entrenos.
 
--He hecho lo mismo con los jcombobox.
+-He hecho lo mismo con los JCcombobox.
 
--He aprovechado código para los nuevos cambios como los metodos para poner la foto de los usuarios.
+-He aprovechado código para los nuevos cambios como los métodos para poner la foto de los usuarios.
 
--En el dialogoLogin , muevo el focus para poder usarlo con tabulaciones o pulsar directamente intro para loguear.
+-En el dialogoLogin , muevo el focus para poder usarlo con tabulaciones o pulsar directamente intro para loguear lo que hace mas cómoda la navegación.
 
--He sacado codigo a clases para una mejor modularidad como la DefaultTableModel de entrenos.
+-He sacado código a clases para una mejor modularidad como la DefaultTableModel de entrenos.
 
 -He creado nuevos metodos en DataAccess para las consultas que necesitaba.
+
+-Aqui un ejemplo de las nuevas Interface que se muestran al usuario:
+
+![image](https://github.com/user-attachments/assets/59d54b6b-128a-4bed-b4dd-fb760b37daed)
+
+![image](https://github.com/user-attachments/assets/0407bb88-c6e2-4a0d-8a91-863dfabdfa1b)
+
