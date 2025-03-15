@@ -4,6 +4,8 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import java.awt.HeadlessException;
+import static java.lang.Integer.parseInt;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,9 +62,10 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         }
     }
 
-    private void cargarUsuario() {
+    private void cargarUsuario() throws SQLException {
 
         nuevoUsuario = new Usuari();
+        int instructorId = 0;
 
         char[] pass = jpsPassword.getPassword();
         byte[] fotoVacia = new byte[10];
@@ -74,22 +77,37 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         nuevoUsuario.setPasswordHash(hash);
         nuevoUsuario.setInstructor(chkIsInstructor.isSelected());
         nuevoUsuario.setFoto(fotoVacia);
- 
+        String textoInstructorAsignado = txtInstructorasignado.getText().trim();
+            if (!textoInstructorAsignado.isEmpty()) {
+                nuevoUsuario.setAssignedInstructor(Integer.parseInt(textoInstructorAsignado));
+            } else {
+                System.out.println("El campo está instructor asignado esta vacio");
+            }
+
         //cuandos se da de alta un nuevo usuario y es entrenador se le asigna como id AssignedInstructor el del que lo ha dado de alta
         try {
             if (!txtInstructorasignado.getText().isEmpty()) {
-                int instructorId = Integer.parseInt(txtInstructorasignado.getText());
-                nuevoUsuario.setAssignedInstructor(instructorId);
+                
+                nuevoUsuario.setAssignedInstructor(Integer.parseInt(txtInstructorasignado.getText()));
             } else {
                 nuevoUsuario.setAssignedInstructor(instructorAsignado);
             }
+            
+            instructorId=Integer.parseInt(txtInstructorasignado.getText());
+                if(DataAccess.existeInstructor(instructorId)){
+                    DataAccess.registerUser(nuevoUsuario);
+                    JOptionPane.showMessageDialog(rootPane, "Usuario añadido");
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "No existe el instructor");
+                }
+            
         } catch (NumberFormatException e) {
             // Error en caso de entrada erronea 
             System.err.println("Error: El campo de instructor asignado debe ser un número.");
-            return;
+           
         }
 
-        DataAccess.registerUser(nuevoUsuario);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -209,13 +227,13 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
 
         if (nombre.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "En campo nombre no puede estrar vacio");
-        }else if (correo.equals("")) {
+        } else if (correo.equals("")) {
             JOptionPane.showMessageDialog(rootPane, "En campo correo no puede estrar vacio");
-        }else if (esEmailValido(correo) != true) {
+        } else if (esEmailValido(correo) != true) {
             JOptionPane.showMessageDialog(rootPane, "Ese formato de mail no es valido");
-        }else if (!comprobarMailRepetido) {
+        } else if (!comprobarMailRepetido) {
             JOptionPane.showMessageDialog(rootPane, "El mail ya esta en el sistema");
-        }else {
+        } else {
             try {
                 cargarUsuario();
             } catch (Exception e) {

@@ -202,6 +202,22 @@ public class DataAccess {
         }
         return 0;
     }
+    
+    
+    public static boolean existeInstructor(int instructorId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM Usuaris WHERE Id = ?";
+        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, instructorId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0; // Si el conteo es mayor a 0, el instructor existe
+                }
+            }
+        }
+        return false;
+    }
+    
+    
 
     public static void insertWorkout(Workout w, ArrayList<Exercici> exercicis) {
         // The following should be done in a SQL transaction
