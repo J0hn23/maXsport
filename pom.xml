@@ -29,7 +29,7 @@
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf</artifactId>
-            <version>3.5.4</version> <!-- Asegúrate de usar la última versión disponible -->
+            <version>3.5.4</version> 
             <type>jar</type>
         </dependency>
         <dependency>

@@ -36,7 +36,7 @@ public class DialogoCalendario extends javax.swing.JDialog implements MiEventoIn
         
         
     }
-    
+    //metodo que cambia de un modo claro a oscuro segun una clase enumerada creada en framePrincipal
     private void modoVentana(MODO modo){
     
         switch (modo) {
@@ -103,9 +103,10 @@ public class DialogoCalendario extends javax.swing.JDialog implements MiEventoIn
         calendarioEntrenosBeans1 = new net.ortegabravo.calendarioentrenosbeans.CalendarioEntrenosBeans();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(585, 600));
+        setLocationByPlatform(true);
+        setMinimumSize(new java.awt.Dimension(590, 600));
         setResizable(false);
-        setSize(new java.awt.Dimension(585, 600));
+        setSize(new java.awt.Dimension(590, 600));
         getContentPane().setLayout(null);
         getContentPane().add(calendarioEntrenosBeans1);
         calendarioEntrenosBeans1.setBounds(10, 10, 564, 280);

@@ -98,10 +98,10 @@ public class DialogoAbout extends javax.swing.JDialog {
                            la foto del usuario al que entrenamos.
                            -He ido eliminando errores que ha testeado mi hijo, como jtextfield que estaban enable y
                            no deberian.
-                           -En medio del proyecto he cambiado de equipo, trabando en windows y he comenszado a usar el management sql
+                           -En medio del proyecto he cambiado de equipo, trabajando en windows y he comenzado a usar el management sql
                            y el ms server 2022.
                            -He cambiado los jlist para que se actualicen inmediatamente al borrar o añadir ejercicios y entrenos.
-                           -He hecho lo mismo con los jcombobox
+                           -He hecho lo mismo con los jcombobox.
                            -He aprovechado codigo para los nuevos cambios como los metodos para poner la foto de los usuarios.
                            -En el dialogoLogin , muevo el focus para poder usarlo con tabulaciones o pulsar directamente intro
                            para loguear.
