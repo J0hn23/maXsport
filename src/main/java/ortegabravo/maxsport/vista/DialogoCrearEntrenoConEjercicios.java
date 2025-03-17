@@ -19,54 +19,79 @@ import ortegabravo.maxsport.modelo.Workout;
 import static ortegabravo.maxsport.vista.MODO.CLARO;
 import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
+/**
+ *
+ * Clase que representa un diálogo en la aplicación para crear entrenos con
+ * ejercicios.
+ */
 public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
 
     private javax.swing.JComboBox<Exercici> cmbComboObject;
     String valor = "";
     ArrayList<Exercici> listaEjerciciosSeleccionados = new ArrayList<>();
 
+    /**
+     * Constructor del diálogo para crear entrenamientos con ejercicios.
+     *
+     * @param parent el marco padre del diálogo
+     * @param modal indica si el diálogo debe ser modal
+     * @param modo el modo de visualización (claro u oscuro)
+     */
     public DialogoCrearEntrenoConEjercicios(java.awt.Frame parent, boolean modal, MODO modo) {
         super(parent, modal);
         modoVentana(modo);
         initComponents();
         setLocationRelativeTo(parent);
-        
+
         //setSize(450, 600);
         cargarComboEjercicios();
 
     }
 
+    /**
+     * Carga el combo box con los ejercicios.
+     */
     private void cargarComboEjercicios() {
         cmbComboObject = new javax.swing.JComboBox<>();
         getContentPane().add(cmbComboObject);
         cmbComboObject.setBounds(20, 230, 370, 30);
 
     }
-    
-    private void modoVentana(MODO modo){
-    
+
+    /**
+     * Establece el modo de visualización de la ventana (claro u oscuro).
+     *
+     * @param modo el modo de visualización
+     */
+    private void modoVentana(MODO modo) {
+
         switch (modo) {
-            case    CLARO ->    {
-                            try {
-                                UIManager.setLookAndFeel(new FlatLightLaf())  ;
-                                SwingUtilities.updateComponentTreeUI(this);
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
+            case CLARO -> {
+                try {
+                    UIManager.setLookAndFeel(new FlatLightLaf());
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
 
-            case OSCURO ->  {
-                            try {
-                                UIManager.setLookAndFeel(new FlatMacDarkLaf())  ;
-                                SwingUtilities.updateComponentTreeUI(this);
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
- 
+            case OSCURO -> {
+                try {
+                    UIManager.setLookAndFeel(new FlatMacDarkLaf());
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
         }
-    }   
+    }
 
+    /**
+     * Busca el ID del último usuario registrado.
+     *
+     * @return el ID del último usuario
+     */
     private int buscarIdUltimoUsuario() {
 
         ArrayList<Usuari> usuarios = DataAccess.getAllUsers();
@@ -76,6 +101,13 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
         return idUltimoUsuario;
     }
 
+    /**
+     * Añade un entrenamiento con los ejercicios seleccionados.
+     *
+     * @param exercicis la lista de ejercicios a añadir
+     * @return 1 si el entrenamiento se añadió correctamente, 0 en caso
+     * contrario
+     */
     public int aniadirEntreno(ArrayList<Exercici> exercicis) {
 
         Workout w = new Workout();
@@ -88,14 +120,12 @@ public class DialogoCrearEntrenoConEjercicios extends javax.swing.JDialog {
             w.setIdUsuari(Integer.parseInt(txtId.getText()));
             w.setComments(txtComentaio.getText());
             w.setForDate((Date) spnFechaEntreno.getValue());
-            try{
-            DataAccess.insertWorkout(w, exercicis);
-            }catch(Exception e)
-                    {
-                      JOptionPane.showMessageDialog(rootPane, "Error al añadir entreno.No existe el usuario");  
-                    }
-                               
-                           
+            try {
+                DataAccess.insertWorkout(w, exercicis);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, "Error al añadir entreno.No existe el usuario");
+            }
+
             JOptionPane.showMessageDialog(rootPane, "Entreno añadido");
             return 1;
         } else {

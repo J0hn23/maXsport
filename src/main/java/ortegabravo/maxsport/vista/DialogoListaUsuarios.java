@@ -1,4 +1,3 @@
-
 package ortegabravo.maxsport.vista;
 
 import com.formdev.flatlaf.FlatLightLaf;
@@ -17,25 +16,31 @@ import ortegabravo.maxsport.modelo.Usuari;
 import static ortegabravo.maxsport.vista.MODO.CLARO;
 import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
-
+/**
+ * Clase que representa el diálogo para listar usuarios en el sistema.
+ */
 public class DialogoListaUsuarios extends javax.swing.JDialog {
 
-   
-    
-    public DialogoListaUsuarios(java.awt.Frame parent, boolean modal,MODO modo) {
+    /**
+     * Constructor del diálogo de lista de usuarios.
+     *
+     * @param parent el marco padre del diálogo
+     * @param modal indica si el diálogo debe ser modal
+     * @param modo el modo de visualización (claro u oscuro)
+     */
+    public DialogoListaUsuarios(java.awt.Frame parent, boolean modal, MODO modo) {
         super(parent, modal);
         modoVentana(modo);
         initComponents();
 //        cargaListaConObjetos();
-        setSize(440,350);
+        setSize(440, 350);
 //        lstUsuarios.setSize(400,300);
-        
-//        cargaListaConObjetos();
 
+//        cargaListaConObjetos();
         cargaComboUsuarios();
-        
+
     }
-   
+
 //    private void cargaListaConObjetos() {
 //
 //        ArrayList<Usuari> usuarios = DataAccess.getAllUsers();
@@ -49,39 +54,45 @@ public class DialogoListaUsuarios extends javax.swing.JDialog {
 //        lstUsuarios.setModel(dlm);
 //
 //    }
-    
-    private void modoVentana(MODO modo){
-    
-        switch (modo) {
-            case    CLARO ->    {
-                            try {
-                                UIManager.setLookAndFeel(new FlatLightLaf())  ;
-                                SwingUtilities.updateComponentTreeUI(this);
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
+    /**
+     * Establece el modo de visualización de la ventana (claro u oscuro).
+     *
+     * @param modo el modo de visualización
+     */
+    private void modoVentana(MODO modo) {
 
-            case OSCURO ->  {
-                            try {
-                                UIManager.setLookAndFeel(new FlatMacDarkLaf())  ;
-                                SwingUtilities.updateComponentTreeUI(this);
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
- 
+        switch (modo) {
+            case CLARO -> {
+                try {
+                    UIManager.setLookAndFeel(new FlatLightLaf());
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            case OSCURO -> {
+                try {
+                    UIManager.setLookAndFeel(new FlatMacDarkLaf());
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
         }
-    }   
-    
-    
-    private void cargaComboUsuarios(){
-    
+    }
+
+    /**
+     * Carga la tabla de usuarios en la interfaz.
+     */
+    private void cargaComboUsuarios() {
+
         ArrayList<Usuari> misUsuarios = DataAccess.getAllUsers();
         UsuariosTableModel utm = new UsuariosTableModel(misUsuarios);
         tblTablaUsuarios.setModel(utm);
         tblTablaUsuarios.setAutoCreateRowSorter(true);
-    
+
     }
 
     @SuppressWarnings("unchecked")
@@ -115,10 +126,7 @@ public class DialogoListaUsuarios extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblTablaUsuarios;

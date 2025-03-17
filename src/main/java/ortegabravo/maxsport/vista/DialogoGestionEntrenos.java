@@ -1,4 +1,3 @@
-
 package ortegabravo.maxsport.vista;
 
 import com.formdev.flatlaf.FlatLightLaf;
@@ -19,54 +18,67 @@ import ortegabravo.maxsport.modelo.Workout;
 import static ortegabravo.maxsport.vista.MODO.CLARO;
 import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
-
+/**
+ *
+ * Clase que representa un diálogo en la aplicación para gestion de los
+ * entrenamientos.
+ */
 public class DialogoGestionEntrenos extends javax.swing.JDialog {
-    
+
     private int id;
     private byte[] imagenByte;
     private int idEntreno;
     private int idUsuario;
-    private String nombre="";
-    private String correoAlumno="";
+    private String nombre = "";
+    private String correoAlumno = "";
 
+    /**
+     * Constructor del diálogo de gestión de entrenamientos.
+     *
+     * @param parent el marco padre del diálogo
+     * @param modal indica si el diálogo debe ser modal
+     * @param idEntrenador el ID del entrenador
+     * @param modo el modo de visualización (claro u oscuro)
+     */
     public DialogoGestionEntrenos(java.awt.Frame parent, boolean modal, int idEntrenador, MODO modo) {
         super(parent, modal);
         modoVentana(modo);
         initComponents();
-        setSize(400, 350);       
+        setSize(400, 350);
         setLocationRelativeTo(parent);
-        
+
         cargarUsuariosEnTabla(idEntrenador);
     }
 
-  
-    
-    private void modoVentana(MODO modo){
-    
-        switch (modo) {
-            case    CLARO ->    {
-                            try {
-                                UIManager.setLookAndFeel(new FlatLightLaf())  ;
-                                SwingUtilities.updateComponentTreeUI(this);
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
+    /**
+     * Establece el modo de visualización de la ventana (claro u oscuro).
+     *
+     * @param modo el modo de visualización
+     */
+    private void modoVentana(MODO modo) {
 
-            case OSCURO ->  {
-                            try {
-                                UIManager.setLookAndFeel(new FlatMacDarkLaf())  ;
-                                SwingUtilities.updateComponentTreeUI(this);
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
- 
+        switch (modo) {
+            case CLARO -> {
+                try {
+                    UIManager.setLookAndFeel(new FlatLightLaf());
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            case OSCURO -> {
+                try {
+                    UIManager.setLookAndFeel(new FlatMacDarkLaf());
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
         }
-    }   
-    
-    
-    
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -153,8 +165,11 @@ public class DialogoGestionEntrenos extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    //Aqui he aprovechado el codigo que usé en la calse FramePrincipal
+    //
+    /**
+     * Carga la foto del usuario. Aqui he aprovechado el codigo que usé en la
+     * calse FramePrincipal
+     */
     private void cargarFoto() {
 
         ImageIcon icon = byteArrayAImagen(imagenByte);
@@ -169,6 +184,11 @@ public class DialogoGestionEntrenos extends javax.swing.JDialog {
         }
     }
 
+    /**
+     * Obtiene el usuario por correo.
+     *
+     * @param mail el correo del usuario
+     */
     private void obtenerUsuario(String mail) {
         System.out.println("estoy en obtenerusuario()");
         Usuari usuario = DataAccess.getUser(mail);
@@ -178,6 +198,12 @@ public class DialogoGestionEntrenos extends javax.swing.JDialog {
 
     }
 
+    /**
+     * Convierte un array de bytes en una imagen.
+     *
+     * @param imagen el array de bytes de la imagen
+     * @return el icono de la imagen
+     */
     private static ImageIcon byteArrayAImagen(byte[] imagen) {
         try {
             ImageIcon icon = new ImageIcon(imagen);
@@ -188,71 +214,93 @@ public class DialogoGestionEntrenos extends javax.swing.JDialog {
         return null;
     }
 
-    
-    
-    //Cuando pulso la tabla genero un evento que carga nombre y correoalumno con los datos de la fila seleccionada
+    /**
+     * Evento que se genera al hacer clic en una fila de la tabla de usuarios.
+     * Cuando pulso la tabla genero un evento que carga nombre y correoalumno
+     * con los datos de la fila seleccionada
+     *
+     * @param evt el evento del clic
+     */
     private void tblTablaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTablaUsuariosMouseClicked
-       
+
         int fila = tblTablaUsuarios.rowAtPoint(evt.getPoint());
 
-        id=Integer.parseInt(tblTablaUsuarios.getValueAt(fila, 0).toString());
-        
+        id = Integer.parseInt(tblTablaUsuarios.getValueAt(fila, 0).toString());
+
         nombre = (String) tblTablaUsuarios.getValueAt(fila, 1);
         correoAlumno = tblTablaUsuarios.getValueAt(fila, 2).toString();
-        
-        cargarTablaEntrenamientos(nombre,correoAlumno);
+
+        cargarTablaEntrenamientos(nombre, correoAlumno);
         obtenerUsuario(correoAlumno);
         byteArrayAImagen(imagenByte);
         cargarFoto();
-        
-        
-    }//GEN-LAST:event_tblTablaUsuariosMouseClicked
 
-    //ejecuto los dos metodos elimninar entrno
+
+    }//GEN-LAST:event_tblTablaUsuariosMouseClicked
+    /**
+     * Evento que se genera al hacer clic en el botón de eliminar. ejecuto los
+     * dos metodos elimninar entreno
+     *
+     * @param evt el evento del clic
+     */
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        
+
         eliminarEntrenoEnBD(idEntreno, idUsuario);
-        cargarTablaEntrenamientos(nombre,correoAlumno);
-        
-        
-        
+        cargarTablaEntrenamientos(nombre, correoAlumno);
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    /**
+     * Evento que se genera al hacer clic en una fila de la tabla de
+     * entrenamientos por usuario.
+     *
+     * @param evt el evento del clic
+     */
     private void tblEntrenosPorUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEntrenosPorUsuarioMouseClicked
-       
+
         int fila = tblEntrenosPorUsuario.rowAtPoint(evt.getPoint());
 
-        idEntreno=Integer.parseInt(tblEntrenosPorUsuario.getValueAt(fila, 0).toString());
+        idEntreno = Integer.parseInt(tblEntrenosPorUsuario.getValueAt(fila, 0).toString());
         System.out.println(idEntreno);
-        
-       
+
         idUsuario = Integer.parseInt(tblEntrenosPorUsuario.getValueAt(fila, 2).toString());
 //        String correoAlumno = tblEntrenosPorUsuario.getValueAt(fila, 2).toString();
-        
-        
-    }//GEN-LAST:event_tblEntrenosPorUsuarioMouseClicked
 
-    //creo este metodo para eliminar el entreno , vaya tela con la consulta , era dificil ya que afectaba a 4 tablas
-    private void eliminarEntrenoEnBD(int idEntreno, int idUsuario){
-     
+
+    }//GEN-LAST:event_tblEntrenosPorUsuarioMouseClicked
+    /**
+     * Elimina un entrenamiento de la base de datos. creo este metodo para
+     * eliminar el entreno , vaya tela con la consulta , era dificil ya que
+     * afectaba a 4 tablas
+     *
+     * @param idEntreno el ID del entrenamiento
+     * @param idUsuario el ID del usuario
+     */
+    private void eliminarEntrenoEnBD(int idEntreno, int idUsuario) {
+
         DataAccess.eliminarEntreno(idEntreno, idUsuario);
-        cargarTablaEntrenamientos(nombre,correoAlumno);
-    
+        cargarTablaEntrenamientos(nombre, correoAlumno);
+
     }
-  
-    
-    // Aprovecho el mismo codigo que para cargar la tabl de mis usuarios en FFramePrincipal
-    private void cargarTablaEntrenamientos(String nombre,String correoAlumno){
+
+    /**
+     * Carga la tabla de entrenamientos del usuario. Aprovecho el mismo codigo
+     * que para cargar la tabl de mis usuarios en FFramePrincipal
+     *
+     * @param nombre el nombre del usuario
+     * @param correoAlumno el correo del usuario
+     */
+    private void cargarTablaEntrenamientos(String nombre, String correoAlumno) {
         txtCorreo.setText(correoAlumno);
         txtNombre.setText(nombre);
-        
-        System.out.println("estoy en cargartablaentrenos y correoalumno es:"+correoAlumno );
-        
+
+        System.out.println("estoy en cargartablaentrenos y correoalumno es:" + correoAlumno);
+
         Usuari usuario;
         ArrayList<Workout> workouts;
         usuario = DataAccess.getUser(correoAlumno);
 
-        System.out.println("usuario.getEmail() es:"+usuario.getEmail());
+        System.out.println("usuario.getEmail() es:" + usuario.getEmail());
         workouts = DataAccess.getWorkoutsPerUser(usuario);
 
         // ejercicios = new ArrayList<>();
@@ -261,23 +309,22 @@ public class DialogoGestionEntrenos extends javax.swing.JDialog {
         tblEntrenosPorUsuario.setModel(eptm);
         tblEntrenosPorUsuario.setAutoCreateRowSorter(true);
 
-        
     }
-    
-    
-    
-    
-    //Lo mismo, aprovecho codigo
+
+    /**
+     * Carga la tabla de usuarios del entrenador.
+     *
+     * @param idEntrenador el ID del entrenador
+     */
     private void cargarUsuariosEnTabla(int idEntrenador) {
 
-        ArrayList<Usuari> usuaris=new ArrayList<>();
+        ArrayList<Usuari> usuaris = new ArrayList<>();
         usuaris = DataAccess.getAllUsersByInstructor(idEntrenador);
         UsuariosTableModel utm = new UsuariosTableModel(usuaris);
         tblTablaUsuarios.setModel(utm);
         tblTablaUsuarios.setAutoCreateRowSorter(true);
     }
 
- 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;

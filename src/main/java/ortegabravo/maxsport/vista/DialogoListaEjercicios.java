@@ -14,12 +14,20 @@ import ortegabravo.maxsport.modelo.Exercici;
 import static ortegabravo.maxsport.vista.MODO.CLARO;
 import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
+/**
+ * Clase que representa el diálogo para listar ejercicios en el sistema.
+ */
 public class DialogoListaEjercicios extends javax.swing.JDialog {
 
-   private ArrayList<Exercici> exercicis;
-   
-    
+    private ArrayList<Exercici> exercicis;
 
+    /**
+     * Constructor del diálogo de lista de ejercicios.
+     *
+     * @param parent el marco padre del diálogo
+     * @param modal indica si el diálogo debe ser modal
+     * @param modo el modo de visualización (claro u oscuro)
+     */
     public DialogoListaEjercicios(java.awt.Frame parent, boolean modal, MODO modo) {
         super(parent, modal);
         modoVentana(modo);
@@ -27,46 +35,52 @@ public class DialogoListaEjercicios extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
         setSize(300, 400);
         System.out.println(modo);
-       
-        
+
         cargaListaConObjetos();
- 
+
     }
-    
-    
-    private void modoVentana(MODO modo){
-    
+
+    /**
+     * Establece el modo de visualización de la ventana (claro u oscuro).
+     *
+     * @param modo el modo de visualización
+     */
+    private void modoVentana(MODO modo) {
+
         switch (modo) {
-            case    CLARO ->    {
-                            try {
-                                UIManager.setLookAndFeel(new FlatLightLaf())  ;
-                                SwingUtilities.updateComponentTreeUI(this);
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
+            case CLARO -> {
+                try {
+                    UIManager.setLookAndFeel(new FlatLightLaf());
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
 
-            case OSCURO ->  {
-                            try {
-                                UIManager.setLookAndFeel(new FlatMacDarkLaf())  ;
-                                SwingUtilities.updateComponentTreeUI(this);
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
- 
+            case OSCURO -> {
+                try {
+                    UIManager.setLookAndFeel(new FlatMacDarkLaf());
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
         }
-    }   
+    }
 
+    /**
+     * Carga la lista de ejercicios en la interfaz.
+     */
     private void cargaListaConObjetos() {
 
         exercicis = DataAccess.getAllExercicis();
         DefaultListModel<String> dlm = new DefaultListModel();
-   
-        for (Exercici e: exercicis) {
+
+        for (Exercici e : exercicis) {
             dlm.addElement(e.getDescripcio());
         }
-        
+
         jltListaEjercicios.setModel(dlm);
 
     }
@@ -109,6 +123,9 @@ public class DialogoListaEjercicios extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Sale de la ventana
+     */
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
@@ -119,7 +136,5 @@ public class DialogoListaEjercicios extends javax.swing.JDialog {
     private javax.swing.JList<String> jltListaEjercicios;
     private javax.swing.JLabel lblTextoEjercicios;
     // End of variables declaration//GEN-END:variables
-    
+
 }
-
-

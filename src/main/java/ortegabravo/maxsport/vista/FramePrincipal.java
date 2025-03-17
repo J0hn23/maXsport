@@ -23,6 +23,9 @@ import ortegabravo.maxsport.modelo.Usuari;
 import static ortegabravo.maxsport.vista.MODO.CLARO;
 import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
+/**
+ * Clase que representa la ventana principal de la aplicación.
+ */
 public class FramePrincipal extends javax.swing.JFrame {
 
     private JDialog dlgDialogoLogin;
@@ -39,6 +42,10 @@ public class FramePrincipal extends javax.swing.JFrame {
     int idInstructorAsigna;
     MODO modo = MODO.OSCURO;
 
+    /**
+     * Constructor de la clase FramePrincipal. Inicializa la interfaz gráfica,
+     * configura el modo de visualización y establece las propiedades iniciales.
+     */
     public FramePrincipal() {
 
         modoVentana(modo);
@@ -47,6 +54,9 @@ public class FramePrincipal extends javax.swing.JFrame {
         tipTextBotones();
     }
 
+    /**
+     * Establece el texto de ayuda para los botones.
+     */
     private void tipTextBotones() {
 
         mnbExit.setToolTipText("Sale de la aplicación");
@@ -64,6 +74,9 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Configura las propiedades iniciales de la ventana principal.
+     */
     private void configuracionInicio() {
 
         setTitle("MaXsport");
@@ -74,6 +87,9 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Carga la foto del usuario en la interfaz.
+     */
     private void cargarFoto() {
 
         ImageIcon icon = byteArrayAImagen(imagenByte);
@@ -87,6 +103,11 @@ public class FramePrincipal extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Obtiene la información del usuario a partir de su correo electrónico.
+     *
+     * @param mail el correo electrónico del usuario
+     */
     private void obtenerUsuario(String mail) {
 
         Usuari usuario = DataAccess.getUser(mail);
@@ -96,6 +117,12 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Convierte un array de bytes en un objeto ImageIcon.
+     *
+     * @param imagen el array de bytes que representa la imagen
+     * @return el objeto ImageIcon creado a partir del array de bytes
+     */
     private static ImageIcon byteArrayAImagen(byte[] imagen) {
         try {
             ImageIcon icon = new ImageIcon(imagen);
@@ -106,6 +133,14 @@ public class FramePrincipal extends javax.swing.JFrame {
         return null;
     }
 
+    /**
+     * Realiza las acciones necesarias después de que un usuario se ha logueado
+     * correctamente.
+     *
+     * @param confirmacion indica si la confirmación fue exitosa
+     * @param idEntrenador el ID del entrenador
+     * @param mail el correo electrónico del usuario
+     */
     public void confirmacionLogin(boolean confirmacion, int idEntrenador, String mail) {
         if (confirmacion) {
 
@@ -121,6 +156,11 @@ public class FramePrincipal extends javax.swing.JFrame {
         txtNumeroEntrenador.setText(mail);
     }
 
+    /**
+     * Carga la lista de usuarios en la tabla.
+     *
+     * @param idEntrenador el ID del entrenador
+     */
     void cargarUsuariosEnTabla(int idEntrenador) {
 
         usuaris = DataAccess.getAllUsersByInstructor(idEntrenador);
@@ -129,6 +169,12 @@ public class FramePrincipal extends javax.swing.JFrame {
         tblTablaUsuarios.setAutoCreateRowSorter(true);
     }
 
+    /**
+     * Establece la conexión a la base de datos.
+     *
+     * @param conexion el objeto Connection que representa la conexión a la base
+     * de datos
+     */
     public void enviarConexion(Connection conexion) {
         this.conexion = conexion;
     }
@@ -401,7 +447,12 @@ public class FramePrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+    /**
+     * Acción realizada al presionar el botón de login. Abre el diálogo de
+     * login.
+     *
+     * @param evt el evento de acción que desencadena este método
+     */
     private void btnBotonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBotonLoginActionPerformed
         //es el actionperformed del boton de login que abre el jdialog login
         dlgDialogoLogin = new DialogoLogin(this, true);
@@ -410,7 +461,12 @@ public class FramePrincipal extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnBotonLoginActionPerformed
-
+    /**
+     * Acción realizada al presionar el botón de cerrar sesión. Cierra la
+     * conexión del usuario y vuelve al panel principal.
+     *
+     * @param evt el evento de acción que desencadena este método
+     */
     private void btnSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignOutActionPerformed
 
         //este boton cierra la getconection del usuario y la jpanel
@@ -424,18 +480,33 @@ public class FramePrincipal extends javax.swing.JFrame {
         pnlPanelPrincipal.setVisible(true);
 
     }//GEN-LAST:event_btnSignOutActionPerformed
-
+    /**
+     * Acción realizada al hacer clic en el menú de salida. Cierra la
+     * aplicación.
+     *
+     * @param evt el evento de acción que desencadena este método
+     */
     private void mnbExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnbExitMouseClicked
         System.exit(0);
     }//GEN-LAST:event_mnbExitMouseClicked
-
+    /**
+     * Acción realizada al presionar el menú "Acerca de". Abre el diálogo
+     * "Acerca de".
+     *
+     * @param evt el evento de acción que desencadena este método
+     */
     private void mnbAboutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnbAboutMousePressed
         da = new DialogoAbout(this, true, modo);
         JComponent contenedor = (JComponent) da.getContentPane();
         //contenedor.setBackground(new Color(150, 150, 150));
         da.setVisible(true);
     }//GEN-LAST:event_mnbAboutMousePressed
-
+    /**
+     * Acción realizada al presionar el botón de "Nuevo Usuario". Abre el
+     * diálogo para crear un nuevo usuario.
+     *
+     * @param evt el evento de acción que desencadena este método
+     */
     private void btnNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoUsuarioActionPerformed
 
         dnu = new DialogoNuevoUsuario(this, true, idInstructorAsigna, this, modo);
@@ -444,7 +515,12 @@ public class FramePrincipal extends javax.swing.JFrame {
         dnu.setVisible(true);
 
     }//GEN-LAST:event_btnNuevoUsuarioActionPerformed
-
+    /**
+     * Acción realizada al presionar el botón "Asignar Entreno". Abre el diálogo
+     * para crear un nuevo entreno con ejercicios.
+     *
+     * @param evt el evento de acción que desencadena este método
+     */
     private void btnAsignarEntrenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarEntrenoActionPerformed
         //daeae=new DialogoAsignarEjerciciosAEntreno(this,false);
         //daeae.setVisible(true);
@@ -454,12 +530,22 @@ public class FramePrincipal extends javax.swing.JFrame {
         dcece.setVisible(true);
 
     }//GEN-LAST:event_btnAsignarEntrenoActionPerformed
-
+    /**
+     * Acción realizada al presionar el botón "Mostrar Ejercicios". Abre el
+     * diálogo para listar los ejercicios.
+     *
+     * @param evt el evento de acción que desencadena este método
+     */
     private void btnListarEjerciciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarEjerciciosActionPerformed
         dle = new DialogoListaEjercicios(this, true, modo);
         dle.setVisible(true);
     }//GEN-LAST:event_btnListarEjerciciosActionPerformed
-
+    /**
+     * Acción realizada al presionar el botón "Gestión Entrenos". Abre el
+     * diálogo para gestionar los entrenamientos.
+     *
+     * @param evt el evento de acción que desencadena este método
+     */
     private void btnGestionEntrenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionEntrenosActionPerformed
 //        JOptionPane.showMessageDialog(rootPane, "En construcción");
 
@@ -468,13 +554,23 @@ public class FramePrincipal extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnGestionEntrenosActionPerformed
-
+    /**
+     * Acción realizada al presionar el botón "Mostrar Usuarios". Abre el
+     * diálogo para listar los usuarios.
+     *
+     * @param evt el evento de acción que desencadena este método
+     */
     private void btnMostrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarUsuariosActionPerformed
         dlu = new DialogoListaUsuarios(this, true, modo);
         dlu.setVisible(true);
 
     }//GEN-LAST:event_btnMostrarUsuariosActionPerformed
-
+    /**
+     * Acción realizada al presionar el botón "Calendario". Abre el diálogo del
+     * calendario.
+     *
+     * @param evt el evento de acción que desencadena este método
+     */
     private void btnCalendarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarioActionPerformed
 
         dc = new DialogoCalendario(this, true, idInstructorAsigna, modo);
@@ -482,28 +578,50 @@ public class FramePrincipal extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnCalendarioActionPerformed
-
+    /**
+     * Cambia el cursor al pasar el ratón por encima del botón de login.
+     *
+     * @param evt el evento de ratón que desencadena este método
+     */
     private void btnBotonLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBotonLoginMouseEntered
 
         btnBotonLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnBotonLoginMouseEntered
-
+    /**
+     * Restablece el cursor al salir el ratón del botón de login.
+     *
+     * @param evt el evento de ratón que desencadena este método
+     */
     private void btnBotonLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBotonLoginMouseExited
 
         btnBotonLogin.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_btnBotonLoginMouseExited
 
+    /**
+     * Cambia el cursor al pasar el ratón por encima de la etiqueta web.
+     *
+     * @param evt el evento de ratón que desencadena este método
+     */
     private void lblAccesoWebMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAccesoWebMouseEntered
 
         lblEtiquetaWeb.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_lblAccesoWebMouseEntered
-
+    /**
+     * Restablece el cursor al salir el ratón de la etiqueta web.
+     *
+     * @param evt el evento de ratón que desencadena este método
+     */
     private void lblAccesoWebMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAccesoWebMouseExited
 
         lblEtiquetaWeb.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_lblAccesoWebMouseExited
 
-
+    /**
+     * Acción realizada al presionar el botón "Buscar". Busca un usuario por
+     * nombre.
+     *
+     * @param evt el evento de acción que desencadena este método
+     */
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
         String nombre = jTxtBuscar.getText();
@@ -511,7 +629,12 @@ public class FramePrincipal extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnBuscarActionPerformed
-
+    /**
+     * Acción realizada al presionar el botón para cambiar el tema visual.
+     * Cambia entre el tema claro y oscuro.
+     *
+     * @param evt el evento de acción que desencadena este método
+     */
     private void btnCambiaSkinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiaSkinActionPerformed
         if (modo == modo.OSCURO) {
             modo = modo.CLARO;
@@ -521,7 +644,13 @@ public class FramePrincipal extends javax.swing.JFrame {
         modoVentana(modo);
         System.out.println("en action performes de skinf:" + modo);
     }//GEN-LAST:event_btnCambiaSkinActionPerformed
-
+    /**
+     * Acción realizada al presionar el ratón sobre una fila de la tabla de
+     * usuarios. Abre un diálogo con los entrenamientos del usuario
+     * seleccionado.
+     *
+     * @param evt el evento de ratón que desencadena este método
+     */
     private void tblTablaUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTablaUsuariosMousePressed
         //creo un evento mouseclicked en la tabla
         //el evento evt con el metodo getpoint me da el punto de la fila donde 
@@ -541,7 +670,11 @@ public class FramePrincipal extends javax.swing.JFrame {
         de.setLocationRelativeTo(null);
         de.setVisible(true);
     }//GEN-LAST:event_tblTablaUsuariosMousePressed
-
+    /**
+     * Busca un usuario por nombre y muestra su información.
+     *
+     * @param nombre el nombre del usuario a buscar
+     */
     private void buscarNombre(String nombre) {
 
         Usuari usuario = null;
@@ -561,6 +694,11 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Establece el modo de visualización de la ventana (claro u oscuro).
+     *
+     * @param modo el modo de visualización
+     */
     private void modoVentana(MODO modo) {
 
         switch (modo) {

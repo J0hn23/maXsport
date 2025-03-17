@@ -10,12 +10,21 @@ import javax.swing.KeyStroke;
 import ortegabravo.maxsport.accesoDatos.DataAccess;
 import ortegabravo.maxsport.modelo.Usuari;
 
+/**
+ * Clase que representa el diálogo de login en la aplicación.
+ */
 public class DialogoLogin extends javax.swing.JDialog {
 
     FramePrincipal fp;
     Connection cx;
     Usuari u = new Usuari();
 
+    /**
+     * Constructor del diálogo de login.
+     *
+     * @param parent el marco padre del diálogo
+     * @param modal indica si el diálogo debe ser modal
+     */
     public DialogoLogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -24,16 +33,22 @@ public class DialogoLogin extends javax.swing.JDialog {
         txtCampoTextoCorreo.requestFocusInWindow();
         logicaBotonLogin();
     }
-    
-    
-    private void logicaBotonLogin(){
-    //Esto lleva el focus al boton login y permite que al tipear el login con el intro acceda
+
+    /**
+     * Configura la lógica del botón de login para que responda al presionar la
+     * tecla ENTER.
+     */
+    private void logicaBotonLogin() {
+        //Esto lleva el focus al boton login y permite que al tipear el login con el intro acceda
         btnBotonLogin.requestFocusInWindow();
         btnBotonLogin.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke("ENTER"), "pressed");
         btnBotonLogin.getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke("released ENTER"), "released");
         btnBotonLogin.setToolTipText("Entrar");
     }
 
+    /**
+     * Comprueba la conexión a la base de datos.
+     */
     private void comprobarConexion() {
 
         cx = DataAccess.getConnection();
@@ -110,7 +125,14 @@ public class DialogoLogin extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    //uso una funcion mediante patrones para comprobar que el correo es valido
+
+    /**
+     * Comprueba si el correo electrónico es válido. uso una funcion mediante
+     * patrones para comprobar que el correo es valido
+     *
+     * @param email el correo electrónico a validar
+     * @return true si el correo es válido, false en caso contrario
+     */
     public boolean esEmailValido(String email) {
         String pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{1,3}$";
         Pattern regex = Pattern.compile(pattern);
@@ -118,7 +140,16 @@ public class DialogoLogin extends javax.swing.JDialog {
         return matcher.matches();
     }
 
-
+    /**
+     * Acción realizada al presionar el botón de login.
+     *
+     * Este método comprueba la conexión a la base de datos, valida el correo
+     * electrónico ingresado, verifica las credenciales del usuario y confirma
+     * el login si las credenciales son correctas. Si el usuario no es
+     * encontrado o no es instructor, muestra un mensaje de error.
+     *
+     * @param evt el evento de acción que desencadena este método
+     */
     private void btnBotonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBotonLoginActionPerformed
 
         comprobarConexion();
@@ -137,10 +168,10 @@ public class DialogoLogin extends javax.swing.JDialog {
                 if (resultado.verified) {
 
                     System.out.println(u.getNom() + " " + u.isInstructor());
-                    fp.confirmacionLogin(resultado.verified, u.getId(),u.getEmail());
+                    fp.confirmacionLogin(resultado.verified, u.getId(), u.getEmail());
                     setVisible(false);
                 } else {
-                JOptionPane.showMessageDialog(rootPane, "Usuario no encontrado o no es instructor");
+                    JOptionPane.showMessageDialog(rootPane, "Usuario no encontrado o no es instructor");
                 }
             }
         } else {
@@ -149,7 +180,15 @@ public class DialogoLogin extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnBotonLoginActionPerformed
 
-
+    /**
+     * Límita la entrada por teclado a ciertos caracteres en el campo de texto
+     * del correo electrónico.
+     *
+     * Este método asegura que solo se ingresen caracteres válidos en el campo
+     * de texto del correo electrónico.
+     *
+     * @param evt el evento de tecla que desencadena este método
+     */
     private void txtCampoTextoCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCampoTextoCorreoKeyTyped
         //limito la entrada por teclado a estos caracteres
         char c = evt.getKeyChar();
@@ -160,7 +199,13 @@ public class DialogoLogin extends javax.swing.JDialog {
 
 
     }//GEN-LAST:event_txtCampoTextoCorreoKeyTyped
-
+    /**
+     * Acción realizada al presionar el botón de cancelar.
+     *
+     * Este método cierra el diálogo de login.
+     *
+     * @param evt el evento de acción que desencadena este método
+     */
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed

@@ -20,12 +20,25 @@ import ortegabravo.maxsport.modelo.Usuari;
 import static ortegabravo.maxsport.vista.MODO.CLARO;
 import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
+/**
+ * Clase que representa el diálogo para crear un nuevo usuario.
+ */
 public class DialogoNuevoUsuario extends javax.swing.JDialog {
 
     Usuari nuevoUsuario;
     int instructorAsignado;
     FramePrincipal fp;
 
+    /**
+     * Constructor del diálogo para crear un nuevo usuario.
+     *
+     * @param parent el marco padre del diálogo
+     * @param modal indica si el diálogo debe ser modal
+     * @param idInstructorAsigna el ID del instructor que asigna el nuevo
+     * usuario
+     * @param fp una instancia del FramePrincipal
+     * @param modo el modo de visualización (claro u oscuro)
+     */
     public DialogoNuevoUsuario(java.awt.Frame parent, boolean modal, int idInstructorAsigna, FramePrincipal fp, MODO modo) {
         super(parent, modal);
         modoVentana(modo);
@@ -38,6 +51,11 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         this.fp = fp;
     }
 
+    /**
+     * Establece el modo de visualización de la ventana (claro u oscuro).
+     *
+     * @param modo el modo de visualización
+     */
     private void modoVentana(MODO modo) {
 
         switch (modo) {
@@ -62,6 +80,12 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         }
     }
 
+    /**
+     * Carga los datos del nuevo usuario desde los campos de texto y los guarda
+     * en la base de datos.
+     *
+     * @throws SQLException si ocurre un error al acceder a la base de datos
+     */
     private void cargarUsuario() throws SQLException {
 
         nuevoUsuario = new Usuari();
@@ -78,36 +102,35 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         nuevoUsuario.setInstructor(chkIsInstructor.isSelected());
         nuevoUsuario.setFoto(fotoVacia);
         String textoInstructorAsignado = txtInstructorasignado.getText().trim();
-            if (!textoInstructorAsignado.isEmpty()) {
-                nuevoUsuario.setAssignedInstructor(Integer.parseInt(textoInstructorAsignado));
-            } else {
-                System.out.println("El campo está instructor asignado esta vacio");
-            }
+        if (!textoInstructorAsignado.isEmpty()) {
+            nuevoUsuario.setAssignedInstructor(Integer.parseInt(textoInstructorAsignado));
+        } else {
+            System.out.println("El campo está instructor asignado esta vacio");
+        }
 
         //cuandos se da de alta un nuevo usuario y es entrenador se le asigna como id AssignedInstructor el del que lo ha dado de alta
         try {
             if (!txtInstructorasignado.getText().isEmpty()) {
-                
+
                 nuevoUsuario.setAssignedInstructor(Integer.parseInt(txtInstructorasignado.getText()));
             } else {
                 nuevoUsuario.setAssignedInstructor(instructorAsignado);
             }
-            
-            instructorId=Integer.parseInt(txtInstructorasignado.getText());
-                if(DataAccess.existeInstructor(instructorId)){
-                    DataAccess.registerUser(nuevoUsuario);
-                    JOptionPane.showMessageDialog(rootPane, "Usuario añadido");
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "No existe el instructor");
-                }
-            
+
+            instructorId = Integer.parseInt(txtInstructorasignado.getText());
+            if (DataAccess.existeInstructor(instructorId)) {
+                DataAccess.registerUser(nuevoUsuario);
+                JOptionPane.showMessageDialog(rootPane, "Usuario añadido");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "No existe el instructor");
+            }
+
         } catch (NumberFormatException e) {
             // Error en caso de entrada erronea 
             System.err.println("Error: El campo de instructor asignado debe ser un número.");
-           
+
         }
 
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -205,11 +228,23 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     * Cierra la ventana del diálogo.
+     *
+     * @param evt el evento de acción que desencadena este método
+     */
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
-
+    /**
+     * Acción realizada al presionar el botón de añadir.
+     *
+     * Este método valida los campos de texto, comprueba si el correo
+     * electrónico ya existe en el sistema, y si todo es correcto, llama al
+     * método cargarUsuario() para guardar los datos en la base de datos.
+     *
+     * @param evt el evento de acción que desencadena este método
+     */
     private void btnAnyadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnyadirActionPerformed
 
         boolean comprobarMailRepetido = true;
@@ -246,7 +281,12 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
 
 
     }//GEN-LAST:event_btnAnyadirActionPerformed
-
+    /**
+     * Comprueba si el correo electrónico es válido.
+     *
+     * @param email el correo electrónico a validar
+     * @return true si el correo es válido, false en caso contrario
+     */
     public boolean esEmailValido(String email) {
         String pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{1,3}$";
         Pattern regex = Pattern.compile(pattern);
@@ -254,13 +294,23 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         return matcher.matches();
     }
 
-
+    /**
+     * Limita la entrada por teclado a números en el campo de texto del
+     * instructor asignado.
+     *
+     * @param evt el evento de tecla que desencadena este método
+     */
     private void txtInstructorasignadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInstructorasignadoKeyTyped
         char c = evt.getKeyChar();
         if ((c < '0' || c > '9'))
             evt.consume();
     }//GEN-LAST:event_txtInstructorasignadoKeyTyped
-
+    /**
+     * Limita la entrada por teclado a ciertos caracteres en el campo de texto
+     * del correo electrónico.
+     *
+     * @param evt el evento de tecla que desencadena este método
+     */
     private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
         char c = evt.getKeyChar();
         if ((c < '0' || c > '9') && (c < '@' || c > 'z') && (c < 'A' || c > 'Z')
@@ -269,7 +319,12 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_txtCorreoKeyTyped
-
+    /**
+     * Limita la entrada por teclado a letras y números en el campo de texto del
+     * nombre.
+     *
+     * @param evt el evento de tecla que desencadena este método
+     */
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         char c = evt.getKeyChar();
         if ((c < '0' || c > '9') && (c < 'a' || c > 'z') && (c < 'A' || c > 'Z')
@@ -278,7 +333,12 @@ public class DialogoNuevoUsuario extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_txtNombreKeyTyped
-
+    /**
+     * Carga la tabla de usuarios en el FramePrincipal al cerrar la ventana del
+     * diálogo.
+     *
+     * @param evt el evento de ventana que desencadena este método
+     */
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         fp.cargarUsuariosEnTabla(instructorAsignado);
     }//GEN-LAST:event_formWindowClosed

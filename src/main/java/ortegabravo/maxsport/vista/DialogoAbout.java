@@ -1,4 +1,3 @@
-
 package ortegabravo.maxsport.vista;
 
 import com.formdev.flatlaf.FlatLightLaf;
@@ -11,21 +10,27 @@ import javax.swing.UnsupportedLookAndFeelException;
 import static ortegabravo.maxsport.vista.MODO.CLARO;
 import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
-
+/**
+ * Clase que representa un diálogo "Acerca de" en la aplicación.
+ */
 public class DialogoAbout extends javax.swing.JDialog {
 
-    
-    
+    /**
+     * Constructor del diálogo "Acerca de".
+     *
+     * @param parent el marco padre del diálogo
+     * @param modal indica si el diálogo debe ser modal
+     * @param modo el modo de visualización (claro u oscuro)
+     */
     public DialogoAbout(java.awt.Frame parent, boolean modal, MODO modo) {
         super(parent, modal);
         modoVentana(modo);
         initComponents();
-         setLocationRelativeTo(null);
-         setSize(600,600);
+        setLocationRelativeTo(null);
+        setSize(600, 600);
         jScrollPane2.setAutoscrolls(true);
-        
-       
-       //jTextArea2.setSize(550,1200);
+
+        //jTextArea2.setSize(550,1200);
         jTextArea2.setText("""
                            Creado por Jonathan M.Ortega Bravo
                            Curso distancia Desarrollo Aplicaciones Multiplataforma 
@@ -110,36 +115,38 @@ public class DialogoAbout extends javax.swing.JDialog {
                            
                            
                            """);
-        
+
     }
 
-    
-    private void modoVentana(MODO modo){
-    
-        switch (modo) {
-            case    CLARO ->    {
-                            try {
-                                UIManager.setLookAndFeel(new FlatLightLaf())  ;
-                                SwingUtilities.updateComponentTreeUI(this);
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
+    /**
+     * Establece el modo de visualización de la ventana (claro u oscuro).
+     *
+     * @param modo el modo de visualización
+     */
+    private void modoVentana(MODO modo) {
 
-            case OSCURO ->  {
-                            try {
-                                UIManager.setLookAndFeel(new FlatMacDarkLaf())  ;
-                                SwingUtilities.updateComponentTreeUI(this);
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
- 
+        switch (modo) {
+            case CLARO -> {
+                try {
+                    UIManager.setLookAndFeel(new FlatLightLaf());
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            case OSCURO -> {
+                try {
+                    UIManager.setLookAndFeel(new FlatMacDarkLaf());
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
         }
-    }   
-    
-    
-    
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -165,8 +172,7 @@ public class DialogoAbout extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea2;

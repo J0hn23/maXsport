@@ -25,6 +25,10 @@ import ortegabravo.maxsport.modelo.Workout;
 import static ortegabravo.maxsport.vista.MODO.CLARO;
 import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
+/**
+ *
+ * Clase que representa un diálogo en la aplicación para crear entrenamientos.
+ */
 public class DialogoEntrenamientos extends javax.swing.JDialog {
 
     private javax.swing.JComboBox<Exercici> cmbComboEjercicios;
@@ -36,8 +40,17 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
     private Workout entrenamiento;
     private int idEntreno;
 
+    /**
+     * Constructor del diálogo de entrenamientos.
+     *
+     * @param parent el marco padre del diálogo
+     * @param modal indica si el diálogo debe ser modal
+     * @param correo el correo del usuario
+     * @param nombre el nombre del usuario
+     * @param modo el modo de visualización (claro u oscuro)
+     */
     public DialogoEntrenamientos(java.awt.Frame parent, boolean modal, String correo, String nombre, MODO modo) {
-        super(parent, false);
+        super(parent, true);
         modoVentana(modo);
         initComponents();
 
@@ -51,37 +64,47 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         cargaComboEjercicios();
 
     }
-    
-    private void modoVentana(MODO modo){
-    
+
+    /**
+     * Establece el modo de visualización de la ventana (claro u oscuro).
+     *
+     * @param modo el modo de visualización
+     */
+    private void modoVentana(MODO modo) {
+
         switch (modo) {
-            case    CLARO ->    {
-                            try {
-                                UIManager.setLookAndFeel(new FlatLightLaf())  ;
-                                SwingUtilities.updateComponentTreeUI(this);
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
+            case CLARO -> {
+                try {
+                    UIManager.setLookAndFeel(new FlatLightLaf());
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
 
-            case OSCURO ->  {
-                            try {
-                                UIManager.setLookAndFeel(new FlatMacDarkLaf())  ;
-                                SwingUtilities.updateComponentTreeUI(this);
-                            } catch (UnsupportedLookAndFeelException ex) {
-                                Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
- 
+            case OSCURO -> {
+                try {
+                    UIManager.setLookAndFeel(new FlatMacDarkLaf());
+                    SwingUtilities.updateComponentTreeUI(this);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(FramePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
         }
-    }   
+    }
 
+    /**
+     * Carga la lista de ejercicios asociados a un entrenamiento.
+     *
+     * @param entrenamiento el entrenamiento del que se cargarán los ejercicios
+     */
     private void cargaListaConEjercicios(Workout entrenamiento) {
 
         variableControlItemSeleccionadoEntreno = true;
         ArrayList<Exercici> exercicis;
         exercicis = DataAccess.getExercicisPerWorkout((entrenamiento));
-        
+
         DefaultListModel<String> dlm = new DefaultListModel();
 
         for (Exercici e : exercicis) {
@@ -91,7 +114,10 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         lstListaEjercicios.setModel(dlm);
 
     }
-    
+
+    /**
+     * Carga el combo box con los ejercicios disponibles.
+     */
     private void cargaComboEjercicios() {
         //cargo el combobox con los objetos de Exercici
         cmbComboEjercicios = new javax.swing.JComboBox<>();
@@ -104,24 +130,34 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         for (Exercici e : ejercicios) {
             cmbComboEjercicios.addItem(e);
         }
-        
+
         cmbComboEjercicios.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent evt) {
-            cmbComboEjerciciosActionPerformed(evt);  
-        }
-    });
-        
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                cmbComboEjerciciosActionPerformed(evt);
+            }
+        });
+
     }
 
+    /**
+     * Acción realizada al seleccionar un ejercicio del combo box.
+     *
+     * @param evt el evento de acción
+     */
     private void cmbComboEjerciciosActionPerformed(ActionEvent evt) {
-         System.out.println("estoy en actionperformed de combo ejercicios");
+        System.out.println("estoy en actionperformed de combo ejercicios");
         listaEjerciciosAniadir = new ArrayList<>();
         listaEjerciciosAniadir.add((Exercici) cmbComboEjercicios.getSelectedItem());
         variableControlItemSeleccionadoEjercicio = true;
-       
+
     }
 
+    /**
+     * Carga la tabla con los entrenamientos del usuario.
+     *
+     * @param correo el correo del usuario
+     */
     private void cargarTablaEntrenamientos(String correo) {
         //cargo la tabla con los entrenamientos por correo de usuario
         Usuari usuario = null;
@@ -138,10 +174,9 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
 
     }
 
-    
-
-    
-    
+    /**
+     * Carga nuevos ejercicios en la base de datos.
+     */
     private void cargaBBDDNuevosEjercicios() {
 
         int opcion = JOptionPane.showConfirmDialog(this, "Se va a añadir ejercicio", "Confirme", JOptionPane.YES_NO_OPTION);
@@ -257,7 +292,7 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         wId = (int) tblEntrenosPorUsuario.getValueAt(fila, 0);
 
         entrenamiento.setId((int) tblEntrenosPorUsuario.getValueAt(fila, 0));
-        idEntreno=(int)tblEntrenosPorUsuario.getValueAt(fila, 0);
+        idEntreno = (int) tblEntrenosPorUsuario.getValueAt(fila, 0);
         entrenamiento.setForDate((Date) tblEntrenosPorUsuario.getValueAt(fila, 1));
         entrenamiento.setIdUsuari((int) tblEntrenosPorUsuario.getValueAt(fila, 2));
         entrenamiento.setComments((String) tblEntrenosPorUsuario.getValueAt(fila, 3));
@@ -278,48 +313,45 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(this, "Debe indicar entreno y ejercicio");
         }
-        
+
 
     }//GEN-LAST:event_btnAniadirActionPerformed
 
     private void lstListaEjerciciosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstListaEjerciciosValueChanged
-        
+
         //aqui selecciono el obbjeto de la lista y lo paso a una variable para en el actionperformwed del boton eleimiar eliminarlo de la bd
-           
-         JList<String> list = (JList<String>) evt.getSource();
-        
+        JList<String> list = (JList<String>) evt.getSource();
+
         // Obtener el objeto seleccionado
         String ejercicioSeleccionado = list.getSelectedValue();
-        this.ejercicioSeleccionado=ejercicioSeleccionado;
-        
+        this.ejercicioSeleccionado = ejercicioSeleccionado;
+
         System.out.println(ejercicioSeleccionado);
-   
+
     }//GEN-LAST:event_lstListaEjerciciosValueChanged
 
     private void btnEliminarEjercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarEjercicioActionPerformed
-        
-        System.out.println("ejercico selecionado vale="+ejercicioSeleccionado);
+
+        System.out.println("ejercico selecionado vale=" + ejercicioSeleccionado);
         eliminarEjercicio(DataAccess.obtenerIdEjercicio(ejercicioSeleccionado), idEntreno);
-         cargaListaConEjercicios(entrenamiento);
-        
+        cargaListaConEjercicios(entrenamiento);
+
     }//GEN-LAST:event_btnEliminarEjercicioActionPerformed
 
-    private void eliminarEjercicio(int idEjercicio, int idEntreno){
-    
-       if(idEjercicio!=0){
-            System.out.println("en eliminar ejercicio vale"+idEjercicio);
-            DataAccess.eliminarEjercicio(idEjercicio,idEntreno);
+    private void eliminarEjercicio(int idEjercicio, int idEntreno) {
+
+        if (idEjercicio != 0) {
+            System.out.println("en eliminar ejercicio vale" + idEjercicio);
+            DataAccess.eliminarEjercicio(idEjercicio, idEntreno);
             System.out.println("finn eliminar ejercicio");
-            
-            
-        
-        }else {
+
+        } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un ejercicio para eliminarlo de los entrenos");
         }
-    
+
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAniadir;
     private javax.swing.JButton btnEliminarEjercicio;
@@ -334,4 +366,3 @@ public class DialogoEntrenamientos extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
 }
-
