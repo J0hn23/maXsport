@@ -89,3 +89,5 @@ El proyecto precisa del uso de una dependencia externa que muestra el calendario
 Para añadirlo a tu proyecto deberas:
 https://chatgpt.com/share/67e02ef8-bc1c-800f-a651-27795eaa26be
 
+Para comprobar el funcionamiento de este componente puedes clonar al proyecto y dentro de él hay una clase test en la que se puede ver el funcionamiento donde se invoca la clase CalendarioEntrenosBeans y sus metodos.
+
