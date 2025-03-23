@@ -586,6 +586,15 @@ public class DataAccess {
         return emailUsuarios;
     }
 
+    
+    /**
+     * Obtiene usuarios por nombre
+     * 
+     *@param nombre el nombre del usuario a buscar
+     * 
+     * @return un usuario
+     * usuario
+     */
     public static Usuari getUserNom(String nombre) {
         Usuari user = null;
         String sql = "SELECT * FROM Usuaris WHERE Nom = ?";
