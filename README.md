@@ -11,6 +11,7 @@
 5. [Dificultades encontradas](#dificultades-encontradas)
 6. [Colaboradores](#colaboradores)
 7. [UX.User experience](#Usabilidad)
+8. [Manual de usuario.Tarea06](#Manual-usuario)
 
 ## Introducción
 maXsport es una aplicación diseñada para gestionar los entrenamientos de los usuarios de un gimnasio. Su objetivo es facilitar el seguimiento del progreso y la planificación de rutinas personalizadas en las que un entrenador puede elegir que rutinas y ejercicios asigna a cada usuario. 
@@ -82,4 +83,9 @@ Se inicia la Tarea número 4. Esta tarea esta basada en la usabilidad de la apli
 ![image](https://github.com/user-attachments/assets/59d54b6b-128a-4bed-b4dd-fb760b37daed)
 
 ![image](https://github.com/user-attachments/assets/0407bb88-c6e2-4a0d-8a91-863dfabdfa1b)
+
+## Manual-usuario
+El proyecto precisa del uso de una dependencia externa que muestra el calendario de entrenos. El JAR del componente se puede encontrar en mi repositorio Beans_de_calendario_entrenos (público).
+Para añadirlo a tu proyecto deberas:
+https://chatgpt.com/share/67e02ef8-bc1c-800f-a651-27795eaa26be
 
