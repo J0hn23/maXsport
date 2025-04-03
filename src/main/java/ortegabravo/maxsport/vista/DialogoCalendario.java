@@ -21,6 +21,8 @@ import static ortegabravo.maxsport.vista.MODO.OSCURO;
  *
  * Clase que representa un diálogo en la aplicación con un calendario de
  * entrenos por entrenadsor.
+ * @author Jonathan M.Ortega Bravo
+ * @since 2024-10-24
  */
 public class DialogoCalendario extends javax.swing.JDialog implements MiEventoInterfaceRecogerArrayEntrenosListener {
 

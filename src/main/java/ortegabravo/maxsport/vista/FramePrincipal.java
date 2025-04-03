@@ -25,6 +25,8 @@ import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
 /**
  * Clase que representa la ventana principal de la aplicación.
+ * @author Jonathan M.Ortega Bravo
+ * @since 2024-10-24
  */
 public class FramePrincipal extends javax.swing.JFrame {
 

@@ -24,6 +24,8 @@ public class DialogoLogin extends javax.swing.JDialog {
      *
      * @param parent el marco padre del diálogo
      * @param modal indica si el diálogo debe ser modal
+     * @author Jonathan M.Ortega Bravo
+     * @since 2024-10-24
      */
     public DialogoLogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

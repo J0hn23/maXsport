@@ -7,6 +7,8 @@ import ortegabravo.maxsport.modelo.Workout;
 /**
  * Modelo de tabla para gestionar y visualizar los datos de entrenamientos en
  * una tabla.
+ * @author Jonathan M.Ortega Bravo
+ * @since 2024-10-24
  */
 public class EntrenosTableModel extends AbstractTableModel {
 

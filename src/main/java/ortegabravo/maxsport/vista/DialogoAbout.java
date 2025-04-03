@@ -12,6 +12,8 @@ import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
 /**
  * Clase que representa un diálogo "Acerca de" en la aplicación.
+ * @author Jonathan M.Ortega Bravo
+ * @since 2024-10-24
  */
 public class DialogoAbout extends javax.swing.JDialog {
 
@@ -21,6 +23,7 @@ public class DialogoAbout extends javax.swing.JDialog {
      * @param parent el marco padre del diálogo
      * @param modal indica si el diálogo debe ser modal
      * @param modo el modo de visualización (claro u oscuro)
+     * 
      */
     public DialogoAbout(java.awt.Frame parent, boolean modal, MODO modo) {
         super(parent, modal);

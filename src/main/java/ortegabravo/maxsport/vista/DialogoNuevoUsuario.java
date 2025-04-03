@@ -22,6 +22,8 @@ import static ortegabravo.maxsport.vista.MODO.OSCURO;
 
 /**
  * Clase que representa el diálogo para crear un nuevo usuario.
+ * @author Jonathan M.Ortega Bravo
+ * @since 2024-10-24
  */
 public class DialogoNuevoUsuario extends javax.swing.JDialog {
 

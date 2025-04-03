@@ -7,6 +7,8 @@ import ortegabravo.maxsport.modelo.Usuari;
 /**
  * Modelo de tabla para gestionar y visualizar los datos de usuarios en una
  * tabla.
+ * @author Jonathan M.Ortega Bravo
+ * @since 2024-10-24
  */
 public class UsuariosTableModel extends AbstractTableModel {
 

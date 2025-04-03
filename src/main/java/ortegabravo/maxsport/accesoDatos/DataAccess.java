@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+
 package ortegabravo.maxsport.accesoDatos;
 
 import ortegabravo.maxsport.modelo.Exercici;
@@ -19,6 +23,9 @@ import java.util.logging.Logger;
  * La clase DataAccess proporciona métodos para interactuar con la base de
  * datos. Gestiona conexiones y operaciones CRUD para las entidades Usuari,
  * Workout y Exercici.
+ * 
+ * @author Jonathan M.Ortega Bravo
+ * @since 2024-10-24
  */
 public class DataAccess {
 
