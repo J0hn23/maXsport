@@ -4,7 +4,10 @@ import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -185,6 +188,8 @@ public class FramePrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
         pnlPanelPrincipal = new javax.swing.JPanel();
         btnBotonLogin = new javax.swing.JButton();
         lblEtiquetaLogo = new javax.swing.JLabel();
@@ -211,6 +216,12 @@ public class FramePrincipal extends javax.swing.JFrame {
         mnbFile = new javax.swing.JMenu();
         mnbExit = new javax.swing.JMenu();
         mnbAbout = new javax.swing.JMenu();
+        mnbManual = new javax.swing.JMenu();
+        mnbDocumentacion = new javax.swing.JMenu();
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -444,6 +455,22 @@ public class FramePrincipal extends javax.swing.JFrame {
         });
         menMenu.add(mnbAbout);
 
+        mnbManual.setText("Manual");
+        mnbManual.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnbManualMouseClicked(evt);
+            }
+        });
+        menMenu.add(mnbManual);
+
+        mnbDocumentacion.setText("Documentación");
+        mnbDocumentacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnbDocumentacionMouseClicked(evt);
+            }
+        });
+        menMenu.add(mnbDocumentacion);
+
         setJMenuBar(menMenu);
 
         pack();
@@ -672,6 +699,41 @@ public class FramePrincipal extends javax.swing.JFrame {
         de.setLocationRelativeTo(null);
         de.setVisible(true);
     }//GEN-LAST:event_tblTablaUsuariosMousePressed
+
+    private void mnbManualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnbManualMouseClicked
+        //"C:\\Users\\John == "user.home"
+        final String rutaPDF=System.getProperty("user.home") +"\\AppData\\Local\\maXsport\\Manual de usuario.pdf"  ;
+        
+        abrirArchivoPDF(rutaPDF);
+              
+    }//GEN-LAST:event_mnbManualMouseClicked
+
+    private void mnbDocumentacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnbDocumentacionMouseClicked
+        
+         final String rutaDoc=System.getProperty("user.home") +"\\AppData\\Local\\maXsport\\apidocs\\documentacion.html"  ;
+        
+        abrirArchivoPDF(rutaDoc);
+        
+    }//GEN-LAST:event_mnbDocumentacionMouseClicked
+   
+    
+    
+    
+    private void abrirArchivoPDF(String rutaPDF) {
+        try {
+            File archivo = new File(rutaPDF);
+            if (archivo.exists()) {
+                Desktop.getDesktop().open(archivo);
+            } else {
+                System.out.println("El archivo no existe.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    
     /**
      * Busca un usuario por nombre y muestra su información.
      *
@@ -738,6 +800,8 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnNuevoUsuario;
     private javax.swing.JButton btnSignOut;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTxtBuscar;
     private javax.swing.JLabel lblAccesoWeb;
@@ -747,8 +811,10 @@ public class FramePrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogoPanelSecundario;
     private javax.swing.JMenuBar menMenu;
     private javax.swing.JMenu mnbAbout;
+    private javax.swing.JMenu mnbDocumentacion;
     private javax.swing.JMenu mnbExit;
     private javax.swing.JMenu mnbFile;
+    private javax.swing.JMenu mnbManual;
     private javax.swing.JPanel pnlPanelPrincipal;
     private javax.swing.JPanel pnlPanelSecundario;
     private javax.swing.JTable tblTablaUsuarios;
